@@ -3,4 +3,8 @@
 .RData
 .Ruserdata
 **Thumbs.db
+**data-raw/
 **.cache/
+**.xlsx
+**.csv
+**.sqlite
