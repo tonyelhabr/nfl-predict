@@ -1,0 +1,3 @@
+default:
+  path_db: "data/db_odds.sqlite"
+  db_overwrite: false

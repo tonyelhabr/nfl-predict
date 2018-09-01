@@ -1,0 +1,42 @@
+Warning messages:
+1: In evalq(as.numeric(spread_home), <environment>) :
+  NAs introduced by coercion
+2: In evalq(as.numeric(moneyline_home), <environment>) :
+  NAs introduced by coercion
+Writing to table nfl_game_odds at 2018-08-28 15:42:55
+Warning messages:
+1: In evalq(as.numeric(spread_home), <environment>) :
+  NAs introduced by coercion
+2: In evalq(as.numeric(moneyline_home), <environment>) :
+  NAs introduced by coercion
+Writing to table nfl_game_odds at 2018-08-29 05:19:09
+Warning messages:
+1: In evalq(as.numeric(spread_home), <environment>) :
+  NAs introduced by coercion
+2: In evalq(as.numeric(moneyline_home), <environment>) :
+  NAs introduced by coercion
+Writing to table nfl_game_odds at 2018-08-30 05:15:23
+Warning messages:
+1: In evalq(as.numeric(spread_home), <environment>) :
+  NAs introduced by coercion
+2: In evalq(as.numeric(moneyline_home), <environment>) :
+  NAs introduced by coercion
+Writing to table nfl_game_odds at 2018-08-30 05:57:23
+Warning messages:
+1: In evalq(as.numeric(spread_home), <environment>) :
+  NAs introduced by coercion
+2: In evalq(as.numeric(moneyline_home), <environment>) :
+  NAs introduced by coercion
+Writing to table nfl_game_odds at 2018-08-30 06:00:02
+Warning messages:
+1: In evalq(as.numeric(spread_home), <environment>) :
+  NAs introduced by coercion
+2: In evalq(as.numeric(moneyline_home), <environment>) :
+  NAs introduced by coercion
+Writing to table nfl_game_odds at 2018-08-31 05:16:31
+Warning messages:
+1: In evalq(as.numeric(spread_home), <environment>) :
+  NAs introduced by coercion
+2: In evalq(as.numeric(moneyline_home), <environment>) :
+  NAs introduced by coercion
+Writing to table nfl_game_odds at 2018-09-01 05:45:45
