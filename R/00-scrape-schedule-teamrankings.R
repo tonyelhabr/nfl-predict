@@ -5,8 +5,6 @@ url <-
 html <-
   url %>%
   xml2::read_html()
-html %>%
-  rvest::html_nodes("tr td")
 
 sched_list_raw <-
   html %>%
@@ -36,9 +34,10 @@ sched <-
   fill(dddmondd) %>% 
   filter(gm != dddmondd) 
 sched
+
 yr <- strftime(Sys.Date(), "%Y")
 
-sched_clean <-
+sched_tr <-
   sched %>%
   mutate(mondd =
            dddmondd %>% 
@@ -50,13 +49,13 @@ sched_clean <-
   mutate(weekday = date %>% lubridate::wday(label = TRUE)) %>% 
   separate(gm, into = c("tm_away", "tm_home"), sep = "\\s+(\\@|vs\\.)\\s+") %>% 
   select(date, weekday, time, location, wk, tm_home, tm_away)
-sched_clean
+sched_tr
 
-path_sched <- file.path("data", "sched-2018.csv")
-sched_clean %>%
-  teproj::export_path(path_sched)
+path_sched_tr <- file.path("data", "schedule-nfl-2018-teamrankings.csv")
+sched_tr %>%
+  teproj::export_path(path_sched_tr)
 
-
+# clean ----
 nfl_tms_raw <-
   file.path("data", "db_nfl.xlsx") %>% 
   readxl::read_excel(sheet = "nfl_tm")
@@ -83,12 +82,13 @@ nfl_tms_tr <-
       rename(!!col_tr_sym := tm_name_tr, !!col_sym := tm, !!col_full_sym := tm_name_full)
   }
 
-sched_clean %>%
+sched_xlsx <-
+  sched_tr %>%
   .join_tms_tr_at(col_suffix = "away") %>% 
   .join_tms_tr_at(col_suffix = "home") %>% 
   select(-matches("_tr$"))
 
-sched_clean %>%
-  inner_join(nfl_tms_tr, by = c("tm_away" = "tm_name_tr")) %>% 
-  rename(tm_away = tm_away_tr, tm = tm_away, tm_away_full = tm_name_full)
+path_sched_xlsx <- file.path("data", "schedule-nfl-2018.csv")
+sched_xlsx %>%
+  teproj::export_path(path_sched_xlsx)
   
