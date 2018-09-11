@@ -1,0 +1,1 @@
+echo %date% %time% >> C:\Users\aelhabr\Documents\projects\nfl-predict\R\test_task.txt

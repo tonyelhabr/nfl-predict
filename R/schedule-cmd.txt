@@ -1,0 +1,1 @@
+schtasks /create /sc minute /mo 5 /tn "_test_task" /tr C:\Users\aelhabr\Documents\projects\nfl-predict\R\test_task.cmd

@@ -11,7 +11,7 @@ get_config_schedule <-
     )
   }
 
-config_schedule <- get_config_schedule(file_script = "R/01-scrape-nfl_game_odds.R")
+config_schedule <- get_config_schedule(file_script = "R/scrape-nfl_game_odds.R")
 
 stopifnot(file.exists(config_schedule$path_script))
 stopifnot(file.exists(config_schedule$path_rexe))
