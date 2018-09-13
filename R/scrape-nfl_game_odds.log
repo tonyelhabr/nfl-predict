@@ -89,3 +89,12 @@ Warning message:
 In evalq(as.numeric(moneyline_home), <environment>) :
   NAs introduced by coercion
 Writing to table nfl_game_odds at 2018-09-11 05:17:32
+Writing to table nfl_game_odds at 2018-09-12 05:17:15
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+  Timeout was reached: Resolving timed out after 10000 milliseconds
+Calls: request_odds_nfl ... request_fetch -> request_fetch.write_memory -> <Anonymous> -> .Call
+Execution halted
+Warning message:
+In evalq(as.numeric(moneyline_home), <environment>) :
+  NAs introduced by coercion
+Writing to table nfl_game_odds at 2018-09-13 05:19:29
