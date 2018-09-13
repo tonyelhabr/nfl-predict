@@ -11,7 +11,7 @@ library("tidyverse")
 # httr::modify_url(url = url, query = args)
 # resp <- httr::GET(url = url, query = args)
 
-resp <- httr::GET(url = "https://api.actionnetwork.com/web/v1/scoreboard/nfl?bookIds=15,34,3,55,1&date=20180908")
+resp <- httr::GET(url = "https://api.actionnetwork.com/web/v1/scoreboard/nfl?bookIds=15,34,3,55,1&date=20180913")
 resp
 cont <- httr::content(resp, as = "parsed")
 # cont
@@ -80,32 +80,46 @@ data_long0 <-
   group_by(grp, name) %>% 
   mutate(n = n(), grp_rn = row_number()) %>% 
   ungroup() %>% 
-  mutate_at(vars(name), funs(if_else(n > 1, paste0(., ".", sprintf("%02.0f", grp_rn)), .))) %>% 
+  rename(name_orig = name) %>% 
+  mutate(name = if_else(n > 1, paste0(name_orig, ".", sprintf("%02.0f", grp_rn)), name_orig)) %>% 
   ungroup() %>% 
-  select(grp, name, value)
+  select(grp, name, name_orig, value)
 data_long0
 
 # NOTE: Need to programmatically identify this value, but it seems like it should always be `23` for this data source.
-rgx_max <- "[.]23$"
+# rgx_max <- "[.]23$"
 nms_max <-
   data_long0 %>%
-  filter(str_detect(name, rgx_max)) %>% 
-  mutate_at(vars(name), funs(str_replace_all(., rgx_max, ""))) %>% 
-  pull(name)
-nms_max
-nms_max %>% str_subset("^(?!.*odds).*$")
+  .separate_name_col_at() %>% 
+  select(-value, -grp) %>% 
+  filter(!is.na(idx_name)) %>% 
+  group_by(name) %>% 
+  filter(idx_name == max(idx_name)) %>% 
+  ungroup() %>% 
+  arrange(desc(idx_name)) %>% 
+  filter(idx_name == max(idx_name))
 
-rgx_nms_max <-
-  paste0("(^", paste0(nms_max, ".[0-9]", collapse = ")|(^"), ")") %>% 
-  str_replace_all("\\.", "[.]")
-rgx_nms_max
+nms_max
+nms_max %>% filter(str_detect(name, "^.*(?!odds).*$"))
+# rgx_max <- nms_max %>% slice(1) %>% pull(idx_name) %>% paste0("[.]", .)
+# rgx_nms_max <-
+#   paste0("(^", paste0(nms_max, ".[0-9]", collapse = ")|(^"), ")") %>% 
+#   str_replace_all("\\.", "[.]")
+# rgx_nms_max
 
 data_wide_max <-
   data_long0 %>%
-  filter(str_detect(name, rgx_nms_max)) %>% 
+  # filter(str_detect(name, rgx_nms_max)) %>% 
+  semi_join(nms_max %>% select(name_orig)) %>% 
+  select(-name_orig) %>% 
   .separate_name_col_at(col = "name") %>% 
   rename(idx_grp = idx_name) %>% 
-  spread(name, value, drop = FALSE)
+  spread(name, value, drop = FALSE) %>% 
+  .add_time_col_at() %>% 
+  group_by(grp) %>% 
+  mutate_at(vars(idx_grp), funs(row_number(games.odds.inserted))) %>%
+  ungroup() %>% 
+  arrange(games.odds.inserted, games.odds.book_id, grp)
 data_wide_max
 
 # Debugging...

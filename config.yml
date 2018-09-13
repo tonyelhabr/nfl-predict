@@ -1,5 +1,7 @@
 default:
   path_db: "data/db_odds.sqlite"
+  path_nfl_tm: "data-raw/nfl_tm.csv"
+  path_nfl_game_result: "data-raw/nfl_game_result.csv"
   db_overwrite: false
 
 production:

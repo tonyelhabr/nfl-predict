@@ -50,3 +50,51 @@ RGX_SPLIT_ESPN <- "\\."
     data <- tibble::enframe(unlist(x))
     .separate_cols_at(data = data, col = col, rgx_split = rgx_split)
   }
+
+
+.rename_tm_cols <-
+  function(data) {
+    config <- config::get()
+    nfl_tm <-
+      config$path_nfl_tm %>% 
+      readr::read_csv()
+    
+    data %>%
+      inner_join(nfl_tm, by = c("tm_home" = "tm_espn")) %>% 
+      mutate(tm_home = tm) %>% 
+      select(-tm) %>% 
+      inner_join(nfl_tm, by = c("tm_away" = "tm_espn")) %>% 
+      mutate(tm_away = tm) %>% 
+      select(-tm)
+  }
+
+
+.add_wk_col_at <-
+  function(data, val, col = "wk") {
+    col_sym <- sym(col)
+    data %>%
+      mutate(!!col := as.integer(val))
+  }
+
+.add_season_col_at <-
+  function(data, val, col = "season") {
+    col_sym <- sym(col)
+    data %>%
+      mutate(!!col := as.integer(val))
+  }
+
+.arrange_gm <-
+  function(data) {
+    config <- config::get()
+    nfl_game_result <-
+      config$path_nfl_game_result %>% 
+      readr::read_csv() %>% 
+      mutate(rn = row_number())
+    
+    data %>%
+      inner_join(nfl_game_result) %>% 
+      arrange(rn) %>% 
+      select(-rn)
+      
+  }
+
