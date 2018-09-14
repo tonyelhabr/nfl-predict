@@ -31,7 +31,7 @@
 #   )
 # req
 
-.request_odds <-
+.request_odds_tr <-
   function(league = c("nfl", "nba", "mlb", "ncf", "ncb"),
            view_type = "odds",
            view = "latest",
@@ -70,12 +70,12 @@
     )
   }
 
-request_odds_nfl <-
+request_odds_nfl_tr <-
   function(league = "nfl",
            period_id = 458,
            season_id = 16,
            ...) {
-    .request_odds(
+    .request_odds_tr(
       league = league,
       period_id = period_id,
       season_id = season_id,
@@ -97,11 +97,12 @@ request_odds_nfl <-
 .extract_tm_away <- partial(.extract_val_at_every, offset = 0L)
 .extract_tm_home <- partial(.extract_val_at_every, offset = 5L)
 .extract_spread_home <- partial(.extract_val_at_every, offset = 7L)
-.extract_total_home <- partial(.extract_val_at_every, offset = 8L)
+.extract_total_home <- partial(.extract_val_at_every, offset = 3L)
 .extract_moneyline_home <- partial(.extract_val_at_every, offset = 9L)
 
-.extract_nfl_game_odds_byday <-
+.extract_odds_nfl_byday <-
   function(data_raw, idx = 1L) {
+    
     data_idx <-
       data_raw %>% 
       pluck(idx)
@@ -130,6 +131,7 @@ request_odds_nfl <-
       rvest::html_nodes("tr td") %>% 
       rvest::html_text()
     
+    # browser()
     tms_away <- .extract_tm_away(v = txt)
     tms_home <- .extract_tm_home(v = txt)
     spreads_home <- .extract_spread_home(v = txt)
@@ -151,15 +153,15 @@ request_odds_nfl <-
     gms
   }
 
-extract_nfl_game_odds <-
+extract_odds_nfl_tr <-
   function(req) {
     # stopifnot(class(req) == "response")
-    req_t <-
+    txt <-
       req %>%
       httr::content(as = "text")
     
     html <-
-      req_t %>% 
+      txt %>% 
       xml2::read_html()
     
     mods <-
@@ -170,9 +172,15 @@ extract_nfl_game_odds <-
       tibble(idx = 1L:length(mods)) %>% 
       mutate(data_parsed = 
                map(idx,
-                   ~.extract_nfl_game_odds_byday(data_raw = mods, idx = .x))) %>% 
+                   ~.extract_odds_nfl_byday(data_raw = mods, idx = .x))) %>% 
       unnest(data_parsed) %>% 
       select(-idx)
     data
+  }
+
+get_odds_nfl_tr <-
+  function(...) {
+    req <- request_odds_nfl_tr(...)
+    extract_odds_nfl_tr(req)
   }
 

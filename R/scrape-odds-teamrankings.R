@@ -15,13 +15,8 @@ paths_funcs <-
   )
 invisible(sapply(paths_funcs, source))
 
-nfl_odds_req <-
-  request_odds_nfl()
-# nfl_odds_req
-
 nfl_game_odds <-
-  nfl_odds_req %>% 
-  extract_nfl_game_odds() %>%
+  get_odds_nfl_tr() %>% 
   add_scrape_cols_at()
 # nfl_game_odds
 

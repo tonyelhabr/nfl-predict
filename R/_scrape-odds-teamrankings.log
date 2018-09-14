@@ -98,3 +98,7 @@ Warning message:
 In evalq(as.numeric(moneyline_home), <environment>) :
   NAs introduced by coercion
 Writing to table nfl_game_odds at 2018-09-13 05:19:29
+Warning message:
+In evalq(as.numeric(spread_home), <environment>) :
+  NAs introduced by coercion
+Writing to table nfl_game_odds at 2018-09-13 19:05:16
