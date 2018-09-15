@@ -70,7 +70,7 @@
     )
   }
 
-request_odds_nfl_tr <-
+.request_odds_nfl_tr <-
   function(league = "nfl",
            period_id = 458,
            season_id = 16,
@@ -94,15 +94,17 @@ request_odds_nfl_tr <-
   function(v, offset = 0L, by = 11L) {
     v[seq.int(1L + offset, length(v), by = 11L)]
   }
-.extract_tm_away <- partial(.extract_val_at_every, offset = 0L)
-.extract_tm_home <- partial(.extract_val_at_every, offset = 5L)
-.extract_spread_home <- partial(.extract_val_at_every, offset = 7L)
-.extract_total_home <- partial(.extract_val_at_every, offset = 3L)
-.extract_moneyline_home <- partial(.extract_val_at_every, offset = 9L)
+.extract_tm_away <- purrr::partial(.extract_val_at_every, offset = 0L)
+.extract_tm_home <- purrr::partial(.extract_val_at_every, offset = 5L)
+.extract_spread_home <- purrr::partial(.extract_val_at_every, offset = 7L)
+.extract_total_home <- purrr::partial(.extract_val_at_every, offset = 3L)
+.extract_moneyline_home <- purrr::partial(.extract_val_at_every, offset = 9L)
+.extract_moneyline_away <- purrr::partial(.extract_val_at_every, offset = 4L)
 
-.extract_odds_nfl_byday <-
+.parse_odds_nfl_tr_bygame <-
   function(data_raw, idx = 1L) {
     
+    # browser()
     data_idx <-
       data_raw %>% 
       pluck(idx)
@@ -131,12 +133,13 @@ request_odds_nfl_tr <-
       rvest::html_nodes("tr td") %>% 
       rvest::html_text()
     
-    # browser()
     tms_away <- .extract_tm_away(v = txt)
     tms_home <- .extract_tm_home(v = txt)
     spreads_home <- .extract_spread_home(v = txt)
-    totals_home <- .extract_total_home(v = txt)
+    spreads_home[spreads_home == "(Pick)"] <- 0
+    totals <- .extract_total_home(v = txt)
     moneylines_home <- .extract_moneyline_home(v = txt)
+    moneylines_away <- .extract_moneyline_away(v = txt)
     
     gms <-
       tibble(
@@ -146,14 +149,15 @@ request_odds_nfl_tr <-
         tm_home = tms_home,
         tm_away = tms_away,
         spread_home = spreads_home,
-        total_home = totals_home,
-        moneyline_home = moneylines_home
+        total = totals,
+        moneyline_home = moneylines_home,
+        moneyline_away = moneylines_away
       ) %>% 
       mutate_at(vars(matches("spread|total|moneyline")), funs(as.numeric))
     gms
   }
 
-extract_odds_nfl_tr <-
+.parse_odds_nfl_tr <-
   function(req) {
     # stopifnot(class(req) == "response")
     txt <-
@@ -172,7 +176,7 @@ extract_odds_nfl_tr <-
       tibble(idx = 1L:length(mods)) %>% 
       mutate(data_parsed = 
                map(idx,
-                   ~.extract_odds_nfl_byday(data_raw = mods, idx = .x))) %>% 
+                   ~.parse_odds_nfl_tr_bygame(data_raw = mods, idx = .x))) %>% 
       unnest(data_parsed) %>% 
       select(-idx)
     data
@@ -180,7 +184,7 @@ extract_odds_nfl_tr <-
 
 get_odds_nfl_tr <-
   function(...) {
-    req <- request_odds_nfl_tr(...)
-    extract_odds_nfl_tr(req)
+    req <- .request_odds_nfl_tr(...)
+    .parse_odds_nfl_tr(req)
   }
 

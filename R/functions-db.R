@@ -1,22 +1,6 @@
 
-Sys.setenv(R_CONFIG_ACTIVE = "default")
-# get_config <-
-#   function(sort = TRUE) {
-#    res <-
-#      list(
-#        path_db = "data/db_nfl.sqlite",
-#        db_overwrite = TRUE,
-#        db_append = TRUE
-#      )
-#    if(sort) {
-#      res <-
-#        res[order(names(res))]
-#    }
-#    res
-#   }
-
 get_db_conn <-
-  function(path = config::get("path_db")) {
+  function(path) {
     DBI::dbConnect(RSQLite::SQLite(), dbname = path)
   }
 
@@ -60,19 +44,22 @@ insert_into_db <-
   function(data,
            conn,
            table = deparse(substitute(data)),
-           overwrite = config::get("db_overwrite"),
+           overwrite = config::get("overwrite"),
            append = !overwrite,
            ...,
            add_record_cols = TRUE,
            col_timestamp = "timestamp_record",
            col_id = "id_record") {
+    # if(missing(get_db_conn)) {
+    #   conn <- get_db_conn()
+    # }
     e <- DBI::dbExistsTable(con = conn, name = table)
     if(!e) {
       if(overwrite) {
         msg <- sprintf("No table %s exists. Creating it.", table)
         message(msg)
       } else {
-        msg <- sprintf("No table %s exists. Do you mean to create/ovewrite it?", table)
+        msg <- sprintf("No table %s exists. Do you mean to create it?", table)
         warning(msg, call. = FALSE)
         return(NULL)
       }
@@ -114,10 +101,6 @@ insert_into_db <-
           mutate(!!col_id := val_id_max + row_number())
       }
     } else {
-      path_db <- conn@dbname
-      path_db_backup <- .create_backup(path = path_db)
-      msg <- sprintf("Backing up database as %s as a precaution for overwriting a table.", path_db_backup)
-      message(msg)
       if(add_record_cols) {
         if(e) {
           data_read <-
@@ -132,12 +115,19 @@ insert_into_db <-
       }
     }
     
+    # NOTE: Moved this from outside the `overwrite` clause so it is done no matter what.
+    path_db <- conn@dbname
+    path_db_backup <- .create_backup(path = path_db)
+    # msg <- sprintf("Backing up database as %s as a precaution for overwriting a table.", path_db_backup)
+    msg <- sprintf("Backing up database as %s as a precaution.", path_db_backup)
+    message(msg)
+    
     data <-
       data %>%
       mutate_if(.var_not_sqlite_compatible, as.character) %>% 
       as.data.frame()
     
-    msg <- sprintf("Writing to table %s at %s", table, Sys.time())
+    msg <- sprintf("Writing to table %s at %s.", table, Sys.time())
     message(msg)
     DBI::dbWriteTable(
       conn = conn,
@@ -170,3 +160,5 @@ read_from_db <-
     ) %>% 
     as_tibble()
   }
+
+# TODO: `remove_from_db()`?

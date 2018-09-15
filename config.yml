@@ -1,8 +1,14 @@
 default:
-  path_db: "data/db_odds.sqlite"
-  path_nfl_tm: "data-raw/nfl_tm.csv"
-  path_nfl_game_result: "data-raw/nfl_game_result.csv"
-  db_overwrite: false
+  path_odds_tr: "data/odds_tr.sqlite"
+  overwrite: false
+  file_db_nfl: "db_nfl"
+  key_db_nfl: "1bEMxcK0ULiHEltOMp_SqZYNZiILwVhlawCHVEe3mYkc" # googlesheets::gs_title(config$file_db_nfl)$sheet_key
+  ws_nfl_tm: "nfl_tm"
+  ws_nfl_game_result: "nfl_game_result"
+  season_current: 2018
+  path_odds_tr_hist: "data-raw/odds_tr_hist.xlsx"
+  path_scores_temp: "data/scores_temp.csv"
+  path_odds_temp: "data/odds_temp.csv"
 
 production:
   

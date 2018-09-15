@@ -55,22 +55,22 @@
     res
   }
 
-path_db_nfl <-
+path_odds_tr_nfl <-
   file.path("data", "db_nfl.xlsx")
 
 nms_ws <-
-  path_db_nfl %>% 
+  path_odds_tr_nfl %>% 
   readxl::excel_sheets()
 nms_ws
 nm_ws <- "nfl_game_results"
 nm_ws %in% nms_ws
 
 ws <-
-  path_db_nfl %>%
+  path_odds_tr_nfl %>%
   readxl::read_excel(sheet = nm_ws)
 
 cells_header <-
-  path_db_nfl %>%
+  path_odds_tr_nfl %>%
   tidyxl::xlsx_cells() %>% 
   filter(row == 1L)
 
@@ -81,7 +81,7 @@ cells_header %>%
   glimpse()
 
 cells_formats <-
-  path_db_nfl %>%
+  path_odds_tr_nfl %>%
   tidyxl::xlsx_formats()
 
 # NOTE: See the `{tidyxl}` vignette.

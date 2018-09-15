@@ -1,14 +1,4 @@
 
-library("tidyverse")
-paths_funcs <-
-  list.files(
-    path = "R",
-    pattern = "func",
-    recursive = FALSE,
-    full.names = TRUE
-  )
-invisible(sapply(paths_funcs, source))
-
 url <- "http://www.footballlocks.com/nfl_lines.shtml"
 # url <- "http://www.footballlocks.com/nfl_lines_week_1.shtml"
 

@@ -19,10 +19,10 @@ conn <- get_db_conn()
 data <-
   read_from_db(
     conn = conn,
-    table = "nfl_game_odds"
+    table = "odds_tr"
   ) %>% 
-  convert_date_cols_at() %>% 
-  convert_timestamp_cols_at()
+  .convert_date_cols_at() %>% 
+  .convert_timestamp_cols_at()
 conn %>% drop_db_conn()
 
 ui <- fluidPage(
