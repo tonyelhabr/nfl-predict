@@ -19,12 +19,12 @@
   }
 
 .import_db_nfl <-
-  function(..., confg = config::get()) {
+  function(..., key = config::get()$key_db_nfl) {
     # NOTE: Could do something like this.
     # if(!exists("config", .GlobalEnv)) {
     #   config <- config::get()
     # }
-    db_nfl <- googlesheets::gs_key(config$key_db_nfl)
+    db_nfl <- googlesheets::gs_key(key)
     assign("db_nfl", db_nfl, envir = .GlobalEnv)
   }
 
@@ -34,11 +34,11 @@
   }
 
 import_nfl_tm <-
-  function(..., confg = config::get()) {
-    .import_nfl_sheet(..., ws = config$ws_nfl_tm)
+  function(..., ws = config::get()$ws_nfl_tm) {
+    .import_nfl_sheet(..., ws = ws)
   }
 
 import_nfl_game_result <-
-  function(..., confg = config::get()) {
-    .import_nfl_sheet(..., ws = config$ws_nfl_game_result)
+  function(..., ws = config::get()$ws_nfl_game_result) {
+    .import_nfl_sheet(..., ws = ws)
   }
