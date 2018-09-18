@@ -7,7 +7,8 @@ get_current_season <-
 # TODO!
 # Need a `date` field. Then can do a `fuzzy_left_join()`.
 get_current_wk <-
-  function(data, ..., .season = config::get()$season_current) {
+  function(data, ..., season = config::get()$season_current) {
+    .season <- season
     nfl_game_result_trim <-
       import_nfl_game_result() %>% 
       filter(season == .season) %>% 

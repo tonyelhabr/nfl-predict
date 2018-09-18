@@ -82,7 +82,8 @@ import_odds_tr <-
   }
 
 .add_timeperiod_cols_nfl_tr <-
-  function(data, ..., .season = config::get()$season_current) {
+  function(data, ..., season = config::get()$season_current) {
+    .season <- season
     nfl_game_result_trim <-
       import_nfl_game_result() %>% 
       filter(season == .season) %>% 
