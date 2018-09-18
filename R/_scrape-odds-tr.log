@@ -141,3 +141,27 @@ Warning messages:
   NAs introduced by coercion
 Backing up database as C:\Users\aelhabr\Documents\projects\nfl-predict\data\odds_tr-2018-09-17_05-00-10.sqlite as a precaution.
 Writing to table odds_tr at 2018-09-17 05:00:10.
+Auto-refreshing stale OAuth token.
+Sheet successfully identified: "db_nfl"
+Accessing worksheet titled 'nfl_tm'.
+Accessing worksheet titled 'nfl_game_result'.
+Warning messages:
+1: In evalq(as.numeric(total), <environment>) : NAs introduced by coercion
+2: In evalq(as.numeric(moneyline_home), <environment>) :
+  NAs introduced by coercion
+3: In evalq(as.numeric(moneyline_away), <environment>) :
+  NAs introduced by coercion
+Backing up database as C:\Users\aelhabr\Documents\projects\nfl-predict\data\odds_tr-2018-09-17_16-45-13.sqlite as a precaution.
+Writing to table odds_tr at 2018-09-17 16:45:13.
+Auto-refreshing stale OAuth token.
+Sheet successfully identified: "db_nfl"
+Accessing worksheet titled 'nfl_tm'.
+Accessing worksheet titled 'nfl_game_result'.
+Warning messages:
+1: In evalq(as.numeric(total), <environment>) : NAs introduced by coercion
+2: In evalq(as.numeric(moneyline_home), <environment>) :
+  NAs introduced by coercion
+3: In evalq(as.numeric(moneyline_away), <environment>) :
+  NAs introduced by coercion
+Backing up database as C:\Users\aelhabr\Documents\projects\nfl-predict\data\odds_tr-2018-09-18_05-00-11.sqlite as a precaution.
+Writing to table odds_tr at 2018-09-18 05:00:11.

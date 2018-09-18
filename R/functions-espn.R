@@ -48,20 +48,31 @@
 #     .convert_list_to_tbl_.cleanly_at(..., col = col, rgx_split = rgx_split)
 #   }
 
-.recode_tm_cols_espn <-
-  function(data, ...) {
 
+.recode_tm_cols_at <-
+  function(data, col, ...) {
+    
+    col_sym <- sym(col)
     nfl_tm_trim <-
       import_nfl_tm() %>% 
       filter(status == 1L) %>% 
-      select(tm, tm_espn)
+      select(tm, tm_other = !!col_sym)
     data %>%
-      inner_join(nfl_tm_trim, by = c("tm_home" = "tm_espn")) %>% 
+      inner_join(nfl_tm_trim, by = c("tm_home" = "tm_other")) %>% 
       mutate(tm_home = tm) %>% 
       select(-tm) %>% 
-      inner_join(nfl_tm_trim, by = c("tm_away" = "tm_espn")) %>% 
+      inner_join(nfl_tm_trim, by = c("tm_away" = "tm_other")) %>% 
       mutate(tm_away = tm) %>% 
       select(-tm)
+  }
+
+.recode_tm_cols_espn <-
+  function(data, ...) {
+
+    .recode_tm_cols_at(
+      data = data,
+      col = "tm_espn"
+    )
   }
 
 
@@ -79,9 +90,11 @@
       mutate(!!col := as.integer(val))
   }
 
-# TODO: Use this!
-.add_timeperiod_cols_nfl_espn <-
+.add_timeperiod_cols_nfl <-
   function(data, ..., .season = config::get()$season_current) {
+    if(.season != config::get()$season_current) {
+      stop("Not currently implemented.", call. = FALSE)
+    }
     nfl_game_result_trim <-
       import_nfl_game_result() %>% 
       filter(season == .season) %>% 
@@ -143,16 +156,15 @@
       select(gm, tm_dir, value) %>%
       spread(tm_dir, value) %>%
       separate(gm, into = c("tm_away", "tm_home"), sep = "(\\s+\\@\\s+)|(\\s+vs.*\\s+)") %>%
-      mutate_at(vars(matches("pts")), funs(as.integer))
+      mutate_at(vars(matches("pts")), funs(as.integer)) %>% 
+      select(tm_home, tm_away, pts_home, pts_away)
   }
 
 .finalize_scores_nfl_espn <-
   function(data, ...) {
     data %>%
-      # .add_season_col_at(yr) %>%
-      # .add_wk_col_at(wk - 1L) %>%
       .recode_tm_cols_espn(...) %>%
-      .add_timeperiod_cols_nfl_espn(...) %>% 
+      .add_timeperiod_cols_nfl(...) %>% 
       .arrange_gm(...)
   }
 
