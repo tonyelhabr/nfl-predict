@@ -1,13 +1,13 @@
 
 # TODO:
 # Emulate espn api
-# Create "grid" function, similar to below.
 # Create "do" function
 
 grid_url <-
   .get_grid_nfl_fl() %>% 
   mutate(path_dl = paste0("data-raw/", str_replace_all(url, "(^.*com\\/)(.*)(\\.shtml.*$)", "\\2"), ".html"))
 grid_url
+
 download <- FALSE
 if (download) {
   grid_url %>%
@@ -27,7 +27,7 @@ if (download) {
 }
 # url <- "http://www.footballlocks.com/nfl_lines.shtml"
 # path_dl <- "data-raw/nfl_lines.html"
-grid_url1 <- grid_url %>% slice(1)
+grid_url1 <- grid_url %>% slice(5)
 # url <- grid_url1 %>% pull(url)
 path_dl <- grid_url1 %>% pull(path_dl)
 
