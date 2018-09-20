@@ -39,7 +39,7 @@
 #   }
 
 # NOTE: Allow for "inactive" teams to also be considered via the status field.
-.recode_tm_cols_at <-
+.recode_tm_cols_strictly_at <-
   function(data, col, status = 1L, ...) {
     .status <- status
     col_sym <- sym(col)
@@ -51,8 +51,26 @@
       inner_join(nfl_tm_trim, by = c("tm_home" = "tm_other")) %>% 
       mutate(tm_home = tm) %>% 
       select(-tm) %>% 
-      inner_join(nfl_tm_trim, by = c("tm_away" = "tm_other")) %>% 
+      inner_join(f, nfl_tm_trim, by = c("tm_away" = "tm_other")) %>% 
       mutate(tm_away = tm) %>% 
+      select(-tm)
+  }
+
+.recode_tm_cols_cautiously_at <-
+  function(data, col, status = 0L:1L, ...) {
+    .status <- status
+    col_sym <- sym(col)
+    nfl_tm_trim <-
+      import_nfl_tm() %>% 
+      filter(status %in% .status) %>% 
+      select(tm, tm_other = !!col_sym)
+
+    data %>%
+      left_join(nfl_tm_trim, by = c("tm_home" = "tm_other")) %>% 
+      mutate(tm_home = coalesce(tm, tm_home)) %>% 
+      select(-tm) %>% 
+      left_join(nfl_tm_trim, by = c("tm_away" = "tm_other")) %>% 
+      mutate(tm_away = coalesce(tm, tm_away)) %>% 
       select(-tm)
   }
 

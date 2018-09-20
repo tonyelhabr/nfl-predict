@@ -2,7 +2,7 @@
 odds_tr <- import_odds_tr()
 odds_tr
 
-.season <- get_current_season()
+.season <- get_season_current()
 .wk <- 2L
 
 odds_tr_latest <-
@@ -16,14 +16,14 @@ odds_tr_latest <-
 odds_tr_latest
 
 sheets_odds_hist_tr <-
-  config$path_odds_tr_hist %>%
+  config$path_trends_hist_tr %>%
   readxl::excel_sheets()
 sheets_odds_hist_tr
 sheet_combined <- "combined"
 stopifnot(sheet_combined %in% sheets_odds_hist_tr)
 
 combined_hist_tr <-
-  config$path_odds_tr_hist %>%
+  config$path_trends_hist_tr %>%
   readxl::read_excel(sheet = sheet_combined) %>%
   mutate(n_gm_frac = n_gm / sum(n_gm)) %>%
   mutate(w_frac_fav = n_w_fav / n_gm, w_frac_over = n_w_over / n_gm)

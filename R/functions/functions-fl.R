@@ -1,5 +1,4 @@
 
-.URL_ODDS_LATESTL_FL <- "http://www.footballlocks.com/nfl_odds.shtml"
 
 # grid ----
 .get_grid_pre_nfl_fl <-
@@ -63,9 +62,10 @@
 
 # filter ----
 # NOTE: \r is added to the html when the page is downloaded.
-
+.RGX_ODDS_HISTORICAL_FL <- "(Closing\\sLas)|(\\<TD\\>)"
+.RGX_ODDS_LATEST_FL <- "(NFL\\sFootball\\sOdds$)|(\\<TD\\>)"
 .filter_odds_nfl_fl <-
-  function(path, ...) {
+  function(path, rgx = .RGX_ODDS_HISTORICAL_FL, ...) {
     path %>%
       readLines(warn = FALSE) %>%
       str_replace_all("[\\r\\n]+", "") %>%
@@ -74,7 +74,7 @@
       str_replace_all("\\&nbsp;", " ") %>%
       str_replace_all("\\s+", " ") %>%
       # NOTE: Only want these lines.
-      str_subset("(Closing\\sLas)|(\\<TD\\>)") %>%
+      str_subset(rgx) %>%
       # NOTE: Remove quotes.
       str_replace_all("(^.*\\\")(.*)(\\\".*$)", "\\2") %>%
       # NOTE: Remove "TD" tags.
@@ -146,7 +146,8 @@
             str_detect(value, "Conference") ~ "3",
             str_detect(value, "Pro") ~ "4",
             str_detect(value, "Super") ~ "5",
-            str_detect(value, "Hall") ~ "1",
+            # NOTE: `1L` will be added to preseason weeks in a later step.
+            str_detect(value, "Hall") ~ "0",
             TRUE ~ NA_character_
           ),
           NA_character_
@@ -218,12 +219,13 @@
         moneyline_away = if_else(tm_home_isfav, moneyline2, moneyline1)
       ) %>%
       select(-matches("moneyline[12]")) %>%
-      mutate_at(vars(matches("yr|wk|moneyline")), funs(as.integer)) %>%
+      mutate_at(vars(matches("yr|wk|seasontype|moneyline")), funs(as.integer)) %>%
+      mutate_at(vars(wk), funs(if_else(seasontype == 1L, . + 1L, .))) %>% 
       mutate(season = yr) %>% 
       mutate_at(vars(season), funs(
         case_when(
           # NOTE: Using `case_when()` because there may be other cases not considered here that need to be implemented.
-          seasontype == 3 ~ season - 1L,
+          seasontype < 3 ~ . + 1L,
           TRUE ~ .
         )
       )
@@ -269,20 +271,18 @@
 # postprocess ----
 .recode_tm_cols_fl <-
   function(data, ...) {
-    .recode_tm_cols_at(data = data,
-                       col = "tm_name_fl",
-                       status = 0L:1L)
+    .recode_tm_cols_cautiously_at(data = data, col = "tm_name_fl")
   }
 
-.finalize_xxx_nfl_fl <-
-  function(data, ..., arrange = TRUE) {
+.finalize_odds_nfl_fl <-
+  function(data, ..., arrange = TRUE, season) {
     res <-
       data %>%
       .recode_tm_cols_fl(...)
-    # .add_timeperiod_cols_nfl(...)
-    
+
     if (arrange) {
       res <-
+        res %>% 
         .arrange_gm_nfl(..., season = season)
     }
     res
@@ -307,7 +307,7 @@
     res
   }
 
-.preprocess_do_get_xxx_nfl_fl <-
+.preprocess_do_get_odds_nfl_fl <-
   function(...,
            download = FALSE) {
     # NOTE: Technically, `season` doesn't need to be renamed.
@@ -350,7 +350,7 @@
       mutate(data = purrr::map2(
         data,
         season,
-        ~ .finalize_xxx_nfl_fl(
+        ~ .finalize_odds_nfl_fl(
           data = .x,
           season = .y,
           arrange = arrange,
@@ -362,17 +362,55 @@
 
 # TODO: Need to check if these work!
 do_get_odds_nfl_fl1 <-
-  function(url, ..., arrange = TRUE) {
-    html <- xml2::read_html(url)
-    html %>%
-      .filter_odds_nfl_fl(...) %>%
+  function(url,
+           ...,
+           rgx = .RGX_ODDS_LATEST_FL,
+           path = NULL,
+           download = ifelse(!is.null(path) &&
+                               file.exists(path), FALSE, TRUE),
+           arrange = TRUE,
+           season = config::get()$season_current) {
+    # html <- xml2::read_html(url)
+    if (is.null(path)) {
+      path <- ..get_path_nfl_fl(url)
+    }
+    if (download) {
+      download.file(url, destfile = path, quiet = TRUE)
+    }
+    if (!file.exists(path)) {
+      msg <- sprintf("File \"%s\" does not exist!", path)
+      stop(msg, call. = FALSE)
+    }
+    # browser()
+    # TODO: Figure out how to add week in here.
+    res <-
+      path %>%
+      .filter_odds_nfl_fl(rgx = rgx, ...) %>%
+      mutate_at(
+        vars(value),
+        funs(
+          if_else(str_detect(., rgx), 
+                  str_replace_all(., paste0("(^.*)(", rgx, ")"), paste0("Closing Las Vegas NFL Odds \\2, ", season)), .)
+          )
+      ) %>% 
       .do_clean_odds_nfl_fl(...) %>%
-      .finalize_xxx_nfl_fl(..., arrange = arrange)
+      select(-wk) %>% 
+      .finalize_odds_nfl_fl(arrange = arrange, season = season, ...)
+    
+    # NOTE: `wk` may be added back in after joining in `.finalize_odds_nfl_fl()`.
+    # If this is the case, reorder the columns
+    if("wk" %in% names(res)) {
+      res <-
+        res %>% 
+        select(season, seasontype, wk, everything())
+    }
+    res
   }
 
+.URL_ODDS_LATEST_FL <- "http://www.footballlocks.com/nfl_odds.shtml"
 do_get_odds_latest_nfl_fl <-
-  function(url = .URL_FL_LINES_LATEST, ..., arrange = TRUE) {
-    do_get_odds_nfl_fl1(url = url, ..., arrange = arrange)
+  function(url = .URL_ODDS_LATEST_FL, ...) {
+    do_get_odds_nfl_fl1(url = url, ...)
   }
 
 # do-historical ----
@@ -383,7 +421,7 @@ do_get_odds_nfl_fl <-
            ...,
            arrange = ifelse(season == config::get()$season_current, TRUE, FALSE)) {
     res <-
-      .preprocess_do_get_xxx_nfl_fl(...)
+      .preprocess_do_get_odds_nfl_fl(...)
     
     res <-
       res %>% mutate(data = purrr::map(path, ~ .filter_odds_nfl_fl(path = .x, ...)))
@@ -394,15 +432,14 @@ do_get_odds_nfl_fl <-
     .season <- season
     .seasontype <- seasontype
     .wk <- wk
-    browser()
-    res %>% unnest() %>% filter(seasontype == 3L) %>% count(wk)
+
     # NOTE: No need for a `.postprocess*()` function.
     res %>%
       unnest() %>% 
       filter(season %in% .season) %>% 
       filter(seasontype %in% .seasontype) %>% 
-      filter(wk %in% .wk) %>% filter(seasontype == 3L) %>% count(wk)
-      # .finalize_xxx_nfl_fl(season = season, arrange = arrange, ...) %>% 
+      filter(wk %in% .wk) %>% 
+      .finalize_odds_nfl_fl(season = season, arrange = arrange, ...) %>% 
       select(-path) %>%
       arrange(season, seasontype, wk, date, time, tm_home, tm_away)
     
@@ -414,7 +451,7 @@ do_get_odds_season_nfl_fl <-
            seasontype = 1L:3L,
            wk = 1L:17L,
            arrange = FALSE) {
-    if(season == config::get()$season_current) {
+    if(any(season == config::get()$season_current)) {
       msg <- paste0(
         "This probably isn't going to work. Functionality to handle games in the current season ",
         "that are not in the current week has not yet been implemented. ",
@@ -433,7 +470,7 @@ do_get_odds_season_nfl_fl <-
 
 .SEASON_MIN_FL <- 2006L
 do_get_odds_all_nfl_fl <-
-  function(season = .SEASON_MIN_FL:(config::get()$season_current),
+  function(season = .SEASON_MIN_FL:(config::get()$season_current - 1L),
            ...) {
     do_get_odds_season_nfl_fl(season = season, ...)
   }

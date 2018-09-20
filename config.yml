@@ -6,10 +6,10 @@ default:
   ws_nfl_tm: "nfl_tm"
   ws_nfl_game_result: "nfl_game_result"
   season_current: 2018
-  path_odds_tr_hist: "data-raw/odds_tr_hist.xlsx"
-  path_scores_temp: "scores_temp.csv"
-  # path_odds_temp: "odds_temp.csv"
-  path_lines_temp: "lines_temp.csv"
+  path_trends_tr_hist: "data-raw/trends_hist_tr.xlsx"
+  path_odds_hist_fl: "data/odds_hist_fl.csv"
+  path_scores_temp: "data/scores_temp.csv"
+  path_odds_temp: "data/odds_temp.csv"
 
 production:
   

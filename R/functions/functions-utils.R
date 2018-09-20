@@ -1,5 +1,5 @@
 
-get_current_season <-
+get_season_current <-
   function(...) {
     config::get()$season_current
   }

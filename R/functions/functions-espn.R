@@ -135,7 +135,7 @@
 # postprocess ----
 .recode_tm_cols_espn <-
   function(data, ...) {
-    .recode_tm_cols_at(data = data,
+    .recode_tm_cols_strictly_at(data = data,
                        col = "tm_espn")
   }
 

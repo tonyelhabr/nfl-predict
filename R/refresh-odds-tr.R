@@ -3,7 +3,8 @@ conn <- get_db_conn_odds_tr()
 
 odds_tr_exist <-
   import_odds_tr()
-odds_tr_exist
+odds_tr_exist %>% 
+  arrange(desc(timestamp_scrape))
 
 # DBI::dbCreateTable(con = conn, "odds_tr", odds_tr)
 DBI::dbListTables(conn = conn)
