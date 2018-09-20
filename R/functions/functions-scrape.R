@@ -10,7 +10,7 @@
   }
 
 .separate_cols_max_at <-
-  function(data, col, rgx_split, ..., warn = FALSE) {
+  function(data, col, rgx_split, ...) {
     col_sym <- sym(col)
     n_cols_max <-
       .get_cols_max_at(data = data, col = col, rgx_split = rgx_split)
@@ -18,7 +18,7 @@
       paste0(col, seq(1, n_cols_max, by = 1))
     .warn <- warn
     data %>%
-      separate(!!col_sym, into = nms_sep, sep = rgx_split, warn = .warn)
+      separate(!!col_sym, into = nms_sep, sep = rgx_split, fill = "right")
   }
 
 .convert_list_to_tbl <-
@@ -38,14 +38,14 @@
 #     .convert_list_to_tbl_.cleanly_at(..., col = col, rgx_split = rgx_split)
 #   }
 
-
+# NOTE: Allow for "inactive" teams to also be considered via the status field.
 .recode_tm_cols_at <-
-  function(data, col, ...) {
-    
+  function(data, col, status = 1L, ...) {
+    .status <- status
     col_sym <- sym(col)
     nfl_tm_trim <-
       import_nfl_tm() %>% 
-      filter(status == 1L) %>% 
+      filter(status %in% .status) %>% 
       select(tm, tm_other = !!col_sym)
     data %>%
       inner_join(nfl_tm_trim, by = c("tm_home" = "tm_other")) %>% 
@@ -94,7 +94,7 @@
   }
 
 # NOTE: This is a hard-coded value that doesn't need to be known by the user.
-.SEASON_MIN <- 2012L
+.SEASON_MIN_TONY <- 2012L
 .arrange_gm_nfl <-
   function(data, ..., season = config::get()$season_current) {
     # NOTE: This is the more "correct" way of getting the minimum season value, 
@@ -105,7 +105,7 @@
     #   distinct(season) %>% 
     #   pull(season)
     .season <- season
-    if(.season < .SEASON_MIN) {
+    if(.season < .SEASON_MIN_TONY) {
       return(data)
     }
     

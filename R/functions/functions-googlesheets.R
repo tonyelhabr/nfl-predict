@@ -1,4 +1,5 @@
 
+.VERBOSE <- FALSE
 .import_db_nfl_ifnecessary <-
   function(...) {
     if(!exists("db_nfl", envir = .GlobalEnv)) {
@@ -13,7 +14,7 @@
       return(get(ws, envir = .GlobalEnv))
     }
     db_nfl <- .import_db_nfl_ifnecessary(...)
-    data <- googlesheets::gs_read(db_nfl, ws = ws)
+    data <- googlesheets::gs_read(db_nfl, ws = ws, col_types = readr::cols(), verbose = .VERBOSE)
     assign(ws, data, envir = .GlobalEnv)
     data
   }
@@ -24,7 +25,7 @@
     # if(!exists("config", .GlobalEnv)) {
     #   config <- config::get()
     # }
-    db_nfl <- googlesheets::gs_key(key)
+    db_nfl <- googlesheets::gs_key(key, verbose = .VERBOSE)
     assign("db_nfl", db_nfl, envir = .GlobalEnv)
   }
 
