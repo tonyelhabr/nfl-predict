@@ -115,19 +115,26 @@
       str_remove_all("(th|nd|rd)\\,") %>%
       str_replace_all("\\s+", " ") %>% 
       str_remove_all("\\,")
-    ymd <-
+    ymds <-
       dddmonyyyy %>% 
       strptime("%A %B %d %Y") %>% 
       lubridate::ymd()
-    wd <-
-      ymd %>%
+    wds <-
+      ymds %>%
       lubridate::wday(label = TRUE)
-    times <-
+    times0 <-
       data_idx %>% 
       # rvest::html_nodes("tr th") %>% 
       rvest::html_nodes("tr [class='text-left']") %>% 
       rvest::html_text() %>% 
       str_trim()
+    # Debugging...
+    # ymds <- rep(lubridate::ymd("2018-09-23"), 2)
+    # times0 <- c("1:00 PM EST", "4:25 PM EST")
+    times <-
+      purrr::map2_chr(ymds, times0, ~paste0(.x, " ", .y)) %>% 
+      lubridate::ymd_hm() %>%  
+      lubridate::force_tz(tzone = "America/New_York")
     txt <-
       data_idx %>% 
       rvest::html_nodes("tr td") %>% 
@@ -143,9 +150,9 @@
     
     gms <-
       tibble(
-        date = ymd,
-        weekday = wd,
+        date = ymds,
         time = times,
+        weekday = wds,
         tm_home = tms_home,
         tm_away = tms_away,
         spread_home = spreads_home,

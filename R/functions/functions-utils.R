@@ -16,3 +16,33 @@ get_current_wk <-
     
     # ...
   }
+
+.COLS_NFL_ORDER <-
+  c(
+    "season",
+    "seasontype",
+    "wk",
+    "date",
+    "time",
+    "weekday",
+    "location",
+    "tm_home",
+    "tm_away",
+    "spread_home",
+    "total",
+    "moneyline_home",
+    "moneyline_away"
+  )
+
+.reorder_cols_nfl_at <-
+  function(data, ..., col_names_order = .COLS_NFL_ORDER) {
+    col_names <- names(data)
+    col_names_in <- intersect(col_names_order, col_names)
+    col_names_nin <- setdiff(col_names, col_names_order)
+    # length(col_names); length(col_names_in); length(col_names_nin); length(col_names_order)
+    # setdiff(col_names, c(col_names_in, col_names_nin))
+    col_names_fct <- factor(col_names, levels = c(col_names_in, col_names_nin))
+    
+    data %>% select(one_of(levels(col_names_fct)))
+  }
+

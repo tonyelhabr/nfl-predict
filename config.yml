@@ -9,7 +9,9 @@ default:
   path_trends_tr_hist: "data-raw/trends_hist_tr.xlsx"
   path_odds_hist_fl: "data/odds_hist_fl.csv"
   path_scores_temp: "data/scores_temp.csv"
+  ath_scores_lag1_temp: "data/scores_lag1_temp.csv"
   path_odds_temp: "data/odds_temp.csv"
+  path_odds_lag1_temp: "data/odds_lag1_temp.csv"
 
 production:
   

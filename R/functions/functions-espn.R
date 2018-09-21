@@ -202,24 +202,6 @@
       ))
   }
 
-.postprocess_do_get_xxx_nfl_espn <-
-  function(data, arrange, ...) {
-    data %>%
-      mutate(data = purrr::map2(
-        data,
-        season,
-        ~ .finalize_xxx_nfl_espn(
-          data = .x,
-          season = .y,
-          arrange = arrange,
-          ...
-        )
-      )) %>%
-      unnest() %>%
-      .fix_wk_scores_nfl_espn(...)
-    
-  }
-
 do_get_scores_nfl_espn <-
   function(wk,
            season = config::get()$season_current,
@@ -240,7 +222,20 @@ do_get_scores_nfl_espn <-
     res <-
       res %>% mutate(data = purrr::map(data, ~ .clean_scores_nfl_espn(data = .x, ...)))
     res <-
-      res %>% .postprocess_do_get_xxx_nfl_espn(..., arrange = arrange)
+      res %>%
+      mutate(data = purrr::map2(
+        data,
+        season,
+        ~ .finalize_xxx_nfl_espn(
+          data = .x,
+          season = .y,
+          arrange = arrange,
+          ...
+        )
+      )) %>%
+      unnest() %>%
+      .fix_wk_scores_nfl_espn(...) %>% 
+      .reorder_cols_nfl_at(...)
     
   }
 

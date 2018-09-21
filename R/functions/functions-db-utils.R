@@ -46,7 +46,7 @@
     stopifnot(is.character(cols), all(cols %in% names(data)))
     cols <- syms(cols)
     data %>%
-      mutate_at(vars(!!!cols), funs(lubridate::ymd))
+      mutate_at(vars(!!!cols), funs(lubridate::ymd(.)))
   }
 
 .convert_time_cols_at <-
@@ -55,7 +55,8 @@
     stopifnot(is.character(cols), all(cols %in% names(data)))
     cols <- syms(cols)
     data %>%
-      mutate_at(vars(!!!cols), funs(lubridate::ymd_hms))
+      # mutate_at(vars(!!!cols), funs(lubridate::ymd_hms(.) %>% lubridate::force_tz(tzone = "America/New_York")))
+      mutate_at(vars(!!!cols), funs(lubridate::ymd_hms(.)))
   }
 
 .convert_timestamp_cols_at <-

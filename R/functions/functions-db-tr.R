@@ -31,6 +31,7 @@ import_odds_tr <-
       table = "odds_tr"
     ) %>% 
       .convert_date_cols_at() %>% 
+      .convert_time_cols_at() %>% 
       .convert_timestamp_cols_at()
     
   }
@@ -98,34 +99,20 @@ import_odds_tr <-
       select(one_of(col_names_out))
   }
 
+
 .finalize_odds_nfl_tr <-
   function(data, ...) {
     data %>%
       .fix_tm_cols_nfl_tr_at(...) %>%
       .add_timeperiod_cols_nfl_tr(...) %>%
-      select(
-        season,
-        wk,
-        tm_home,
-        tm_away,
-        spread_home,
-        total,
-        moneyline_home,
-        moneyline_away,
-        date,
-        weekday,
-        time,
-        tm_home_tr,
-        tm_away_tr,
-        matches("_scrape$|_record")
-      )
+      .reorder_cols_nfl_at()
   }
 
 do_get_odds_nfl_tr <-
   function(...) {
     data_raw <- get_odds_nfl_tr()
     data_raw %>% 
-      .add_scrape_cols_at(...) %>% 
-      .finalize_odds_nfl_tr(...)
+      .finalize_odds_nfl_tr(...) %>% 
+      .add_scrape_cols_at(...)
   }
 
