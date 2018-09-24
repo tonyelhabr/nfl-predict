@@ -291,7 +291,7 @@
 # do ----
 ..get_path_nfl_fl <-
   function(url, ...) {
-    file.path("data-raw", paste0(
+    file.path("data-raw", "fl", paste0(
       str_replace_all(url, "(^.*com\\/)(.*)(\\.shtml.*$)", "\\2"),
       ".html"
     ))

@@ -1,6 +1,6 @@
 
 # TODO: Programmatically identify week?
-.wk <- 3
+.wk <- 4
 
 scores_lag1 <- do_get_scores_nfl_espn(wk = .wk - 1)
 scores_lag1

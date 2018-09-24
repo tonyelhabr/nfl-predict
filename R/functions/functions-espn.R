@@ -139,7 +139,7 @@
                        col = "tm_espn")
   }
 
-.finalize_xxx_nfl_espn <-
+.finalize_scores_nfl_espn <-
   function(data,
            ...,
            season = config::get()$season_current,
@@ -151,6 +151,7 @@
     
     if (arrange) {
       res <-
+        res %>% 
         .arrange_gm_nfl(..., season = season)
     }
     res
@@ -207,7 +208,7 @@ do_get_scores_nfl_espn <-
            season = config::get()$season_current,
            seasontype = 2L,
            ...,
-           arrange = ifelse(season ==config::get()$season_current, TRUE, FALSE)) {
+           arrange = ifelse(season == config::get()$season_current, TRUE, FALSE)) {
     res <-
       .preprocess_do_get_xxx_nfl_espn(
         wk = wk,
@@ -216,7 +217,6 @@ do_get_scores_nfl_espn <-
         arrange = arrange,
         ...
       )
-    
     res <-
       res %>% mutate(data = purrr::map(data, ~ .filter_scores_nfl_espn(data = .x, ...)))
     res <-
@@ -226,13 +226,15 @@ do_get_scores_nfl_espn <-
       mutate(data = purrr::map2(
         data,
         season,
-        ~ .finalize_xxx_nfl_espn(
+        ~ .finalize_scores_nfl_espn(
           data = .x,
           season = .y,
           arrange = arrange,
           ...
         )
       )) %>%
+      # mutate(data = purrr::map2(data, ~ .recode_tm_cols_espn(data = .x, ...))) %>% 
+      # mutate(data = purrr::map2(data, ~ .arrange_gm_nfl(data = .x, arrange = arrange, ...))) %>% 
       unnest() %>%
       .fix_wk_scores_nfl_espn(...) %>% 
       .reorder_cols_nfl_at(...)

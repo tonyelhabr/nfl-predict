@@ -1,6 +1,4 @@
 
-# pkgs <- c("datasets", "utils", "grDevices", "graphics", "stats", "bindcpp")
-# pacman::p_load(pkgs)
 library("base")
 library("methods")
 library("datasets")
@@ -26,3 +24,10 @@ config <- config::get()
 
 invisible(utils::capture.output(import_nfl_tm()))
 invisible(utils::capture.output(import_nfl_game_result()))
+
+path_r_profile <- "~/.Rprofile"
+if(file.exists(path_r_profile)) {
+  source(path_r_profile)
+}
+rm("path_r_profile")
+

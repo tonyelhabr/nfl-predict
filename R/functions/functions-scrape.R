@@ -51,7 +51,7 @@
       inner_join(nfl_tm_trim, by = c("tm_home" = "tm_other")) %>% 
       mutate(tm_home = tm) %>% 
       select(-tm) %>% 
-      inner_join(f, nfl_tm_trim, by = c("tm_away" = "tm_other")) %>% 
+      inner_join(nfl_tm_trim, by = c("tm_away" = "tm_other")) %>% 
       mutate(tm_away = tm) %>% 
       select(-tm)
   }
@@ -126,7 +126,7 @@
     if(.season < .SEASON_MIN_TONY) {
       return(data)
     }
-    
+
     nfl_game_result_trim <-
       import_nfl_game_result() %>% 
       filter(season == .season) %>% 
