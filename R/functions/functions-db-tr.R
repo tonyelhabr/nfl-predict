@@ -105,12 +105,12 @@ import_odds_tr <-
     data %>%
       .fix_tm_cols_nfl_tr_at(...) %>%
       .add_timeperiod_cols_nfl_tr(...) %>%
-      .reorder_cols_nfl_at()
+      .reorder_cols_nfl_at(...)
   }
 
 do_get_odds_nfl_tr <-
   function(...) {
-    data_raw <- get_odds_nfl_tr()
+    data_raw <- get_odds_nfl_tr(...)
     data_raw %>% 
       .finalize_odds_nfl_tr(...) %>% 
       .add_scrape_cols_at(...)

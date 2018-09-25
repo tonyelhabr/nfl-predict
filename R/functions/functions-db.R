@@ -49,7 +49,8 @@ insert_into_db <-
            ...,
            add_record_cols = TRUE,
            col_timestamp = "timestamp_record",
-           col_id = "id_record") {
+           col_id = "id_record",
+           timestamp = format(Sys.time(), "%F %X")) {
     # if(missing(get_db_conn)) {
     #   conn <- get_db_conn()
     # }
@@ -74,10 +75,9 @@ insert_into_db <-
         col_timestamp <- sym(col_timestamp)
         col_id <- sym(col_id)
         
-        value_timestamp <- format(Sys.time(), "%F %X")
         data <-
           data %>%
-          mutate(!!col_timestamp := value_timestamp)
+          mutate(!!col_timestamp := timestamp)
         
         if(e) {
           data_read <-

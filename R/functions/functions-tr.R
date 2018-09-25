@@ -112,7 +112,7 @@
       data_idx %>% 
       rvest::html_nodes("h2") %>%
       rvest::html_text() %>% 
-      str_remove_all("(th|nd|rd)\\,") %>%
+      str_remove_all("(st|nd|rd|th)\\,") %>%
       str_replace_all("\\s+", " ") %>% 
       str_remove_all("\\,")
     ymds <-
@@ -122,6 +122,7 @@
     wds <-
       ymds %>%
       lubridate::wday(label = TRUE)
+    # browser()
     times0 <-
       data_idx %>% 
       # rvest::html_nodes("tr th") %>% 
@@ -147,7 +148,7 @@
     totals <- .extract_total_home(v = txt)
     moneylines_home <- .extract_moneyline_home(v = txt)
     moneylines_away <- .extract_moneyline_away(v = txt)
-    
+    # browser()
     gms <-
       tibble(
         date = ymds,
@@ -159,8 +160,9 @@
         total = totals,
         moneyline_home = moneylines_home,
         moneyline_away = moneylines_away
-      ) %>% 
-      mutate_at(vars(matches("spread|total|moneyline")), funs(as.numeric))
+      )#  %>% 
+      # mutate_at(vars(matches("spread|total|moneyline")), funs(if_else(. != "--", as.numeric(.), NA_real_)))
+    # browser()
     gms
   }
 
@@ -178,13 +180,15 @@
     mods <-
       html %>% 
       rvest::html_nodes(".module")
-    
+
+    # browser()
     data <-
       tibble(idx = 1L:length(mods)) %>% 
       mutate(data_parsed = 
                map(idx,
                    ~.parse_odds_nfl_tr_bygame(data_raw = mods, idx = .x))) %>% 
       unnest(data_parsed) %>% 
+      mutate_at(vars(matches("spread|total|moneyline")), funs(if_else(. != "--", as.numeric(.), NA_real_))) %>% 
       select(-idx)
     data
   }
