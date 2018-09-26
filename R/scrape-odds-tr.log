@@ -46,3 +46,9 @@ Warning messages:
   NAs introduced by coercion
 Backing up database as C:\Users\aelhabr\Documents\projects\nfl-predict\data\odds_tr-2018-09-25_05-00-10.sqlite as a precaution.
 Writing to table odds_tr at 2018-09-25 05:00:11.
+Auto-refreshing stale OAuth token.
+Backing up database as C:\Users\aelhabr\Documents\projects\nfl-predict\data\odds_tr-2018-09-25_17-00-10.sqlite as a precaution.
+Writing to table odds_tr at 2018-09-25 17:00:10.
+Auto-refreshing stale OAuth token.
+Backing up database as C:\Users\aelhabr\Documents\projects\nfl-predict\data\odds_tr-2018-09-26_05-00-12.sqlite as a precaution.
+Writing to table odds_tr at 2018-09-26 05:00:12.

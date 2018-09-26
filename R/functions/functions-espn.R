@@ -129,7 +129,7 @@
       mutate_at(vars(matches("pts")), funs(as.integer)) %>%
       mutate(date = datetime %>% str_remove("\\s.*$") %>% lubridate::ymd()) %>%
       mutate(time = datetime %>% lubridate::ymd_hm()) %>%
-      select(date, time, tm_home, tm_away, matches("pts"))
+      select(date, time, tm_home, tm_away, pts_home, pts_away)
   }
 
 # postprocess ----
@@ -218,9 +218,15 @@ do_get_scores_nfl_espn <-
         ...
       )
     res <-
-      res %>% mutate(data = purrr::map(data, ~ .filter_scores_nfl_espn(data = .x, ...)))
+      res %>%
+      mutate(
+        data = purrr::map(data, ~ .filter_scores_nfl_espn(data = .x, ...))
+      )
     res <-
-      res %>% mutate(data = purrr::map(data, ~ .clean_scores_nfl_espn(data = .x, ...)))
+      res %>%
+      mutate(
+        data = purrr::map(data, ~ .clean_scores_nfl_espn(data = .x, ...))
+      )
     res <-
       res %>%
       mutate(data = purrr::map2(
@@ -233,8 +239,7 @@ do_get_scores_nfl_espn <-
           ...
         )
       )) %>%
-      # mutate(data = purrr::map2(data, ~ .recode_tm_cols_espn(data = .x, ...))) %>% 
-      # mutate(data = purrr::map2(data, ~ .arrange_gm_nfl(data = .x, arrange = arrange, ...))) %>% 
+      select(-season, -wk) %>% 
       unnest() %>%
       .fix_wk_scores_nfl_espn(...) %>% 
       .reorder_cols_nfl_at(...)

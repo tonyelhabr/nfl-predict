@@ -8,7 +8,7 @@ invisible(source(".Rprofile"))
 
 odds_tr <- do_get_odds_nfl_tr()
 # odds_tr
-
+odds_tr %>% teproj::export_path(config$path_odds_temp)
 success <- insert_into_db_odds_tr(data = odds_tr)
 # success
 
