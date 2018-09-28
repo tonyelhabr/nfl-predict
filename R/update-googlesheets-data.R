@@ -43,4 +43,4 @@ odds_tr_open <-
   # .reorder_cols_nfl_at() %>%
   .arrange_gm_nfl()
 odds_tr_open
-# odds_tr_open %>% teproj::export_path(config$path_odds_temp)
+odds_tr_open %>% teproj::export_path(config$path_odds_temp)
