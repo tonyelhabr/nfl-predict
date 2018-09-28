@@ -52,3 +52,23 @@ Writing to table odds_tr at 2018-09-25 17:00:10.
 Auto-refreshing stale OAuth token.
 Backing up database as C:\Users\aelhabr\Documents\projects\nfl-predict\data\odds_tr-2018-09-26_05-00-12.sqlite as a precaution.
 Writing to table odds_tr at 2018-09-26 05:00:12.
+Auto-refreshing stale OAuth token.
+Exporting as `.csv`.
+Saving as data/odds_temp.csv.
+Backing up database as C:\Users\aelhabr\Documents\projects\nfl-predict\data\odds_tr-2018-09-26_17-00-15.sqlite as a precaution.
+Writing to table odds_tr at 2018-09-26 17:00:15.
+Auto-refreshing stale OAuth token.
+Exporting as `.csv`.
+Saving as data/odds_temp.csv.
+Backing up database as C:\Users\aelhabr\Documents\projects\nfl-predict\data\odds_tr-2018-09-27_05-00-12.sqlite as a precaution.
+Writing to table odds_tr at 2018-09-27 05:00:12.
+Auto-refreshing stale OAuth token.
+Exporting as `.csv`.
+Saving as data/odds_temp.csv.
+Backing up database as C:\Users\aelhabr\Documents\projects\nfl-predict\data\odds_tr-2018-09-27_17-00-13.sqlite as a precaution.
+Writing to table odds_tr at 2018-09-27 17:00:13.
+Auto-refreshing stale OAuth token.
+Exporting as `.csv`.
+Saving as data/odds_temp.csv.
+Backing up database as C:\Users\aelhabr\Documents\projects\nfl-predict\data\odds_tr-2018-09-28_05-00-12.sqlite as a precaution.
+Writing to table odds_tr at 2018-09-28 05:00:12.
