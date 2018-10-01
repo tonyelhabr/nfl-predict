@@ -6,12 +6,17 @@ default:
   ws_nfl_tm: "nfl_tm"
   ws_nfl_game_result: "nfl_game_result"
   season_current: 2018
-  path_trends_hist_tr: "data-raw/trends-hist-tr.xlsx"
-  path_odds_hist_fl: "data/odds_hist_fl.csv"
-  path_scores_temp: "data/scores_temp.csv"
-  ath_scores_lag1_temp: "data/scores_lag1_temp.csv"
-  path_odds_temp: "data/odds_temp.csv"
-  path_odds_lag1_temp: "data/odds_lag1_temp.csv"
+  
+  path_trends_hist_tr_manual: "data-raw/trends-hist-tr-manual.xlsx"
+  
+  path_scores_hist_espn: "data/scores-hist-espn.csv"
+  path_trends_hist_tr: "data/trends-hist-tr.csv"
+  path_odds_hist_pfref: "data/odds-hist-pfref.csv"
+  # path_odds_hist_fl: "data/odds-hist-fl.csv"
+
+  path_scores_lag1_temp: "data/temp/scores-lag1-temp.csv"
+  path_odds_temp: "data/temp/odds-temp.csv"
+  path_odds_lag1_temp: "data/temp/odds-lag1-temp.csv"
 
 production:
   

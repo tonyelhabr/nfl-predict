@@ -1,9 +1,4 @@
 
-.download <- FALSE
-odds <- do_get_odds_latest_nfl_fl(download = .download)
-odds
-odds %>% write_csv(config$path_odds_temp)
-
 # debugging ----
 path <-
   .get_grid_pre_nfl_fl() %>% 
@@ -30,3 +25,9 @@ odds_1yr <- do_get_odds_season_nfl_fl(season = 2017L)
 odds_1yr %>% filter(seasontype == 1L)
 odds_1yr %>% filter(seasontype == 2L)
 odds_1yr %>% filter(seasontype == 3L)
+
+# TODO (or not, because there is another source for historical odds)
+.download <- FALSE
+data <- do_get_odds_nfl_fl(download = .download)
+data
+data %>% write_csv(config$path_odds_hist_fl)

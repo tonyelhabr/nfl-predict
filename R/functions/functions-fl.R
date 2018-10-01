@@ -275,12 +275,12 @@
   }
 
 .finalize_odds_nfl_fl <-
-  function(data, ..., arrange = TRUE, season) {
+  function(data, ..., .arrange = TRUE, season) {
     res <-
       data %>%
       .recode_tm_cols_fl(...)
 
-    if (arrange) {
+    if (.arrange) {
       res <-
         res %>% 
         .arrange_gm_nfl(..., season = season)
@@ -345,7 +345,7 @@
   }
 
 .postprocess_do_get_xxx_nfl_fl <-
-  function(data, arrange, ...) {
+  function(data, .arrange, ...) {
     data %>%
       mutate(data = purrr::map2(
         data,
@@ -353,7 +353,7 @@
         ~ .finalize_odds_nfl_fl(
           data = .x,
           season = .y,
-          arrange = arrange,
+          .arrange = .arrange,
           ...
         )
       ))
@@ -368,7 +368,7 @@ do_get_odds_nfl_fl1 <-
            path = NULL,
            download = ifelse(!is.null(path) &&
                                file.exists(path), FALSE, TRUE),
-           arrange = TRUE,
+           .arrange = TRUE,
            season = config::get()$season_current) {
     # html <- xml2::read_html(url)
     if (is.null(path)) {
@@ -395,7 +395,7 @@ do_get_odds_nfl_fl1 <-
       ) %>% 
       .do_clean_odds_nfl_fl(...) %>%
       select(-wk) %>% 
-      .finalize_odds_nfl_fl(arrange = arrange, season = season, ...)
+      .finalize_odds_nfl_fl(.arrange = .arrange, season = season, ...)
     
     # NOTE: `wk` may be added back in after joining in `.finalize_odds_nfl_fl()`.
     # If this is the case, reorder the columns
@@ -419,7 +419,7 @@ do_get_odds_nfl_fl <-
            season = config::get()$season_current,
            seasontype = 2L,
            ...,
-           arrange = ifelse(season == config::get()$season_current, TRUE, FALSE)) {
+           .arrange = ifelse(season == config::get()$season_current, TRUE, FALSE)) {
     res <-
       .preprocess_do_get_odds_nfl_fl(...)
     
@@ -439,7 +439,7 @@ do_get_odds_nfl_fl <-
       filter(season %in% .season) %>% 
       filter(seasontype %in% .seasontype) %>% 
       filter(wk %in% .wk) %>% 
-      .finalize_odds_nfl_fl(season = season, arrange = arrange, ...) %>% 
+      .finalize_odds_nfl_fl(season = season, .arrange = .arrange, ...) %>% 
       select(-path) %>%
       arrange(season, seasontype, wk, date, time, tm_home, tm_away)
     
@@ -450,7 +450,7 @@ do_get_odds_season_nfl_fl <-
            ...,
            seasontype = 1L:3L,
            wk = 1L:17L,
-           arrange = FALSE) {
+           .arrange = FALSE) {
     if(any(season == config::get()$season_current)) {
       msg <- paste0(
         "This probably isn't going to work. Functionality to handle games in the current season ",
@@ -463,7 +463,7 @@ do_get_odds_season_nfl_fl <-
       season = season,
       seasontype = seasontype,
       wk = wk,
-      arrange = arrange,
+      .arrange = .arrange,
       ...
     )
   }

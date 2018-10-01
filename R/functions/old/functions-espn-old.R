@@ -44,7 +44,7 @@
 #   }
 # 
 # do_get_odds_nfl_espn <-
-#   function(wk, season = config::get()$season_current, seasontype = 2L, ..., arrange = TRUE) {
+#   function(wk, season = config::get()$season_current, seasontype = 2L, ..., .arrange = TRUE) {
 #     data_raw <-
 #       .preprocess_do_get_xxx_nfl_espn(
 #         wk = wk,
@@ -56,7 +56,7 @@
 #     data_raw %>%
 #       mutate(data = purrr::map(data, ~.filter_scores_nfl_espn(data = .x, ...))) %>%
 #       mutate(data = purrr::map(data, ~.clean_scores_nfl_espn(data = .x, ...))) %>%
-#       .postprocess_do_get_xxx_nfl_espn(..., arrange = arrange)
+#       .postprocess_do_get_xxx_nfl_espn(..., .arrange = .arrange)
 #   }
 # 
 # .get_calendar_nfl_espn <-

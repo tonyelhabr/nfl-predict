@@ -17,7 +17,7 @@
 }
 
 .get_grid_nfl_espn <-
-  function(season = as.integer(format(Sys.Date(, "%Y"))), ...) {
+  function(season = as.integer(format(Sys.Date(), "%Y")), ...) {
     grid <-
       expand.grid(
         season = season,
@@ -63,18 +63,12 @@
     .separate_cols_max_at(..., col = col, rgx_split = rgx_split)
   }
 
-# filter ----
 .filter_scores_nfl_espn <-
   function(data, ...) {
-    # browser()
+
     data_sep <-
       data %>%
       .separate_cols_max_espn_at(col = "name")
-    # if(ncol(data_sep) < 6) {
-    #   msg <- "No games?"
-    #   message(msg)
-    #   return(data)
-    # }
     data_sep %>%
       filter((name1 == "events" &
                 name2 == "shortName") |
@@ -135,26 +129,7 @@
 # postprocess ----
 .recode_tm_cols_espn <-
   function(data, ...) {
-    .recode_tm_cols_strictly_at(data = data,
-                       col = "tm_espn")
-  }
-
-.finalize_scores_nfl_espn <-
-  function(data,
-           ...,
-           season = config::get()$season_current,
-           arrange = TRUE) {
-    res <-
-      data %>%
-      .recode_tm_cols_espn(...)
-    # .add_timeperiod_cols_nfl(...)
-    
-    if (arrange) {
-      res <-
-        res %>% 
-        .arrange_gm_nfl(..., season = season)
-    }
-    res
+    .recode_tm_cols_strictly_at(data = data, col = "tm_espn")
   }
 
 .fix_wk_scores_nfl_espn <-
@@ -173,24 +148,20 @@
   }
 
 # do ----
-.preprocess_do_get_xxx_nfl_espn <-
+do_get_scores_nfl_espn <-
   function(wk,
            season = config::get()$season_current,
+           seasontype = 2L,
            ...,
-           seasontype = 2L) {
-    .season <- season
+           .arrange = ifelse(season == config::get()$season_current, TRUE, FALSE)) {
     .seasontype <- seasontype
     .wk <- wk
-    # .season <- 2006L
-    # .seasontype <- 2L
-    # .wk <- 1L:3L
-    # NOTE: Technically, `season` doesn't need to be renamed.
     grid <-
-      .get_grid_nfl_espn(season = .season) %>%
+      .get_grid_nfl_espn(season = season) %>%
       filter(seasontype %in% .seasontype) %>%
       filter(wk %in% .wk)
     
-    data_raw <-
+    res <-
       grid %>%
       mutate(data = purrr::pmap(
         list(season, seasontype, wk),
@@ -201,22 +172,7 @@
           as = "minimal"
         )
       ))
-  }
-
-do_get_scores_nfl_espn <-
-  function(wk,
-           season = config::get()$season_current,
-           seasontype = 2L,
-           ...,
-           arrange = ifelse(season == config::get()$season_current, TRUE, FALSE)) {
-    res <-
-      .preprocess_do_get_xxx_nfl_espn(
-        wk = wk,
-        season = season,
-        seasontype = seasontype,
-        arrange = arrange,
-        ...
-      )
+    
     res <-
       res %>%
       mutate(
@@ -227,23 +183,23 @@ do_get_scores_nfl_espn <-
       mutate(
         data = purrr::map(data, ~ .clean_scores_nfl_espn(data = .x, ...))
       )
+    
     res <-
       res %>%
-      mutate(data = purrr::map2(
-        data,
-        season,
-        ~ .finalize_scores_nfl_espn(
-          data = .x,
-          season = .y,
-          arrange = arrange,
-          ...
-        )
-      )) %>%
+      .recode_tm_cols_espn(...)
+
+    if (.arrange) {
+      res <-
+        res %>% 
+        .arrange_gm_nfl(..., season = season)
+    }
+    res <-
+      res %>% 
       select(-season, -wk) %>% 
       unnest() %>%
       .fix_wk_scores_nfl_espn(...) %>% 
       .reorder_cols_nfl_at(...)
-    
+    res
   }
 
 do_get_scores_season_nfl_espn <-
@@ -251,13 +207,13 @@ do_get_scores_season_nfl_espn <-
            ...,
            seasontype = 1L:3L,
            wk = 1L:17L,
-           arrange = FALSE) {
+           .arrange = FALSE) {
     res <-
       do_get_scores_nfl_espn(
         season = season,
         seasontype = seasontype,
         wk = wk,
-        arrange = arrange,
+        .arrange = .arrange,
         ...
       )
   }
