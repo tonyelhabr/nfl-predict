@@ -46,3 +46,9 @@ get_current_wk <-
     data %>% select(one_of(levels(col_names_fct)))
   }
 
+.select_cols_nfl_at <-
+  function(data, ..., col_names = .COLS_NFL_ORDER, col_names_order = .COLS_NFL_ORDER) {
+    col_names_fct <- factor(col_names, levels = col_names_order)
+    
+    data %>% select(one_of(levels(col_names_fct)))
+  }
