@@ -12,9 +12,9 @@ get_config_schedule <-
   }
 
 config_schedule <- get_config_schedule(file_script = "R/scrape-odds-tr.R")
-# config_schedule$taskname <- paste0(config_schedule$taskname, "2")
 stopifnot(file.exists(config_schedule$path_script))
 stopifnot(file.exists(config_schedule$path_rexe))
+
 # library("dplyr")
 # tasks_existing <- taskscheduleR::taskscheduler_ls() %>% tibble::as_tibble()
 # tasknames_existing <- tasks_existing %>% dplyr::distinct(TaskName) %>% dplyr::pull(TaskName)
