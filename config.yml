@@ -17,6 +17,8 @@ default:
   path_scores_lag1_temp: "data/temp/scores-lag1-temp.csv"
   path_odds_temp: "data/temp/odds-temp.csv"
   path_odds_lag1_temp: "data/temp/odds-lag1-temp.csv"
+  
+  path_tm_city: "data/tm-city.csv"
 
 production:
   

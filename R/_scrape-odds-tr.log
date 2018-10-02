@@ -124,3 +124,14 @@ Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[
   there is no package called 'janitor'
 Calls: %>% ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
 Execution halted
+Auto-refreshing stale OAuth token.
+Warning messages:
+1: In if_else(moneyline_home != "--", as.numeric(moneyline_home), NA_real_) :
+  NAs introduced by coercion
+2: In if_else(moneyline_away != "--", as.numeric(moneyline_away), NA_real_) :
+  NAs introduced by coercion
+Backing up database as C:\Users\aelhabr\Documents\projects\nfl-predict\data\odds_tr-2018-10-02_05-00-11.sqlite as a precaution.
+Writing to table odds_tr at 2018-10-02 05:00:11.
+Auto-refreshing stale OAuth token.
+Backing up database as C:\Users\aelhabr\Documents\projects\nfl-predict\data\odds_tr-2018-10-02_17-00-15.sqlite as a precaution.
+Writing to table odds_tr at 2018-10-02 17:00:15.
