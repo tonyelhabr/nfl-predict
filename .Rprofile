@@ -7,6 +7,12 @@ library("grDevices")
 library("graphics")
 library("stats")
 
+path_r_profile <- "~/.Rprofile"
+if(file.exists(path_r_profile)) {
+  source(path_r_profile)
+}
+rm("path_r_profile")
+
 suppressWarnings(suppressPackageStartupMessages(library("tidyverse")))
 suppressWarnings(suppressPackageStartupMessages(library("rlang")))
 
@@ -21,12 +27,6 @@ invisible(sapply(paths_funcs, source))
 rm("paths_funcs")
 
 config <- config::get()
-
-path_r_profile <- "~/.Rprofile"
-if(file.exists(path_r_profile)) {
-  source(path_r_profile)
-}
-rm("path_r_profile")
 
 invisible(utils::capture.output(import_nfl_tm()))
 invisible(utils::capture.output(import_nfl_game_result()))
