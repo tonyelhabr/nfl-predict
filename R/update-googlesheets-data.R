@@ -1,5 +1,5 @@
 
-.wk <- 5L
+.wk <- 6L
 .wk_lag1 <- .wk - 1L
 
 scores_lag1 <- do_get_scores_nfl_espn(wk = .wk_lag1)
