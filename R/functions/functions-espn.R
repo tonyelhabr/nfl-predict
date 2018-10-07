@@ -16,7 +16,7 @@
           "Post Season")
 }
 
-.get_grid_nfl_espn <-
+.get_grid_url_scores_nfl_espn <-
   function(season = as.integer(format(Sys.Date(), "%Y")), ...) {
     grid <-
       expand.grid(
@@ -48,13 +48,6 @@
   }
 
 # filter ----
-.get_cols_max_espn_at <-
-  function(...,
-           col = .COL_ESPN,
-           rgx_split = .RGX_SPLIT_ESPN) {
-    .get_cols_max_at(..., col = col, rgx_split = rgx_split)
-  }
-
 # NOTE: When separating, `seasontype = 3` games seem to have 8 columns instead of just 7.
 .separate_cols_max_espn_at <-
   function(...,
@@ -63,35 +56,42 @@
     .separate_cols_max_at(..., col = col, rgx_split = rgx_split)
   }
 
-.filter_scores_nfl_espn <-
+.filter_scores_sport_espn <-
   function(data, ...) {
 
     data_sep <-
       data %>%
-      .separate_cols_max_espn_at(col = "name")
+      .separate_cols_max_espn_at()
     data_sep %>%
-      filter((name1 == "events" &
-                name2 == "shortName") |
-               (name1 == "events" &
-                  name2 == "competitions" &
-                  name3 == "date") | (
-                    name1 == "events" &
-                      name2 == "competitions" &
-                      name3 == "status" &
-                      name4 == "type" &
-                      name5 == "name"
-                  ) |
-               (
-                 name1 == "events" &
-                   name2 == "competitions" &
-                   name3 == "competitors" &
-                   name4 == "score"
-               )
+      filter(
+        (
+          name1 == "events" &
+            name2 == "shortName"
+        ) |
+          (
+            name1 == "events" &
+              name2 == "competitions" &
+              name3 == "date"
+          ) | (
+            name1 == "events" &
+              name2 == "competitions" &
+              name3 == "status" &
+              name4 == "type" &
+              name5 == "name"
+          ) |
+          (
+            name1 == "events" &
+              name2 == "competitions" &
+              name3 == "competitors" &
+              name4 == "score"
+          )
       )
   }
 
+.filter_scores_nfl_espn <- .filter_scores_sport_espn
+
 # clean ----
-.clean_scores_nfl_espn <-
+.clean_scores_sport_espn <-
   function(data, ...) {
     data %>%
       select(name3, name4, name5, value) %>%
@@ -126,10 +126,12 @@
       select(date, time, tm_home, tm_away, pts_home, pts_away)
   }
 
+.clean_scores_nfl_espn <- .clean_scores_sport_espn
+
 # postprocess ----
-.recode_tm_cols_espn <-
-  function(data, ...) {
-    .recode_tm_cols_strictly_at(data = data, col = "tm_espn")
+.recode_tm_cols_nfl_espn <-
+  function(data, col = "tm_espn", ...) {
+    .recode_tm_cols_nfl_strictly_at(data = data, col = col, ...)
   }
 
 .fix_wk_scores_nfl_espn <-
@@ -157,7 +159,7 @@ do_get_scores_nfl_espn <-
     .seasontype <- seasontype
     .wk <- wk
     grid <-
-      .get_grid_nfl_espn(season = season) %>%
+      .get_grid_url_scores_nfl_espn(season = season) %>%
       filter(seasontype %in% .seasontype) %>%
       filter(wk %in% .wk)
     
@@ -186,7 +188,7 @@ do_get_scores_nfl_espn <-
     
     res <-
       res %>%
-      .recode_tm_cols_espn(...)
+      .recode_tm_cols_nfl_espn(...)
 
     if (.arrange) {
       res <-

@@ -1,5 +1,5 @@
 default:
-  path_odds_tr: "data/odds_tr.sqlite"
+  path_odds_nfl_tr: "data/odds-nfl-tr.sqlite"
   overwrite: false
   file_db_nfl: "db_nfl"
   key_db_nfl: "1bEMxcK0ULiHEltOMp_SqZYNZiILwVhlawCHVEe3mYkc" # googlesheets::gs_title(config$file_db_nfl)$sheet_key

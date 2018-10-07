@@ -10,13 +10,14 @@
   }
 
 .separate_cols_max_at <-
-  function(data, col, rgx_split, ...) {
+  function(data, col, n_cols_max = NULL, rgx_split, ...) {
     col_sym <- sym(col)
-    n_cols_max <-
+    if(is.null(n_cols_max)) {
+      n_cols_max <-
       .get_cols_max_at(data = data, col = col, rgx_split = rgx_split)
+    }
     nms_sep <-
       paste0(col, seq(1, n_cols_max, by = 1))
-    .warn <- warn
     data %>%
       separate(!!col_sym, into = nms_sep, sep = rgx_split, fill = "right")
   }
@@ -26,54 +27,51 @@
     tibble::enframe(unlist(x))
   }
 
-
-# .convert_list_to_tbl_.cleanly_at <-
-#   function(x, col, rgx_split) {
-#     data <- tibble::enframe(unlist(x))
-#     .separate_cols_max_at(data = data, col = col, rgx_split = rgx_split)
-#   }
-# 
-# .convert_list_to_tbl_.cleanly_espn_at <-
-#   function(..., col = .COL_ESPN, rgx_split = .RGX_SPLIT_ESPN) {
-#     .convert_list_to_tbl_.cleanly_at(..., col = col, rgx_split = rgx_split)
-#   }
-
-# NOTE: Allow for "inactive" teams to also be considered via the status field.
-.recode_tm_cols_strictly_at <-
-  function(data, col, status = 1L, ...) {
+.recode_tm_cols_sport_strictly_at <-
+  function(data, col, status = 1L, ..., .data_source) {
     .status <- status
     col_sym <- sym(col)
-    nfl_tm_trim <-
-      import_nfl_tm() %>% 
+    tm_trim <-
+      .data_source %>% 
       filter(status %in% .status) %>% 
       select(tm, tm_other = !!col_sym)
     data %>%
-      inner_join(nfl_tm_trim, by = c("tm_home" = "tm_other")) %>% 
+      inner_join(tm_trim, by = c("tm_home" = "tm_other")) %>% 
       mutate(tm_home = tm) %>% 
       select(-tm) %>% 
-      inner_join(nfl_tm_trim, by = c("tm_away" = "tm_other")) %>% 
+      inner_join(tm_trim, by = c("tm_away" = "tm_other")) %>% 
       mutate(tm_away = tm) %>% 
       select(-tm)
   }
 
-.recode_tm_cols_cautiously_at <-
-  function(data, col, status = 0L:1L, ...) {
+# NOTE: Allow for "inactive" teams to also be considered via the status field.
+.recode_tm_cols_nfl_strictly_at <-
+  function(..., .data_source = import_nfl_tm()) {
+    .recode_tm_cols_sport_strictly_at(..., .data_source = .data_source)
+  }
+
+.recode_tm_cols_sport_cautiously_at <-
+  function(data, col, status = 0L:1L, ..., .data_source) {
     .status <- status
     col_sym <- sym(col)
-    nfl_tm_trim <-
-      import_nfl_tm() %>% 
+    tm_trim <-
+      .data_source %>% 
       filter(status %in% .status) %>% 
       select(tm, tm_other = !!col_sym)
 
     data %>%
-      left_join(nfl_tm_trim, by = c("tm_home" = "tm_other")) %>% 
+      left_join(tm_trim, by = c("tm_home" = "tm_other")) %>% 
       mutate(tm_home = coalesce(tm, tm_home)) %>% 
       select(-tm) %>% 
-      left_join(nfl_tm_trim, by = c("tm_away" = "tm_other")) %>% 
+      left_join(tm_trim, by = c("tm_away" = "tm_other")) %>% 
       mutate(tm_away = coalesce(tm, tm_away)) %>% 
       select(-tm)
   }
 
+.recode_tm_cols_nfl_cautiously_at <-
+  function(..., .data_source = import_nfl_tm()) {
+    .recode_tm_cols_sport_cautiously_at(..., .data_source = .data_source)
+  }
 
 .add_wk_col_at <-
   function(data, val, col = "wk") {

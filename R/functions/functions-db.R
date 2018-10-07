@@ -46,6 +46,7 @@ insert_into_db <-
            table = deparse(substitute(data)),
            overwrite = config::get("overwrite"),
            append = !overwrite,
+           backup = overwrite,
            ...,
            add_record_cols = TRUE,
            col_timestamp = "timestamp_record",
@@ -66,7 +67,15 @@ insert_into_db <-
       }
     }
     
-    # browser()
+    if(backup) {
+      # NOTE: Moved this from outside the `overwrite` clause so it is done no matter what.
+      path_db <- conn@dbname
+      path_db_backup <- .create_backup(path = path_db)
+      # msg <- sprintf("Backing up database as %s as a precaution for overwriting a table.", path_db_backup)
+      msg <- sprintf("Backing up database as %s as a precaution.", path_db_backup)
+      message(msg)
+    }
+    
     if(!overwrite) {
       if(add_record_cols) {
         
@@ -101,6 +110,7 @@ insert_into_db <-
           mutate(!!col_id := val_id_max + row_number())
       }
     } else {
+
       if(add_record_cols) {
         if(e) {
           data_read <-
@@ -114,13 +124,7 @@ insert_into_db <-
         }
       }
     }
-    
-    # NOTE: Moved this from outside the `overwrite` clause so it is done no matter what.
-    path_db <- conn@dbname
-    path_db_backup <- .create_backup(path = path_db)
-    # msg <- sprintf("Backing up database as %s as a precaution for overwriting a table.", path_db_backup)
-    msg <- sprintf("Backing up database as %s as a precaution.", path_db_backup)
-    message(msg)
+
     
     data <-
       data %>%

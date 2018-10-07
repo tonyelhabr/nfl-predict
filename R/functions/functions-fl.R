@@ -269,16 +269,16 @@
 
 
 # postprocess ----
-.recode_tm_cols_fl <-
-  function(data, ...) {
-    .recode_tm_cols_cautiously_at(data = data, col = "tm_name_fl")
+.recode_tm_cols_nfl_fl <-
+  function(data, col = "tm_name_fl", ...) {
+    .recode_tm_cols_nfl_cautiously_at(data = data, col = col, ...)
   }
 
 .finalize_odds_nfl_fl <-
   function(data, ..., .arrange = TRUE, season) {
     res <-
       data %>%
-      .recode_tm_cols_fl(...)
+      .recode_tm_cols_nfl_fl(...)
 
     if (.arrange) {
       res <-

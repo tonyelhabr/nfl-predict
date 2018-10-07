@@ -12,7 +12,7 @@
   )
 
 # grid ----
-.get_grid_nfl_pfref <-
+.get_grid_url_odds_nfl_pfref <-
   function(season = as.integer(format(Sys.Date(), "%Y")), ...) {
     
     tibble(season = rep(season, .N_PG_PER_SEASON_PFREF)) %>% 
@@ -76,7 +76,7 @@
         funs(paste0(date, " ", .) %>% lubridate::ymd_hm())
       ) %>% 
       mutate(
-        wday = date %>% lubridate::wday(label = TRUE, abbr = TRUE)
+        weekday = date %>% lubridate::wday(label = TRUE, abbr = TRUE)
       ) %>% 
       separate(result, into = c("wl", "score"), sep = "\\s") %>%
       separate(score, into = c("pts_tm", "pts_opp"), sep = "\\-") %>%
@@ -116,7 +116,7 @@
         wk,
         date,
         time,
-        wday,
+        weekday,
         tm_home,
         tm_away,
         pts_home,
@@ -131,9 +131,9 @@
   }
 
 # postprocess ----
-.recode_tm_cols_pfref <-
-  function(data, ...) {
-    # .recode_tm_cols_strictly_at(data = data, col = "tm")
+.recode_tm_cols_nfl_pfref <-
+  function(data, col = "tm", ...) {
+    # .recode_tm_cols_nfl_strictly_at(data = data, col = col, ...)
     data
   }
 
@@ -148,7 +148,7 @@ do_get_odds_nfl_pfref <-
     # .seasontype <- seasontype
     # .wk <- wk
     grid <-
-      .get_grid_nfl_pfref(season = season, ...)
+      .get_grid_url_odds_nfl_pfref(season = season, ...)
     # res <-
     #   res %>%
     #   filter(seasontype %in% .seasontype) %>%
@@ -167,7 +167,7 @@ do_get_odds_nfl_pfref <-
     # team names are different than the current ones.
     # res <-
     #   res %>% 
-    #   .recode_tm_cols_pfref(...)
+    #   .recode_tm_cols_nfl_pfref(...)
     if (.arrange) {
       res <-
         res %>% 

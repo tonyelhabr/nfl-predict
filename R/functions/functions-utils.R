@@ -34,21 +34,30 @@ get_current_wk <-
     "moneyline_away"
   )
 
-.reorder_cols_nfl_at <-
-  function(data, ..., col_names_order = .COLS_NFL_ORDER) {
+.reorder_cols_sport_at <-
+  function(data, ..., col_names_order) {
     col_names <- names(data)
     col_names_in <- intersect(col_names_order, col_names)
     col_names_nin <- setdiff(col_names, col_names_order)
     # length(col_names); length(col_names_in); length(col_names_nin); length(col_names_order)
     # setdiff(col_names, c(col_names_in, col_names_nin))
     col_names_fct <- factor(col_names, levels = c(col_names_in, col_names_nin))
+    data %>% select(one_of(levels(col_names_fct)))
+  }
+
+.reorder_cols_nfl_at <-
+  function(..., col_names_order = .COLS_NFL_ORDER) {
+    .reorder_cols_sport_at(..., col_names_order = col_names_order)
+  }
+
+.select_cols_sport_at <-
+  function(data, ..., col_names, col_names_order = col_names) {
+    col_names_fct <- factor(col_names, levels = col_names_order)
     
     data %>% select(one_of(levels(col_names_fct)))
   }
 
 .select_cols_nfl_at <-
-  function(data, ..., col_names = .COLS_NFL_ORDER, col_names_order = .COLS_NFL_ORDER) {
-    col_names_fct <- factor(col_names, levels = col_names_order)
-    
-    data %>% select(one_of(levels(col_names_fct)))
+  function(..., col_names = .COLS_NFL_ORDER) {
+    .select_cols_sport_at(..., col_names = col_names)
   }

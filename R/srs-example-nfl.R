@@ -60,7 +60,7 @@ tm_pd_wide <-
     vars(pts_diff), 
     funs(
       case_when(
-        tm1 == tm2 ~ 1,
+        tm1 == tm2 ~ -1,
         is.na(pts_diff) ~ 0,
         TRUE ~ n_frac
         # TRUE ~ .
@@ -76,9 +76,11 @@ m1 <-
   set_names(NULL) %>% 
   as.matrix()
 m1
+det(m1)
+eigen(m1)$values
 m2 <-
   tm_pd_summ %>% 
-  # mutate_at(vars(pts_diff_mean), funs(-.)) %>% 
+  mutate_at(vars(pts_diff_mean), funs(-.)) %>% 
   select(pts_diff_mean) %>% 
   set_names(NULL) %>% 
   as.matrix()
@@ -87,6 +89,8 @@ t(m2)
 # m1 %*% m2
 m3 <- solve(m1, m2)
 m3
+
+base::svd(m1)
 
 all(round((m1 %*% m3), 2) == round(m2, 2))
 m2

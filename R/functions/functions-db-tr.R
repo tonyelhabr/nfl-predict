@@ -1,11 +1,11 @@
 
 # get_db_conn_odds_tr <-
-#   purrr::partial(get_db_conn, path = config::get("path_odds_tr"))
+#   purrr::partial(get_db_conn, path = config::get("path_odds_nfl_tr"))
 
 get_db_conn_odds_tr <-
   function(..., path) {
     if(missing(path)) {
-      path <- config::get("path_odds_tr")
+      path <- config::get("path_odds_nfl_tr")
     }
     get_db_conn(path)
   }

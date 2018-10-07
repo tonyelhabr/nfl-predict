@@ -28,5 +28,5 @@ rm("paths_funcs")
 
 config <- config::get()
 
-invisible(utils::capture.output(import_nfl_tm()))
-invisible(utils::capture.output(import_nfl_game_result()))
+import_nfl_tm()
+import_nfl_game_result()
