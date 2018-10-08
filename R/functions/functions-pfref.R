@@ -171,7 +171,7 @@ do_get_odds_nfl_pfref <-
     if (.arrange) {
       res <-
         res %>% 
-        .arrange_gm_nfl(..., season = season)
+        .arrange_gm_nfl(..., .season = .season)
     }
     
     res <-

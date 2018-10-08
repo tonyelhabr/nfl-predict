@@ -28,9 +28,8 @@
   }
 
 .recode_tm_cols_sport_strictly_at <-
-  function(data, col, status = 1L, ..., .data_source) {
+  function(data, col, ..., .status = 1L, .data_source) {
     # browser()
-    .status <- status
     col_sym <- sym(col)
     tm_trim <-
       .data_source %>% 
@@ -52,8 +51,7 @@
   }
 
 .recode_tm_cols_sport_cautiously_at <-
-  function(data, col, status = 0L:1L, ..., .data_source) {
-    .status <- status
+  function(data, col, ..., .status = 0L:1L, .data_source) {
     col_sym <- sym(col)
     tm_trim <-
       .data_source %>% 
@@ -88,23 +86,24 @@
       mutate(!!col := as.integer(val))
   }
 
+# TODO: UPdate these functions to use .data_source!
 # NOTE: I think I want to NOT use this function. Instead,
 # the timeperiod columns should be added given a `tibble` with `season` and `wk` columns.
 .add_timeperiod_cols_nfl <-
-  function(data, ..., season = config::get()$season_current) {
+  function(data, ..., .season = config::get()$season_current, .data_source = import_nfl_game_result()) {
     if(season != config::get()$season_current) {
       stop("Not currently implemented.", call. = FALSE)
     }
-    .season <- season
-    nfl_game_result_trim <-
-      import_nfl_game_result() %>% 
+    
+    game_result_trim <-
+      .data_source %>% 
       filter(season == .season) %>% 
       select(season, wk, tm_home, tm_away)
     
     col_names_out <- c("season", "wk", names(data))
     data %>%
       left_join(
-        nfl_game_result_trim,
+        game_result_trim,
         by = c("tm_home", "tm_away")
       ) %>% 
       select(one_of(col_names_out))
@@ -113,27 +112,34 @@
 # NOTE: This is a hard-coded value that doesn't need to be known by the user.
 .SEASON_MIN_TONY <- 2012L
 .arrange_gm_nfl <-
-  function(data, ..., season = config::get()$season_current) {
-    # NOTE: This is the more "correct" way of getting the minimum season value, 
-    # but it results in the `nfl_game_result` data getting hit every time this function is used.
-    # season_min <-
-    #   import_nfl_game_result() %>% 
-    #   filter(season == min(season)) %>% 
-    #   distinct(season) %>% 
-    #   pull(season)
-    .season <- season
-    if(.season < .SEASON_MIN_TONY) {
-      return(data)
+  function(data, ..., .season = config::get()$season_current, .data_source = import_nfl_game_result()) {
+    # NOTE: Not sure what is the most "correct" way of getting the minimum season value.
+
+    if("season" %in% names(data)) {
+      .seasons <-
+        data %>% 
+        distinct(season) %>% 
+        pull(season)
+      
+      if(length(.seasons) > 1L) {
+        stop("Expecting only one distinct season.", call. = FALSE)
+        return(data)
+      }
+      
+      .season <- .seasons
+      if(.season < .SEASON_MIN_TONY) {
+        return(data)
+      }
     }
 
-    nfl_game_result_trim <-
-      import_nfl_game_result() %>% 
+    game_result_trim <-
+      .data_source %>% 
       filter(season == .season) %>% 
       select(season, wk, tm_home, tm_away) %>% 
       mutate(rn = row_number())
     
     data %>%
-      inner_join(nfl_game_result_trim) %>% 
+      inner_join(game_result_trim) %>% 
       arrange(rn) %>% 
       select(-rn)
     

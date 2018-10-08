@@ -275,7 +275,7 @@
   }
 
 .finalize_odds_nfl_fl <-
-  function(data, ..., .arrange = TRUE, season) {
+  function(data, ..., .arrange = TRUE, .season) {
     res <-
       data %>%
       .recode_tm_cols_nfl_fl(...)
@@ -283,7 +283,7 @@
     if (.arrange) {
       res <-
         res %>% 
-        .arrange_gm_nfl(..., season = season)
+        .arrange_gm_nfl(..., .season = .season)
     }
     res
   }

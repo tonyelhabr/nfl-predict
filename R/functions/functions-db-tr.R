@@ -82,24 +82,6 @@ import_odds_tr <-
       .fix_tm_col_nfl_tr_at(col_suffix = "away", ...)
   }
 
-.add_timeperiod_cols_nfl_tr <-
-  function(data, ..., season = config::get()$season_current) {
-    .season <- season
-    nfl_game_result_trim <-
-      import_nfl_game_result() %>% 
-      filter(season == .season) %>% 
-      select(season, wk, tm_home, tm_away)
-
-    col_names_out <- c("season", "wk", names(data))
-    data %>%
-      left_join(
-        nfl_game_result_trim,
-        by = c("tm_home", "tm_away")
-      ) %>% 
-      select(one_of(col_names_out))
-  }
-
-
 .finalize_odds_nfl_tr <-
   function(data, ...) {
     data %>%

@@ -139,6 +139,7 @@
   function(data, ...) {
     # NOTE: espn considers seasontype = 3, wk = 5 to be the probowl for seasons before 2008
     # (and wk = 4 to be the superbowl)
+    # stopifnot(length(intersect(names(data), c("wk", "season"))) == 2L)
     data %>%
       mutate(temp = if_else(season < 2008L &
                               seasontype == 3L & wk == 4L, TRUE, FALSE)) %>%
@@ -178,26 +179,25 @@ do_get_scores_nfl_espn <-
     res <-
       res %>%
       mutate(
-        data = purrr::map(data, ~ .filter_scores_nfl_espn(data = .x, ...))
-      ) %>%
-      mutate(
-        data = purrr::map(data, ~ .clean_scores_nfl_espn(data = .x, ...))
+        data = 
+          purrr::map(data, 
+                     ~ .filter_scores_nfl_espn(data = .x, ...) %>% 
+                       .clean_scores_nfl_espn(...) 
+                       )
       )
 
-    browser()
     res <-
       res %>% 
-      select(-wk) %>% 
       unnest() %>%
       .recode_tm_cols_nfl_espn(...) %>% 
       .fix_wk_scores_nfl_espn(...) %>% 
       .reorder_cols_nfl_at(...)
     
-    # if (.arrange) {
-    #   res <-
-    #     res %>% 
-    #     .arrange_gm_nfl(..., season = season)
-    # }
+    if (.arrange) {
+      res <-
+        res %>%
+        .arrange_gm_nfl(...)
+    }
     res
   }
 
