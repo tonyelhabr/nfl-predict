@@ -60,9 +60,9 @@ tm_pd_wide <-
     vars(pts_diff), 
     funs(
       case_when(
-        tm1 == tm2 ~ -1,
+        tm1 == tm2 ~ 1,
         is.na(pts_diff) ~ 0,
-        TRUE ~ n_frac
+        TRUE ~ -n_frac
         # TRUE ~ .
       )
     ) 
@@ -70,37 +70,84 @@ tm_pd_wide <-
   select(tm1, tm2, pts_diff) %>% 
   spread(tm2, pts_diff)
 tm_pd_wide
-m1 <-
+
+a <-
   tm_pd_wide %>%
   select(-tm1) %>% 
   set_names(NULL) %>% 
   as.matrix()
-m1
-det(m1)
-eigen(m1)$values
-m2 <-
+a
+
+b <-
   tm_pd_summ %>% 
-  mutate_at(vars(pts_diff_mean), funs(-.)) %>% 
+  # mutate_at(vars(pts_diff_mean), funs(-.)) %>% 
   select(pts_diff_mean) %>% 
   set_names(NULL) %>% 
   as.matrix()
-# m2
-t(m2)
-# m1 %*% m2
-m3 <- solve(m1, m2)
-m3
+b
 
-base::svd(m1)
+# method 1 ----
+# x <- solve(a, b)
+# x <- solve(pracma::rref(a), b)
+x_1 <- solve(a, b, tol = 1e-19)
+x_1
 
-all(round((m1 %*% m3), 2) == round(m2, 2))
-m2
+# method 2 ----
+# Reference: https://stackoverflow.com/questions/19763698/solving-non-square-linear-system-with-r.
+# det(a)
+# eigen(a)$values
+m1_svd <- svd(a)
+m1_d0 <- m1_svd$d
+# m1_d <- m1_d0
+# m1_d[m1_d == min(m1_d)] <- 0
+# m1_d
+idx_repl <- which.min(m1_d0)
 
-.m1 <- matrix(c(3L, 1L, 1L, 2L), byrow = TRUE, nrow = 2L)
-.m1
-.m2 <- matrix(c(9L, 8L), byrow = TRUE, nrow = 2L)
-.m2
-.m1 %*% .m2
-.m3 <- solve(.m1, .m2)
-.m3
+m1_diag0 <- diag(1 / m1_d0)
+m1_diag <- m1_diag0
+m1_diag[idx_repl, idx_repl] <- 0
+m1_diag
 
-.m1 %*% .m3
+# m1_svd$u
+# m1_svd$v
+# round(m1_svd$u %*% t(m1_svd$u), 2)
+# round(m1_svd$v %*% t(m1_svd$v), 2)
+# all(diag(round(m1_svd$u %*% t(m1_svd$u), 2) == 1))
+m1_new <-
+  m1_svd$v %*% m1_diag %*% t(m1_svd$u)
+x_2 <- m1_new %*% b
+x_2
+
+round(a %*% x_1, 2)
+round(a %*% x_2, 2)
+
+round(b, 2)
+
+round(x_1, 2)
+round(x_2, 2)
+
+# method 3 ----
+# Reference: https://stackoverflow.com/questions/19763698/solving-non-square-linear-system-with-r.
+MASS::ginv(a) %*% b
+
+
+# Perl solution ----
+# Reference: https://codeandfootball.wordpress.com/2011/04/12/issues-with-the-simple-ranking-system/.
+# A = 2.93
+# B = -7.19
+# C = -6.19
+# D = -0.82
+# E = -3.07
+# F = 7.18
+
+
+# # checking `solve()` ----
+# .a <- matrix(c(3L, 1L, 1L, 2L), byrow = TRUE, nrow = 2L)
+# .a
+# .b <- matrix(c(9L, 8L), byrow = TRUE, nrow = 2L)
+# .b
+# .a %*% .b
+# .x <- solve(.a, .b)
+# .x
+# 
+# .a %*% .x

@@ -2,6 +2,7 @@
 .wk <- 6L
 .wk_lag1 <- .wk - 1L
 
+undebug(do_get_scores_nfl_espn)
 scores_lag1 <- do_get_scores_nfl_espn(wk = .wk_lag1)
 scores_lag1_trim <-
   scores_lag1 %>%
@@ -21,6 +22,7 @@ odds_tr_lag1_close <-
   .arrange_gm_nfl()
 odds_tr_lag1_close
 odds_tr_lag1_close_trim <-
+  odds_tr_lag1_close %>% 
   select(tm_home, tm_away, spread_home, total, timestamp_scrape)
 odds_tr_lag1_close_trim %>% teproj::export_path(config$path_odds_lag1_temp)
 
@@ -40,6 +42,7 @@ odds_tr_open <-
   # .reorder_cols_nfl_at() %>%
   .arrange_gm_nfl()
 odds_tr_open
+
 odds_tr_open_trim <-
   odds_tr_open %>% 
   select(tm_home, tm_away, spread_home, total, timestamp_scrape)

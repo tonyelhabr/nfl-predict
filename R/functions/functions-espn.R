@@ -179,28 +179,25 @@ do_get_scores_nfl_espn <-
       res %>%
       mutate(
         data = purrr::map(data, ~ .filter_scores_nfl_espn(data = .x, ...))
-      )
-    res <-
-      res %>%
+      ) %>%
       mutate(
         data = purrr::map(data, ~ .clean_scores_nfl_espn(data = .x, ...))
       )
-    
-    res <-
-      res %>%
-      .recode_tm_cols_nfl_espn(...)
 
-    if (.arrange) {
-      res <-
-        res %>% 
-        .arrange_gm_nfl(..., season = season)
-    }
+    browser()
     res <-
       res %>% 
-      select(-season, -wk) %>% 
+      select(-wk) %>% 
       unnest() %>%
+      .recode_tm_cols_nfl_espn(...) %>% 
       .fix_wk_scores_nfl_espn(...) %>% 
       .reorder_cols_nfl_at(...)
+    
+    # if (.arrange) {
+    #   res <-
+    #     res %>% 
+    #     .arrange_gm_nfl(..., season = season)
+    # }
     res
   }
 

@@ -162,3 +162,16 @@ Writing to table odds_tr at 2018-10-07 05:10:01.
 Writing to table odds_tr at 2018-10-07 05:12:18.
 Auto-refreshing stale OAuth token.
 Writing to table odds_tr at 2018-10-07 10:28:01.
+Writing to table odds_tr at 2018-10-07 10:53:20.
+Writing to table odds_tr at 2018-10-07 10:58:23.
+Writing to table odds_tr at 2018-10-07 10:59:37.
+Writing to table odds_tr at 2018-10-07 17:00:06.
+Auto-refreshing stale OAuth token.
+Warning messages:
+1: In if_else(total != "--", as.numeric(total), NA_real_) :
+  NAs introduced by coercion
+2: In if_else(moneyline_home != "--", as.numeric(moneyline_home), NA_real_) :
+  NAs introduced by coercion
+3: In if_else(moneyline_away != "--", as.numeric(moneyline_away), NA_real_) :
+  NAs introduced by coercion
+Writing to table odds_tr at 2018-10-08 05:00:13.
