@@ -1,13 +1,13 @@
 
 get_season_current <-
   function(...) {
-    config::get()$season_current
+    config::get()$season_current_nfl
   }
 
 # TODO!
 # Need a `date` field. Then can do a `fuzzy_left_join()`.
 get_current_wk <-
-  function(data, ..., season = config::get()$season_current) {
+  function(data, ..., season = config::get()$season_current_nfl) {
     .season <- season
     nfl_game_result_trim <-
       import_nfl_game_result() %>% 
@@ -33,6 +33,23 @@ get_current_wk <-
     "moneyline_home",
     "moneyline_away"
   )
+.COLS_NBA_ORDER <-
+  c(
+    "season",
+    "seasontype",
+    # "wk",
+    "date",
+    "time",
+    "weekday",
+    "location",
+    "tm_home",
+    "tm_away",
+    "spread_home",
+    "total",
+    "moneyline_home",
+    "moneyline_away"
+  )
+
 
 .reorder_cols_sport_at <-
   function(data, ..., col_names_order) {
@@ -50,6 +67,12 @@ get_current_wk <-
     .reorder_cols_sport_at(..., col_names_order = col_names_order)
   }
 
+.reorder_cols_nba_at <-
+  function(..., col_names_order = .COLS_NBA_ORDER) {
+    .reorder_cols_sport_at(..., col_names_order = col_names_order)
+  }
+
+
 .select_cols_sport_at <-
   function(data, ..., col_names, col_names_order = col_names) {
     col_names_fct <- factor(col_names, levels = col_names_order)
@@ -61,3 +84,9 @@ get_current_wk <-
   function(..., col_names = .COLS_NFL_ORDER) {
     .select_cols_sport_at(..., col_names = col_names)
   }
+
+.select_cols_nba_at <-
+  function(..., col_names = .COLS_NBA_ORDER) {
+    .select_cols_sport_at(..., col_names = col_names)
+  }
+

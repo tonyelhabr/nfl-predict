@@ -8,7 +8,7 @@ scores_lag1_trim <-
   scores_lag1 %>%
   select(tm_home, tm_away, pts_home, pts_away)
 scores_lag1_trim
-scores_lag1_trim %>% teproj::export_path(config$path_scores_lag1_temp)
+scores_lag1_trim %>% teproj::export_path(config$path_scores_lag1_nfl_temp)
 
 odds_tr_exist <- import_odds_tr()
 
@@ -24,7 +24,7 @@ odds_tr_lag1_close
 odds_tr_lag1_close_trim <-
   odds_tr_lag1_close %>% 
   select(tm_home, tm_away, spread_home, total, timestamp_scrape)
-odds_tr_lag1_close_trim %>% teproj::export_path(config$path_odds_lag1_temp)
+odds_tr_lag1_close_trim %>% teproj::export_path(config$path_odds_lag1_nfl_temp)
 
 odds_tr_open <-
   odds_tr_exist %>%
@@ -46,7 +46,7 @@ odds_tr_open
 odds_tr_open_trim <-
   odds_tr_open %>% 
   select(tm_home, tm_away, spread_home, total, timestamp_scrape)
-odds_tr_open_trim %>% teproj::export_path(config$path_odds_temp)
+odds_tr_open_trim %>% teproj::export_path(config$path_odds_nfl_temp)
 
 # Or...
 .download <- FALSE

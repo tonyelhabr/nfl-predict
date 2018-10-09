@@ -1,6 +1,6 @@
 
 odds_hist_pfref <-
-  config$path_odds_hist_pfref %>% 
+  config$path_odds_hist_nfl_pfref %>% 
   teproj::import_path_cleanly()
 
 

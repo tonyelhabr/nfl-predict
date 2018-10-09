@@ -153,10 +153,10 @@
 # do ----
 do_get_scores_nfl_espn <-
   function(wk,
-           season = config::get()$season_current,
+           season = config::get()$season_current_nfl,
            seasontype = 2L,
            ...,
-           .arrange = ifelse(season == config::get()$season_current, TRUE, FALSE)) {
+           .arrange = ifelse(season == config::get()$season_current_nfl, TRUE, FALSE)) {
     .seasontype <- seasontype
     .wk <- wk
     grid <-
@@ -202,7 +202,7 @@ do_get_scores_nfl_espn <-
   }
 
 do_get_scores_season_nfl_espn <-
-  function(season = config::get()$season_current,
+  function(season = config::get()$season_current_nfl,
            ...,
            seasontype = 1L:3L,
            wk = 1L:17L,

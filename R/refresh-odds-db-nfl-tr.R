@@ -15,7 +15,7 @@ odds_tr_lag1 <-
   ungroup() %>% 
   select(tm_home, tm_away, spread_home, total) %>% 
   .arrange_gm_nfl()
-odds_tr_lag1 %>% teproj::export_path(config$path_odds_lag1_temp)
+odds_tr_lag1 %>% teproj::export_path(config$path_odds_lag1_nfl_temp)
 
 .wk <- 3L
 library("teplot")

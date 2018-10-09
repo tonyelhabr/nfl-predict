@@ -16,14 +16,14 @@ odds_tr_latest <-
 odds_tr_latest
 
 sheets_odds_hist_tr <-
-  config$path_trends_hist_tr_manual %>%
+  config$path_trends_hist_nfl_tr_manual %>%
   readxl::excel_sheets()
 sheets_odds_hist_tr
 sheet_combined <- "combined"
 stopifnot(sheet_combined %in% sheets_odds_hist_tr)
 
 combined_hist_tr <-
-  config$path_trends_hist_tr_manual %>%
+  config$path_trends_hist_nfl_tr_manual %>%
   readxl::read_excel(sheet = sheet_combined) %>%
   # NOTE: Purposely ignore ties.
   mutate(n_gm = n_w_fav + n_l_fav) %>% 

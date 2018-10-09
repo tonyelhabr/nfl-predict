@@ -8,4 +8,4 @@ data <-
   select(-season) %>%
   unnest() 
 
-data %>% teproj::export_path(config$path_scores_hist_espn)
+data %>% teproj::export_path(config$path_scores_hist_nfl_espn)

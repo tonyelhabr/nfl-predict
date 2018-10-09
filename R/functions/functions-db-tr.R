@@ -86,7 +86,7 @@ import_odds_tr <-
   function(data, ...) {
     data %>%
       .fix_tm_cols_nfl_tr_at(...) %>%
-      .add_timeperiod_cols_nfl_tr(...) %>%
+      .add_timeperiod_cols_nfl(...) %>%
       .reorder_cols_nfl_at(...)
   }
 

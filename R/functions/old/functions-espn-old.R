@@ -1,5 +1,4 @@
 
-# unused ----
 # .filter_odds_nfl_espn <-
 #   function(data, ...) {
 #     data %>%
@@ -44,7 +43,7 @@
 #   }
 # 
 # do_get_odds_nfl_espn <-
-#   function(wk, season = config::get()$season_current, seasontype = 2L, ..., .arrange = TRUE) {
+#   function(wk, season = config::get()$season_current_nfl, seasontype = 2L, ..., .arrange = TRUE) {
 #     data_raw <-
 #       .preprocess_do_get_xxx_nfl_espn(
 #         wk = wk,
@@ -109,3 +108,18 @@
 #       select(season, wk, wkseasontype, seasontype, seasontypelabel, start, end) %>% 
 #       arrange(start)
 #   }
+# 
+# .URL_SCORES_NBA_ESPN <- "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard"
+# 
+# .filter_scores_nba_espn <- .filter_scores_sport_espn
+# .clean_scores_nba_espn <- .clean_scores_sport_espn
+# 
+# 
+# .get_scores_nba_espn <-
+#   function(url = .URL_SCORES_NBA_ESPN, ...) {
+#     resp <- httr::GET(url)
+#     cont <- httr::content(resp)
+#     httr::warn_for_status(resp)
+#     .convert_list_to_tbl(cont)
+#   }
+

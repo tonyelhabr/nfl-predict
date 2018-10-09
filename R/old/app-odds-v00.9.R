@@ -6,7 +6,7 @@ library("DT")
 
 paths_funcs <-
   list.files(
-    # path = "C:/Users/aelhabr/Documents/projects/nfl-predict",
+    # path = "C:/Users/aelhabr/Documents/projects/sports-predict",
     path = "R",
     pattern = "func",
     recursive = FALSE,

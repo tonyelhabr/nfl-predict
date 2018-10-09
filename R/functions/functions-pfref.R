@@ -139,11 +139,11 @@
 
 # do ----
 do_get_odds_nfl_pfref <-
-  function(season = config::get()$season_current,
+  function(season = config::get()$season_current_nfl,
            ...,
            # wk = 1L:17L,
            # seasontype = 1L:3L,
-           .arrange = ifelse(season == config::get()$season_current, TRUE, FALSE)) {
+           .arrange = ifelse(season == config::get()$season_current_nfl, TRUE, FALSE)) {
     
     # .seasontype <- seasontype
     # .wk <- wk

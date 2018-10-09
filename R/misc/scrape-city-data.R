@@ -43,4 +43,4 @@ nfl_tm_city_trim[nfl_tm_city_trim$tm == "SFO", c("lat")] <- sf$lat
 nfl_tm_city_trim[nfl_tm_city_trim$tm == "SFO", c("lng")] <- sf$lng
 nfl_tm_city_trim[nfl_tm_city_trim$tm == "SFO", c("pop")] <- sf$pop
 
-nfl_tm_city_trim %>% teproj::export_path(config$path_tm_city)
+nfl_tm_city_trim %>% teproj::export_path(config$path_tm_nfl_city)
