@@ -5,6 +5,16 @@ data_raw <-
   teproj::import_path_cleanly()
 data_raw
 
+# nfl_game_result <- import_nfl_game_result()
+nfl_game_result
+data_raw <-
+  nfl_game_result %>%
+  filter(season == 2018L) %>% 
+  filter(timeperiod == "rs") %>% 
+  filter(!is.na(pts_home) & !is.na(pts_away)) %>% 
+  select(tm_home, tm_away, pts_home, pts_away)
+data_raw
+
 tm <-
   data_raw %>% 
   get_distinct_tms_at() %>% 
@@ -46,7 +56,7 @@ tm_pd_summ <-
   ungroup()
 tm_pd_summ
 
-tm_pd_wide <-
+tm_pd_grid <-
   expand.grid(
     tm1 = tm,
     tm2 = tm,
@@ -67,7 +77,11 @@ tm_pd_wide <-
       )
     ) 
   ) %>% 
-  select(tm1, tm2, pts_diff) %>% 
+  select(tm1, tm2, pts_diff)
+tm_pd_grid
+
+tm_pd_wide <-
+  tm_pd_grid %>% 
   spread(tm2, pts_diff)
 tm_pd_wide
 
@@ -91,6 +105,16 @@ b
 # x <- solve(pracma::rref(a), b)
 x_1 <- solve(a, b, tol = 1e-19)
 x_1
+
+.convert_srs_mat_to_tibble <-
+  function(x, ..., .tm = tm) {
+    setNames(c(x), .tm) %>% 
+      tibble::enframe(name = "tm", value = "value")
+  }
+srs_1 <-
+  x_1 %>% 
+  .convert_srs_mat_to_tibble()
+srs_1
 
 # method 2 ----
 # Reference: https://stackoverflow.com/questions/19763698/solving-non-square-linear-system-with-r.
@@ -117,6 +141,10 @@ m1_new <-
   m1_svd$v %*% m1_diag %*% t(m1_svd$u)
 x_2 <- m1_new %*% b
 x_2
+srs_2 <-
+  x_2 %>% 
+  .convert_srs_mat_to_tibble()
+srs_2 
 
 round(a %*% x_1, 2)
 round(a %*% x_2, 2)
@@ -128,8 +156,11 @@ round(x_2, 2)
 
 # method 3 ----
 # Reference: https://stackoverflow.com/questions/19763698/solving-non-square-linear-system-with-r.
-MASS::ginv(a) %*% b
-
+x_3 <- MASS::ginv(a) %*% b
+srs_3 <-
+  x_3 %>% 
+  .convert_srs_mat_to_tibble()
+srs_3 
 
 # Perl solution ----
 # Reference: https://codeandfootball.wordpress.com/2011/04/12/issues-with-the-simple-ranking-system/.
@@ -139,6 +170,27 @@ MASS::ginv(a) %*% b
 # D = -0.82
 # E = -3.07
 # F = 7.18
+
+srs_1 %>% arrange(desc(value))
+srs_1 %>% arrange(value)
+
+srs_cbind <-
+  srs_1 %>% 
+  rename(value1 = value) %>% 
+  left_join(
+    srs_2 %>% rename(value2 = value)
+  ) %>% 
+  left_join(
+    srs_3 %>% rename(value3 = value)
+  ) %>% 
+  left_join(
+    tm_pd_summ %>% select(tm = tm1, value0 = pts_diff_mean)
+  )
+srs_rnks <-
+  srs_cbind %>% mutate_if(is.numeric, funs(rnk = row_number(desc(.))))
+srs_cbind %>% 
+  select_if(is.numeric) %>% 
+  corrr::correlate()
 
 
 # # checking `solve()` ----

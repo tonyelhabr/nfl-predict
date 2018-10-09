@@ -1,4 +1,16 @@
 
+# new? ----
+library("localgeo")
+
+city <- c("San Francisco")
+state <- c("CA")
+
+city_xy <- localgeo::geocode(city = city, state = state)
+city_xy
+
+localgeo::geocode("Berwick", "ME")
+
+# old? ----
 library("geonames")
 options(geonamesUsername = "aelhabr")
 
