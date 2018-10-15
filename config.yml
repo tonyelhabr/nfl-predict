@@ -18,6 +18,8 @@ default:
   path_trends_hist_nfl_tr: "data/trends-hist-nfl-tr.csv"
   path_odds_hist_nfl_pfref: "data/odds-hist-nfl-pfref.csv"
   # path_odds_hist_fl: "data/odds-hist-fl.csv"
+  # path_wintotals_hist_nfl_sportsoddshistory_dl: "data-raw/nfl-regular-season-win-total-results-by-team.html"
+  path_wintotals_hist_nfl_sportsoddshistory: "data/wintotals-hist-nfl-sportsoddhistory.csv"
 
   path_scores_lag1_nfl_temp: "data/temp/scores-lag1-nfl-temp.csv"
   path_odds_nfl_temp: "data/temp/odds-nfl-temp.csv"

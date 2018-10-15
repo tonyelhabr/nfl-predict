@@ -50,6 +50,11 @@
     .recode_tm_cols_sport_strictly_at(..., .data_source = .data_source)
   }
 
+.recode_tm_cols_nba_strictly_at <-
+  function(..., .data_source = import_nba_tm()) {
+    .recode_tm_cols_sport_strictly_at(..., .data_source = .data_source)
+  }
+
 .recode_tm_cols_sport_cautiously_at <-
   function(data, col, ..., .status = 0L:1L, .data_source) {
     col_sym <- sym(col)
@@ -67,15 +72,29 @@
       select(-tm)
   }
 
-
-.recode_tm_cols_nba_strictly_at <-
-  function(..., .data_source = import_nba_tm()) {
-    .recode_tm_cols_sport_strictly_at(..., .data_source = .data_source)
+.recode_tm_col_sport_cautiously_at <-
+  function(data, col_join, ..., .status = 0L:1L, .data_source) {
+    col_join_sym <- sym(col_join)
+    tm_trim <-
+      .data_source %>% 
+      filter(status %in% .status) %>% 
+      select(tm, !!col_join_sym)
+    
+    data %>%
+      left_join(tm_trim, by = col_join) %>% 
+      mutate(tm = coalesce(tm, !!col_join_sym)) %>% 
+      select(-!!col_join_sym)
   }
 
 .recode_tm_cols_nfl_cautiously_at <-
   function(..., .data_source = import_nfl_tm()) {
     .recode_tm_cols_sport_cautiously_at(..., .data_source = .data_source)
+  }
+
+# NOTE: Only used for functions-sportsoddshistory.
+.recode_tm_col_nfl_cautiously_at <-
+  function(..., .data_source = import_nfl_tm()) {
+    .recode_tm_col_sport_cautiously_at(..., .data_source = .data_source)
   }
 
 .recode_tm_cols_nba_cautiously_at <-

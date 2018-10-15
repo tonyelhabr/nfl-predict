@@ -86,16 +86,16 @@ do_get_schedule_nba_bbref <-
     grid <-
       .get_grid_url_schedule_nba_bbref(season = season, ...)
     
-    .get_schedule_nba_bbref_safe <-
+    .f_possibly <-
       purrr::possibly(.get_schedule_nba_bbref, otherwise = tibble())
     res <-
       grid %>%
-      mutate(
-        data = purrr::map(url, ~ .get_schedule_nba_bbref_safe(data = .x, ...))
-      ) %>% 
       # mutate(
       #   data = purrr::map(data, ~ .clean_schedule_nba_bbref(data = .x, ...))
       # ) %>% 
+      mutate(
+        data = purrr::map(url, ~ .f_possibly(data = .x, ...))
+      ) %>% 
       select(-month, -url) %>% 
       unnest() %>% 
       .clean_schedule_nba_bbref(...) %>% 
