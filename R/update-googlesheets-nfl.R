@@ -1,8 +1,8 @@
 
-.wk <- 6L
+.wk <- 7L
 .wk_lag1 <- .wk - 1L
 
-undebug(do_get_scores_nfl_espn)
+# undebug(do_get_scores_nfl_espn)
 scores_lag1 <- do_get_scores_nfl_espn(wk = .wk_lag1)
 scores_lag1_trim <-
   scores_lag1 %>%

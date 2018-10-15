@@ -55,6 +55,7 @@ insert_into_db <-
     # if(missing(get_db_conn)) {
     #   conn <- get_db_conn()
     # }
+    # browser()
     e <- DBI::dbExistsTable(con = conn, name = table)
     if(!e) {
       if(overwrite) {
