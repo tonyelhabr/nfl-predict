@@ -1,10 +1,4 @@
 
-path_r_profile <- "~/.Rprofile"
-if(file.exists(path_r_profile)) {
-  source(path_r_profile)
-}
-rm("path_r_profile")
-
 library("base")
 library("methods")
 library("datasets")
@@ -12,6 +6,12 @@ library("utils")
 library("grDevices")
 library("graphics")
 library("stats")
+
+path_r_profile <- "~/.Rprofile"
+if(file.exists(path_r_profile)) {
+  source(path_r_profile)
+}
+rm("path_r_profile")
 
 suppressWarnings(suppressPackageStartupMessages(library("tidyverse")))
 suppressWarnings(suppressPackageStartupMessages(library("rlang")))
@@ -30,4 +30,5 @@ config <- config::get()
 
 import_nfl_tm()
 import_nfl_game_result()
+# import_nba_tm()
 

@@ -114,10 +114,12 @@ wintotals_hist_nfl
 n_gm_per_season <- 16L
 n_w_sportsbook <- 7L
 n_w <- 5L
-probs <- rep(n_w_sportsbook / n_gm_per_season, n_gm_per_season)
-likelihood <-
-  dbinom(x = n_w,
-         size = n_gm_per_season,
-         prob = probs)
-likelihood
-? dbinom
+prob <- n_w_sportsbook / n_gm_per_season
+probs <- rep(prob, n_gm_per_season)
+dbinom(x = n_w, size = n_gm_per_season, prob = probs)
+rbinom(n_gm_per_season, size = n_gm_per_season, prob = prob)
+dbinom(6, size = 8, prob = 0.5)
+pbinom(6, size = 8, prob = 0.5)
+?binom.test
+binom.test(6, n = 8, p = 0.5)
+binom.test(12, n = 16, p = 0.4375)
