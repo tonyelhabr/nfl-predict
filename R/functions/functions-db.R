@@ -62,7 +62,7 @@ insert_into_db <-
         msg <- sprintf("No table %s exists. Creating it.", table)
         message(msg)
       } else {
-        msg <- sprintf("No table %s exists. Do you mean to create it?", table)
+        msg <- sprintf("No table %s exists. Do you mean to create it? (Set `overwrite = TRUE` to create it.)", table)
         warning(msg, call. = FALSE)
         return(NULL)
       }

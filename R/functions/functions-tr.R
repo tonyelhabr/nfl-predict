@@ -112,10 +112,9 @@
 .extract_moneyline_home <- purrr::partial(.extract_val_at_every, offset = 9L)
 .extract_moneyline_away <- purrr::partial(.extract_val_at_every, offset = 4L)
 
-.parse_odds_nfl_tr_bygame <-
+.parse_odds_sport_tr_bygame <-
   function(data_raw, idx = 1L) {
     
-    # browser()
     data_idx <-
       data_raw %>% 
       pluck(idx)
@@ -133,7 +132,7 @@
     wds <-
       ymds %>%
       lubridate::wday(label = TRUE)
-    # browser()
+
     times0 <-
       data_idx %>% 
       # rvest::html_nodes("tr th") %>% 
@@ -159,7 +158,6 @@
     totals <- .extract_total_home(v = txt)
     moneylines_home <- .extract_moneyline_home(v = txt)
     moneylines_away <- .extract_moneyline_away(v = txt)
-    # browser()
     gms <-
       tibble(
         date = ymds,
@@ -172,29 +170,16 @@
         moneyline_home = moneylines_home,
         moneyline_away = moneylines_away
       )
-    
-    # gms %>% 
-    #   mutate_at(vars(matches("spread|total|moneyline")), funs(if_else(. != "--", as.numeric(.), NA_real_)))
+    # gms <-
+    #   gms %>% 
+    #   mutate_at(
+    #     vars(matches("spread|total|moneyline")), 
+    #     funs(if_else(. != "--", as.numeric(.), NA_real_))
+    #   )
     gms
   }
 
-.parse_odds_xxx_tr <-
-  function(req) {
-    # stopifnot(class(req) == "response")
-    txt <-
-      req %>%
-      httr::content(as = "text")
-    
-    html <-
-      txt %>% 
-      xml2::read_html()
-    
-    mods <-
-      html %>% 
-      rvest::html_nodes(".module")
-  }
-
-.parse_odds_nfl_tr <-
+.parse_odds_sport_tr <-
   function(req) {
     # stopifnot(class(req) == "response")
     txt <-
@@ -209,26 +194,11 @@
       html %>% 
       rvest::html_nodes(".module")
 
-    # browser()
     data <-
       tibble(idx = 1L:length(mods)) %>% 
       mutate(data_parsed = 
                map(idx,
-                   ~.parse_odds_nfl_tr_bygame(data_raw = mods, idx = .x))) %>% 
-      unnest(data_parsed) %>% 
-      mutate_at(vars(matches("spread|total|moneyline")), funs(if_else(. != "--", as.numeric(.), NA_real_))) %>% 
-      select(-idx)
-    data
-  }
-
-.parse_odds_nba_tr <-
-  function(req) {
-    mods <- .parse_odds_xxx_tr(req)
-    data <-
-      tibble(idx = 1L:length(mods)) %>% 
-      mutate(data_parsed = 
-               map(idx,
-                   ~.parse_odds_nfl_tr_bygame(data_raw = mods, idx = .x))) %>% 
+                   ~.parse_odds_sport_tr_bygame(data_raw = mods, idx = .x))) %>% 
       unnest(data_parsed) %>% 
       mutate_at(vars(matches("spread|total|moneyline")), funs(if_else(. != "--", as.numeric(.), NA_real_))) %>% 
       select(-idx)
@@ -238,12 +208,12 @@
 get_odds_nfl_tr <-
   function(...) {
     req <- .request_odds_nfl_tr(...)
-    .parse_odds_nfl_tr(req)
+    .parse_odds_sport_tr(req)
   }
 
 get_odds_nba_tr <-
   function(...) {
     req <- .request_odds_nba_tr(...)
-    .parse_odds_nba_tr(req)
+    .parse_odds_sport_tr(req)
   }
 

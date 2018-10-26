@@ -1,4 +1,7 @@
 
+
+odds_tr_exist <- import_odds_tr()
+
 .wk <- 8L
 .wk_lag1 <- .wk - 1L
 
@@ -9,8 +12,6 @@ scores_lag1_trim <-
   select(tm_home, tm_away, pts_home, pts_away)
 scores_lag1_trim
 scores_lag1_trim %>% teproj::export_path(config$path_scores_lag1_nfl_temp)
-
-odds_tr_exist <- import_odds_tr()
 
 odds_tr_lag1_close <-
   odds_tr_exist %>% 
@@ -28,7 +29,7 @@ odds_tr_lag1_close_trim %>% teproj::export_path(config$path_odds_lag1_nfl_temp)
 
 odds_tr_open <-
   odds_tr_exist %>%
-  filter(wk == .wk - 1L) %>%
+  filter(wk == .wk) %>%
   mutate(gm = sprintf("%sv%s", tm_home, tm_away)) %>%
   filter(!is.na(spread_home) & !is.na(total)) %>%
   group_by(gm) %>%
@@ -48,8 +49,8 @@ odds_tr_open_trim <-
   select(tm_home, tm_away, spread_home, total, timestamp_scrape)
 odds_tr_open_trim %>% teproj::export_path(config$path_odds_nfl_temp)
 
-# Or...
-.download <- FALSE
-odds_fl_open <- do_get_odds_latest_nfl_fl(download = .download)
-odds_fl_open
+# # Or...
+# .download <- FALSE
+# odds_fl_open <- do_get_odds_latest_nfl_fl(download = .download)
+# odds_fl_open
 

@@ -1,5 +1,5 @@
 default:
-  path_odds_nfl_tr: "data/odds-nfl-tr.sqlite"
+  path_odds_tr: "data/odds-tr.sqlite"
   overwrite: false
   file_db_nfl: "db_nfl"
   file_db_nba: "db_nba"

@@ -116,7 +116,6 @@
       mutate(!!col := as.integer(val))
   }
 
-# TODO: UPdate these functions to use .data_source!
 # NOTE: I think I want to NOT use this function. Instead,
 # the timeperiod columns should be added given a `tibble` with `season` and `wk` columns.
 .add_timeperiod_cols_nfl <-

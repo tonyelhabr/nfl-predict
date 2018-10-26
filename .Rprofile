@@ -30,5 +30,5 @@ config <- config::get()
 
 import_nfl_tm()
 import_nfl_game_result()
-# import_nba_tm()
+import_nba_tm()
 
