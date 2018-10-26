@@ -83,6 +83,17 @@
     )
   }
 
+.request_odds_nba_tr <-
+  function(league = "nba",
+           season_id = 216,
+           ...) {
+    .request_odds_tr(
+      league = league,
+      season_id = season_id,
+      ...
+    )
+  }
+
 # req_h <-
 #   req_t %>%
 #   str_split("\r\n") %>% 
@@ -160,10 +171,27 @@
         total = totals,
         moneyline_home = moneylines_home,
         moneyline_away = moneylines_away
-      )#  %>% 
-      # mutate_at(vars(matches("spread|total|moneyline")), funs(if_else(. != "--", as.numeric(.), NA_real_)))
-    # browser()
+      )
+    
+    # gms %>% 
+    #   mutate_at(vars(matches("spread|total|moneyline")), funs(if_else(. != "--", as.numeric(.), NA_real_)))
     gms
+  }
+
+.parse_odds_xxx_tr <-
+  function(req) {
+    # stopifnot(class(req) == "response")
+    txt <-
+      req %>%
+      httr::content(as = "text")
+    
+    html <-
+      txt %>% 
+      xml2::read_html()
+    
+    mods <-
+      html %>% 
+      rvest::html_nodes(".module")
   }
 
 .parse_odds_nfl_tr <-
@@ -193,9 +221,29 @@
     data
   }
 
+.parse_odds_nba_tr <-
+  function(req) {
+    mods <- .parse_odds_xxx_tr(req)
+    data <-
+      tibble(idx = 1L:length(mods)) %>% 
+      mutate(data_parsed = 
+               map(idx,
+                   ~.parse_odds_nfl_tr_bygame(data_raw = mods, idx = .x))) %>% 
+      unnest(data_parsed) %>% 
+      mutate_at(vars(matches("spread|total|moneyline")), funs(if_else(. != "--", as.numeric(.), NA_real_))) %>% 
+      select(-idx)
+    data
+  }
+
 get_odds_nfl_tr <-
   function(...) {
     req <- .request_odds_nfl_tr(...)
     .parse_odds_nfl_tr(req)
+  }
+
+get_odds_nba_tr <-
+  function(...) {
+    req <- .request_odds_nba_tr(...)
+    .parse_odds_nba_tr(req)
   }
 
