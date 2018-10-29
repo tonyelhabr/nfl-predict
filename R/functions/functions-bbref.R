@@ -4,7 +4,7 @@
   "https://www.basketball-reference.com/leagues/NBA_%s_games-%s.html"
 
 .get_grid_url_schedule_nba_bbref <-
-  function(season = config::get()$season_current_nba, ...) {
+  function(season = config$season_current_nba, ...) {
     grid <-
       expand.grid(
         season = season + 1L,
@@ -80,7 +80,7 @@
   }
 
 do_get_schedule_nba_bbref <-
-  function(season = config::get()$season_current_nba,
+  function(season = config$season_current_nba,
            ...,
            .arrange = FALSE) {
     grid <-

@@ -369,7 +369,7 @@ do_get_odds_nfl_fl1 <-
            download = ifelse(!is.null(path) &&
                                file.exists(path), FALSE, TRUE),
            .arrange = TRUE,
-           season = config::get()$season_current_nfl) {
+           season = config$season_current_nfl) {
     # html <- xml2::read_html(url)
     if (is.null(path)) {
       path <- ..get_path_nfl_fl(url)
@@ -416,10 +416,10 @@ do_get_odds_latest_nfl_fl <-
 # do-historical ----
 do_get_odds_nfl_fl <-
   function(wk,
-           season = config::get()$season_current_nfl,
+           season = config$season_current_nfl,
            seasontype = 2L,
            ...,
-           .arrange = ifelse(season == config::get()$season_current_nfl, TRUE, FALSE)) {
+           .arrange = ifelse(season == config$season_current_nfl, TRUE, FALSE)) {
     res <-
       .preprocess_do_get_odds_nfl_fl(...)
     
@@ -446,12 +446,12 @@ do_get_odds_nfl_fl <-
   }
 
 do_get_odds_season_nfl_fl <-
-  function(season = (config::get()$season_current_nfl - 1L),
+  function(season = (config$season_current_nfl - 1L),
            ...,
            seasontype = 1L:3L,
            wk = 1L:17L,
            .arrange = FALSE) {
-    if(any(season == config::get()$season_current_nfl)) {
+    if(any(season == config$season_current_nfl)) {
       msg <- paste0(
         "This probably isn't going to work. Functionality to handle games in the current season ",
         "that are not in the current week has not yet been implemented. ",
@@ -470,7 +470,7 @@ do_get_odds_season_nfl_fl <-
 
 .SEASON_MIN_FL <- 2006L
 do_get_odds_all_nfl_fl <-
-  function(season = .SEASON_MIN_FL:(config::get()$season_current_nfl - 1L),
+  function(season = .SEASON_MIN_FL:(config$season_current_nfl - 1L),
            ...) {
     do_get_odds_season_nfl_fl(season = season, ...)
   }

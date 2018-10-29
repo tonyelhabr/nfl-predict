@@ -1,14 +1,15 @@
 default:
   path_odds_tr: "data/odds-tr.sqlite"
   overwrite: false
+  local: true
   file_db_nfl: "db_nfl"
   file_db_nba: "db_nba"
   key_db_nfl: "1bEMxcK0ULiHEltOMp_SqZYNZiILwVhlawCHVEe3mYkc" # googlesheets::gs_title(config$file_db_nfl)$sheet_key
   key_db_nba: "1zBLbpp-LHkdiCnjsTLfPG12RY-42txALZHG7jSekmp0" # googlesheets::gs_title(config$file_db_nba)$sheet_key
+  path_db_sports_local: "data-raw/db_sports.xlsx"
   ws_nfl_tm: "nfl_tm"
   ws_nba_tm: "nba_tm"
   ws_nfl_game_result: "nfl_game_result"
-  ws_nba_game_result: "nba_game_result"
   season_current_nfl: 2018
   season_current_nba: 2018
   

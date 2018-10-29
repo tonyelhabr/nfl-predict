@@ -77,7 +77,7 @@
   }
 
 do_get_wintotals_nfl_sportsoddshistory <-
-  function(season = config::get()$season_current_nfl, ...) {
+  function(season = config$season_current_nfl, ...) {
     .f_possibly <-
       purrr::possibly(.get_wintotals_nfl_sportsoddshistory, otherwise = tibble())
     res <-

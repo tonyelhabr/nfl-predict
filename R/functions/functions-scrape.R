@@ -119,8 +119,8 @@
 # NOTE: I think I want to NOT use this function. Instead,
 # the timeperiod columns should be added given a `tibble` with `season` and `wk` columns.
 .add_timeperiod_cols_nfl <-
-  function(data, ..., .season = config::get()$season_current_nfl, .data_source = import_nfl_game_result()) {
-    if(.season != config::get()$season_current_nfl) {
+  function(data, ..., .season = config$season_current_nfl, .data_source = import_nfl_game_result()) {
+    if(.season != config$season_current_nfl) {
       stop("Not currently implemented.", call. = FALSE)
     }
     
@@ -141,7 +141,7 @@
 # NOTE: This is a hard-coded value that doesn't need to be known by the user.
 .SEASON_MIN_TONY <- 2012L
 .arrange_gm_nfl <-
-  function(data, ..., .season = config::get()$season_current_nfl, .data_source = import_nfl_game_result()) {
+  function(data, ..., .season = config$season_current_nfl, .data_source = import_nfl_game_result()) {
     # NOTE: Not sure what is the most "correct" way of getting the minimum season value.
 
     if("season" %in% names(data)) {

@@ -5,6 +5,13 @@ odds_nfl_tr_exist <- import_odds_nfl_tr()
 odds_nba_tr_exist <- import_odds_nba_tr()
 odds_nfl_tr_exist %>% 
   arrange(desc(timestamp_scrape))
+conn <- get_db_conn_odds_tr()
+# DBI::dbRemoveTable(conn = conn, name = "odds_nba_tr")
+odds_nba_tr_exist %>%
+  mutate(id_record = row_number()) %>% 
+  mutate(timestamp_record = timestamp_scrape) %>% 
+  insert_into_db(conn = conn, table = "odds_nba_tr", overwrite = TRUE)
+
 .wk <- 2
 odds_tr_lag1 <-
   odds_nfl_tr_exist %>% 

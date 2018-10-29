@@ -43,7 +43,7 @@
 #   }
 # 
 # do_get_odds_nfl_espn <-
-#   function(wk, season = config::get()$season_current_nfl, seasontype = 2L, ..., .arrange = TRUE) {
+#   function(wk, season = config$season_current_nfl, seasontype = 2L, ..., .arrange = TRUE) {
 #     data_raw <-
 #       .preprocess_do_get_xxx_nfl_espn(
 #         wk = wk,
