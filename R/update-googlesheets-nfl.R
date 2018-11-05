@@ -2,7 +2,7 @@
 
 odds_nfl_tr_exist <- import_odds_nfl_tr()
 
-.wk <- 9L
+.wk <- 10L
 .wk_lag1 <- .wk - 1L
 
 # undebug(do_get_scores_nfl_espn)
@@ -29,7 +29,7 @@ odds_nfl_tr_lag1_close_trim %>% teproj::export_path(config$path_odds_lag1_nfl_te
 
 odds_nfl_tr_open <-
   odds_nfl_tr_exist %>%
-  filter(wk == .wk - 1L) %>%
+  filter(wk == .wk) %>%
   mutate(gm = sprintf("%sv%s", tm_home, tm_away)) %>%
   filter(!is.na(spread_home) & !is.na(total)) %>%
   group_by(gm) %>%

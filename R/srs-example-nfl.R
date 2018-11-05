@@ -1,16 +1,13 @@
 
-path <- file.path("data-raw", "srs-example.csv")
-data_raw <-
-  path %>% 
-  teproj::import_path_cleanly()
-data_raw
-
+config$local <- FALSE
 # nfl_game_result <- import_nfl_game_result()
+rm("nfl_game_result")
+nfl_game_result <- .import_nfl_gs_sheet(ws = "nfl_game_result")
 nfl_game_result
 data_raw <-
   nfl_game_result %>%
   filter(season == 2018L) %>% 
-  filter(timeperiod == "rs") %>% 
+  filter(wk < 9) %>% 
   filter(!is.na(pts_home) & !is.na(pts_away)) %>% 
   select(tm_home, tm_away, pts_home, pts_away)
 data_raw
@@ -25,7 +22,7 @@ tm
     .tm <- tm
     data %>%
       filter(tm_home == .tm | tm_away == .tm) %>%
-      mutate(is_tm_home = if_else(tm_home == tm, TRUE, FALSE)) %>%
+      mutate(is_tm_home = if_else(tm_home == .tm, TRUE, FALSE)) %>%
       mutate(
         tm1 = if_else(is_tm_home, tm_home, tm_away),
         tm2 = if_else(is_tm_home, tm_away, tm_home)
@@ -43,7 +40,10 @@ tm_pd <-
   unnest() %>% 
   group_by(tm1) %>% 
   mutate(n_frac = 1 / n()) %>% 
-  select(tm1, tm2, pts_diff, n_frac)
+  select(tm1, tm2, pts_diff, n_frac) %>% 
+  group_by(tm1, tm2) %>% 
+  summarise_at(vars(pts_diff, n_frac), funs(sum)) %>% 
+  ungroup()
 tm_pd
 
 tm_pd_summ <-
@@ -103,7 +103,7 @@ b
 # method 1 ----
 # x <- solve(a, b)
 # x <- solve(pracma::rref(a), b)
-x_1 <- solve(a, b, tol = 1e-19)
+x_1 <- solve(a, b, tol = 1e-22)
 x_1
 
 .convert_srs_mat_to_tibble <-
@@ -175,9 +175,8 @@ srs_1 %>% arrange(desc(value))
 srs_1 %>% arrange(value)
 
 srs_cbind <-
-  srs_1 %>% 
-  rename(value1 = value) %>% 
   left_join(
+    srs_1 %>% rename(value1 = value),
     srs_2 %>% rename(value2 = value)
   ) %>% 
   left_join(
@@ -192,6 +191,11 @@ srs_cbind %>%
   select_if(is.numeric) %>% 
   corrr::correlate()
 
+srs_final <-
+  srs_cbind %>%
+  select(-value1) %>% 
+  arrange(desc(value2 + value3))
+srs_final
 
 # # checking `solve()` ----
 # .a <- matrix(c(3L, 1L, 1L, 2L), byrow = TRUE, nrow = 2L)
