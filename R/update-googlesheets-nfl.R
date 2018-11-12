@@ -2,7 +2,7 @@
 
 odds_nfl_tr_exist <- import_odds_nfl_tr()
 
-.wk <- 10L
+.wk <- 11L
 .wk_lag1 <- .wk - 1L
 
 # undebug(do_get_scores_nfl_espn)
