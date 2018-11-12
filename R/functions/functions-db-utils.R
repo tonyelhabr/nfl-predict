@@ -69,25 +69,7 @@
     )
   }
 
-add_timestamp_scrape_cols_at <-
-  function(data, col = "timestamp_scrape") {
-    stopifnot(is.data.frame(data))
-    stopifnot(is.character(col), length(col) == 1, col %in% names(data))
-    # cls <- data %>% pull(!!sym(col)) %>% class()
-    # stopifnot(cls == "POSIXct")
-    stopifnot(data %>% pull(!!sym(col)) %>% lubridate::is.POSIXct())
-    data %>%
-      mutate(
-        year_scrape = lubridate::year(timestamp_scrape),
-        month_scrape = lubridate::month(timestamp_scrape),
-        day_scrape = lubridate::day(timestamp_scrape),
-        hour_scrape = lubridate::hour(timestamp_scrape),
-        minute_scrape = lubridate::minute(timestamp_scrape),
-        second_scrape = lubridate::second(timestamp_scrape)
-      )
-  }
-
-get_distinct12_at <-
+.get_distinct12_at <-
   function(data, col, prefix = NULL, suffix = NULL) {
     
     stopifnot(is.data.frame(data))
@@ -125,11 +107,29 @@ get_distinct12_at <-
 
 get_distinct_tms_at <-
   function(data, col = "tm", suffix = c("_away", "_home")) {
-    get_distinct12_at(
+    .get_distinct12_at(
       data = data,
       col = col,
       suffix = suffix
     )
+  }
+
+.add_timestamp_scrape_cols_at <-
+  function(data, col = "timestamp_scrape") {
+    stopifnot(is.data.frame(data))
+    stopifnot(is.character(col), length(col) == 1, col %in% names(data))
+    # cls <- data %>% pull(!!sym(col)) %>% class()
+    # stopifnot(cls == "POSIXct")
+    stopifnot(data %>% pull(!!sym(col)) %>% lubridate::is.POSIXct())
+    data %>%
+      mutate(
+        year_scrape = lubridate::year(timestamp_scrape),
+        month_scrape = lubridate::month(timestamp_scrape),
+        day_scrape = lubridate::day(timestamp_scrape),
+        hour_scrape = lubridate::hour(timestamp_scrape),
+        minute_scrape = lubridate::minute(timestamp_scrape),
+        second_scrape = lubridate::second(timestamp_scrape)
+      )
   }
 
 distinctify_data_at <-
@@ -153,7 +153,7 @@ distinctify_data_at <-
     
     data_aug <-
       data %>%
-      add_timestamp_scrape_cols_at(col = col)
+      .add_timestamp_scrape_cols_at(col = col)
     
     cols_fcts_sliced <-
       data_aug %>% 
