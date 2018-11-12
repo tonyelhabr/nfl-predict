@@ -6,4 +6,4 @@
 .httr-oauth
 **.log
 **.ipynb_checkpoints/
-data/temp/
+data/temp/*
