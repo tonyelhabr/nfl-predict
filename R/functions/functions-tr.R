@@ -202,6 +202,14 @@
       unnest(data_parsed) %>% 
       mutate_at(vars(matches("spread|total|moneyline")), funs(if_else(. != "--", as.numeric(.), NA_real_))) %>% 
       select(-idx)
+    data %>%
+      filter(is.na(spread_home) | is.na(total) | is.na(moneyline)) %>% 
+      mutate(
+        dummy = pwalk(
+          list(tm_away, tm_home, wk, season), 
+                      ~message(sprintf("Missing odds data for %s @ %s, week %d, %d.", ..1, ..2, ..3, ..4))
+          )
+      )
     data
   }
 
