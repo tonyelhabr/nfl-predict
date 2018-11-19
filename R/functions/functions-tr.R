@@ -180,7 +180,7 @@
   }
 
 .parse_odds_sport_tr <-
-  function(req) {
+  function(req, ..., verbose = TRUE) {
     # stopifnot(class(req) == "response")
     txt <-
       req %>%
@@ -194,22 +194,32 @@
       html %>% 
       rvest::html_nodes(".module")
 
-    data <-
-      tibble(idx = 1L:length(mods)) %>% 
-      mutate(data_parsed = 
-               map(idx,
-                   ~.parse_odds_sport_tr_bygame(data_raw = mods, idx = .x))) %>% 
-      unnest(data_parsed) %>% 
-      mutate_at(vars(matches("spread|total|moneyline")), funs(if_else(. != "--", as.numeric(.), NA_real_))) %>% 
-      select(-idx)
-    data %>%
-      filter(is.na(spread_home) | is.na(total) | is.na(moneyline)) %>% 
-      mutate(
-        dummy = pwalk(
-          list(tm_away, tm_home, wk, season), 
-                      ~message(sprintf("Missing odds data for %s @ %s, week %d, %d.", ..1, ..2, ..3, ..4))
-          )
-      )
+    suppressWarnings(
+      data <-
+        tibble(idx = 1L:length(mods)) %>% 
+        mutate(data_parsed = 
+                 map(idx,
+                     ~.parse_odds_sport_tr_bygame(data_raw = mods, idx = .x))) %>% 
+        unnest(data_parsed) %>% 
+        mutate_at(vars(matches("spread|total|moneyline")), funs(if_else(. != "--", as.numeric(.), NA_real_))) %>% 
+        select(-idx)
+    )
+    
+    # if(verbose) {
+    #   data_filt <-
+    #     data %>%
+    #     filter(is.na(spread_home) | is.na(total) | is.na(moneyline_home) | is.na(moneyline_away))
+    #   
+    #   if(nrow(data_filt) > 0L) {
+    #     msg_format <- "Missing odds data for %s @ %s on %s."
+    #     data_filt %>% 
+    #       mutate(
+    #         msg = purrr::pwalk(list(tm_away, tm_home, date),~sprintf(msg_format, ..1, ..2, ..3))
+    #       ) %>% 
+    #       pull(msg) %>%
+    #       purrr::walk(message)
+    #   }
+    # }
     data
   }
 
