@@ -15,6 +15,9 @@ rm("path_r_profile")
 
 suppressWarnings(suppressPackageStartupMessages(library("tidyverse")))
 suppressWarnings(suppressPackageStartupMessages(library("rlang")))
+suppressWarnings(suppressPackageStartupMessages(library("teplot")))
+
+config <- config::get()
 
 paths_funcs <-
   list.files(
@@ -26,9 +29,9 @@ paths_funcs <-
 invisible(sapply(paths_funcs, source))
 rm("paths_funcs")
 
-config <- config::get()
-
-import_nfl_tm()
-import_nfl_game_result()
-import_nba_tm()
+if(interactive()) {
+  import_nfl_tm()
+  import_nfl_game_result()
+  import_nba_tm()
+}
 

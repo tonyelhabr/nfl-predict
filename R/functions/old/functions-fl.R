@@ -274,7 +274,7 @@
     .recode_tm_cols_nfl_cautiously_at(data = data, col = col, ...)
   }
 
-.finalize_odds_nfl_fl <-
+.postprocess_odds_nfl_fl <-
   function(data, ..., .arrange = TRUE, .season) {
     res <-
       data %>%
@@ -350,7 +350,7 @@
       mutate(data = purrr::map2(
         data,
         season,
-        ~ .finalize_odds_nfl_fl(
+        ~ .postprocess_odds_nfl_fl(
           data = .x,
           season = .y,
           .arrange = .arrange,
@@ -395,9 +395,9 @@ do_get_odds_nfl_fl1 <-
       ) %>% 
       .do_clean_odds_nfl_fl(...) %>%
       select(-wk) %>% 
-      .finalize_odds_nfl_fl(.arrange = .arrange, season = season, ...)
+      .postprocess_odds_nfl_fl(.arrange = .arrange, season = season, ...)
     
-    # NOTE: `wk` may be added back in after joining in `.finalize_odds_nfl_fl()`.
+    # NOTE: `wk` may be added back in after joining in `.postprocess_odds_nfl_fl()`.
     # If this is the case, reorder the columns
     if("wk" %in% names(res)) {
       res <-
@@ -439,7 +439,7 @@ do_get_odds_nfl_fl <-
       filter(season %in% .season) %>% 
       filter(seasontype %in% .seasontype) %>% 
       filter(wk %in% .wk) %>% 
-      .finalize_odds_nfl_fl(season = season, .arrange = .arrange, ...) %>% 
+      .postprocess_odds_nfl_fl(season = season, .arrange = .arrange, ...) %>% 
       select(-path) %>%
       arrange(season, seasontype, wk, date, time, tm_home, tm_away)
     

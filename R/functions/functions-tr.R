@@ -185,7 +185,13 @@
     txt <-
       req %>%
       httr::content(as = "text")
-    
+    if(is.null(txt)) {
+      if(verbose) {
+        msg <- "Returning nothing. (No games today?)"
+        message(msg)
+      }
+      return(NULL)
+    }
     html <-
       txt %>% 
       xml2::read_html()
@@ -194,17 +200,30 @@
       html %>% 
       rvest::html_nodes(".module")
 
+    # TODO: Use `purrr::possibly()` here?
     suppressWarnings(
       data <-
         tibble(idx = 1L:length(mods)) %>% 
-        mutate(data_parsed = 
-                 map(idx,
-                     ~.parse_odds_sport_tr_bygame(data_raw = mods, idx = .x))) %>% 
+        mutate(
+          data_parsed = 
+            purrr::map(idx,
+                       ~.parse_odds_sport_tr_bygame(data_raw = mods, idx = .x)
+            )
+        )
+    )
+    
+    suppressWarnings(
+      data <-
+        data  %>% 
         unnest(data_parsed) %>% 
-        mutate_at(vars(matches("spread|total|moneyline")), funs(if_else(. != "--", as.numeric(.), NA_real_))) %>% 
+        mutate_at(
+          vars(matches("spread|total|moneyline")), 
+          funs(if_else(. != "--", as.numeric(.), NA_real_))
+        ) %>% 
         select(-idx)
     )
     
+    # TODO: Make this work.
     # if(verbose) {
     #   data_filt <-
     #     data %>%
@@ -223,15 +242,155 @@
     data
   }
 
-get_odds_nfl_tr <-
-  function(...) {
-    req <- .request_odds_nfl_tr(...)
-    .parse_odds_sport_tr(req)
+.get_odds_sport_tr <-
+  function(..., f_request, f_parse = NULL, verbose = TRUE) {
+    f_request_possibly <- purrr::possibly(f_request, otherwise = NULL)
+    res <- f_request_possibly(...)
+    if(is.null(res)) {
+      if(verbose) {
+        msg <- "Something went wrong."
+        message(msg)
+      }
+      return(NULL)
+    }
+    if(!is.null(f_parse)) {
+      res <- res %>% f_parse(...)
+    }
+    res
   }
 
-get_odds_nba_tr <-
+.get_odds_nfl_tr <-
   function(...) {
-    req <- .request_odds_nba_tr(...)
-    .parse_odds_sport_tr(req)
+    .get_odds_sport_tr(
+      f_request = f_request,
+      f_parse = f_parse,
+      ...
+    )
   }
+
+.get_odds_nba_tr <-
+  function(...) {
+    .get_odds_sport_tr(
+      f_request = f_request,
+      f_parse = f_parse,
+      ...
+    )
+  }
+
+.fix_tm_col_sport_tr_at <-
+  function(data,
+           col,
+           ...,
+           col_suffix = c("home", "away"),
+           col_prefix = "tm_",
+           col_tr = "tm_name_tr",
+           .data_source) {
+    col_tr_sym <- sym(col_tr)
+    
+    tm_trim <-
+      .data_source %>%
+      filter(status == 1L) %>%
+      select(tm, !!col_tr_sym)
+    
+    if(missing(col)) {
+      col_suffix <- match.arg(col_suffix)
+      col <- paste0(col_prefix, col_suffix)
+    }
+    col_sym <- sym(col)
+    col_tr_new <- paste0(col, "_tr")
+    col_tr_new_sym <- sym(col_tr_new)
+    
+    col_names_orig <- names(data)
+    n_col_orig <- length(col_names_orig)
+    idx_col <- match(col, names(data))
+    seq_cols <- c(1:idx_col, (n_col_orig + 1), (idx_col + 1):n_col_orig)
+    
+    # browser()
+    # NOTE: Not sure why, but can't use `col` in join clause.
+    data %>%
+      rename(!!col_tr_sym := !!col_sym) %>%
+      inner_join(tm_trim, by = col_tr) %>%
+      rename(!!col_sym := tm, !!col_tr_new_sym := !!col_tr_sym) %>%
+      # select(-!!col_tr_sym)
+      select(seq_cols)
+  }
+
+.fix_tm_cols_sport_tr_at <-
+  function(data, ..., .data_source) {
+    data %>%
+      .fix_tm_col_sport_tr_at(col_suffix = "home", .data_source = .data_source, ...) %>% 
+      .fix_tm_col_sport_tr_at(col_suffix = "away", .data_source = .data_source, ...)
+  }
+
+.fix_tm_cols_nfl_tr_at <-
+  purrr::partial(.fix_tm_cols_sport_tr_at, .data_source = import_nfl_tm())
+
+.fix_tm_cols_nba_tr_at <-
+  purrr::partial(.fix_tm_cols_sport_tr_at, .data_source = import_nba_tm())
+
+.postprocess_odds_nba_tr <-
+  function(data, ...) {
+    data %>%
+      .fix_tm_cols_nba_tr_at(...) %>%
+      .add_timeperiod_cols_nba(...) %>%
+      .reorder_cols_nba_at(...)
+  }
+
+.postprocess_odds_nfl_tr <-
+  function(data, ...) {
+    data %>%
+      .fix_tm_cols_nfl_tr_at(...) %>%
+      .add_timeperiod_cols_nfl(...) %>%
+      .reorder_cols_nfl_at(...) %>% 
+      .add_scrape_cols_at(...)
+  }
+
+.postprocess_odds_nba_tr <-
+  function(data, ...) {
+    data %>%
+      .fix_tm_cols_nba_tr_at(...) %>%
+      # .add_timeperiod_cols_nba(...) %>%
+      .reorder_cols_nba_at(...) %>% 
+      .add_scrape_cols_at(...)
+  }
+
+.do_get_odds_sport_tr <-
+  function(..., f_get, f_postprocess = NULL, verbose = TRUE) {
+    f_get_possibly <- purrr::possibly(f_get, otherwise = NULL)
+    res <- f_get_possibly(...)
+    if(is.null(res)) {
+      if(verbose) {
+        msg <- "Something went wrong."
+        message(msg)
+      }
+      return(NULL)
+    }
+    if(!is.null(f_postprocess)) {
+      res <- res %>% f_postprocess(...)
+    }
+    res
+  }
+
+do_get_odds_nfl_tr <-
+  function(...,
+           f_get = .get_odds_nfl_tr,
+           f_postprocess = .postprocess_odds_nfl_tr) {
+    .do_get_odds_sport_tr(
+      f_get = f_get,
+      f_postprocess = f_postprocess,
+      ...
+    )
+  }
+
+do_get_odds_nba_tr <-
+  function(...,
+           f_get = .get_odds_nba_tr,
+           f_postprocess = .postprocess_odds_nba_tr) {
+    .do_get_odds_sport_tr(
+      f_get = f_get,
+      f_postprocess = f_postprocess,
+      ...
+    )
+  }
+
 

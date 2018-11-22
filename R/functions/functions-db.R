@@ -18,7 +18,7 @@ create_table <-
       ...
     )
   }
-    
+
 .var_not_sqlite_compatible <-
   function(x) {
     !is.character(x) & !is.numeric(x)
@@ -51,19 +51,37 @@ insert_into_db <-
            add_record_cols = TRUE,
            col_timestamp = "timestamp_record",
            col_id = "id_record",
-           timestamp = format(Sys.time(), "%F %X")) {
+           timestamp = format(Sys.time(), "%F %X"),
+           verbose = TRUE) {
     # if(missing(get_db_conn)) {
     #   conn <- get_db_conn()
     # }
     # browser()
+    if(is.null(data)) {
+      if(verbose) {
+        msg <- "Not inserting into db because `data` is `NULL`."
+        message(msg)
+      }
+      return(data)
+    }
     e <- DBI::dbExistsTable(con = conn, name = table)
     if(!e) {
       if(overwrite) {
-        msg <- sprintf("No table %s exists. Creating it.", table)
-        message(msg)
+        if(verbose) {
+          msg <- sprintf("No table %s exists. Creating it.", table)
+          message(msg)
+        }
       } else {
-        msg <- sprintf("No table %s exists. Do you mean to create it? (Set `overwrite = TRUE` to create it.)", table)
-        warning(msg, call. = FALSE)
+        if(verbose) {
+          msg <-
+            sprintf(
+              paste0(
+                "No table %s exists. ",
+                "Do you mean to create it? (Set `overwrite = TRUE` to create it.)"
+              ), table
+            )
+          message(msg)
+        }
         return(NULL)
       }
     }
@@ -72,9 +90,10 @@ insert_into_db <-
       # NOTE: Moved this from outside the `overwrite` clause so it is done no matter what.
       path_db <- conn@dbname
       path_db_backup <- .create_backup(path = path_db)
-      # msg <- sprintf("Backing up database as %s as a precaution for overwriting a table.", path_db_backup)
-      msg <- sprintf("Backing up database as %s as a precaution.", path_db_backup)
-      message(msg)
+      if(verbose) {
+        msg <- sprintf("Backing up database as %s as a precaution.", path_db_backup)
+        message(msg)
+      }
     }
     
     if(!overwrite) {
@@ -111,7 +130,7 @@ insert_into_db <-
           mutate(!!col_id := val_id_max + row_number())
       }
     } else {
-
+      
       if(add_record_cols) {
         if(e) {
           data_read <-
@@ -125,7 +144,7 @@ insert_into_db <-
         }
       }
     }
-
+    
     
     data <-
       data %>%
@@ -163,7 +182,7 @@ read_from_db <-
       conn = conn,
       name = table
     ) %>% 
-    as_tibble()
+      as_tibble()
   }
 
 # TODO: `remove_from_db()`?
