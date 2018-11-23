@@ -1,14 +1,27 @@
 
-
 odds_nfl_tr_exist <- import_odds_nfl_tr()
+nfl_tm <- import_nfl_tm()
+
+odds_nba_tr_exist <- import_odds_nba_tr()
+nba_tm <- import_nba_tm()
+
+tm <-
+  bind_rows(
+    nfl_tm %>% filter(status == 1L) %>% select(tm, tm_name_full),
+    nba_tm %>% select(tm, tm_name_full)
+  )
 
 tm_colors <-
   teamcolors::teamcolors %>%
   as_tibble() %>%
-  filter(league == "nfl") %>%
-  left_join(nfl_tm %>%
-              select(tm, tm_name_full),
-            by = c("name" = "tm_name_full"))
+  # filter(league == "nfl") %>%
+  inner_join(
+    tm %>%
+      select(tm, tm_name_full),
+    by = c("name" = "tm_name_full")
+  )
+tm_colors
+stopifnot(nrow(tm_colors) == 62L)
 
 odds_nfl_tr_viz <-
   odds_nfl_tr_exist %>%
@@ -19,14 +32,16 @@ odds_nfl_tr_viz <-
   inner_join(tm_colors %>% select(tm_home = tm, color_home = primary)) %>%
   inner_join(tm_colors %>% select(tm_away = tm, color_away = primary)) %>%
   mutate_at(vars(wk), funs(sprintf("Week %02d", .))) %>%
-  select(timestamp_scrape,
-         season,
-         wk,
-         gm,
-         color_home,
-         color_away,
-         metric,
-         value)
+  select(
+    timestamp_scrape,
+    season,
+    wk,
+    gm,
+    color_home,
+    color_away,
+    metric,
+    value
+  )
 odds_nfl_tr_viz
 
 visualize_odds_nfl_tr <-
