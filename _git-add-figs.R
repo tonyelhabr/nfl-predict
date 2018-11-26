@@ -25,4 +25,4 @@ if(length(path_gitconfig) == 1L) {
 system('git status')
 system('git add figs/')
 system(sprintf('git commit -m "updating figs at "', Sys.time()))
-# system('git push -u origin master')
+system('git push -u origin master')

@@ -23,14 +23,73 @@ tm_colors <-
 tm_colors
 stopifnot(nrow(tm_colors) == 62L)
 
-odds_nfl_tr_viz <-
+# Reference: https://stackoverflow.com/questions/27594959/grouping-every-n-minutes-with-dplyr.
+.round_to_hour_at <-
+  function(data,
+           col_round,
+           col_value,
+           interval = 12L,
+           ...,
+           f_sum = NULL,
+           cols_grp = setdiff(names(data), col_value)) {
+    stopifnot(
+      is.data.frame(data)
+    )
+    stopifnot(
+      is.character(col_round),
+      is.character(col_value),
+      is.character(cols_grp)
+    )
+    stopifnot(is.integer(interval), interval < 24L, interval > 0L)
+    # f_sum <- match.arg(f_sum)
+    col_round_sym <- sym(col_round)
+    col_value_sym <- sym(col_value)
+    cols_grp_syms <- syms(cols_grp)
+    res <-
+      data %>%
+      mutate(
+        !!col_round_sym :=
+          lubridate::floor_date(!!col_round_sym, unit = "day") +
+          ((
+            floor(lubridate::hour(!!col_round_sym) / interval) * interval
+          ) %>%
+            as.integer() %>%
+            lubridate::hours())
+        
+      )
+    
+    if(!is.null(f_sum)) {
+      res <-
+        res %>% 
+        group_by(!!!cols_grp_syms) %>% 
+        summarise_at(vars(!!col_value_sym), funs(f_sum(., ...) %>% na_if(Inf))) %>% 
+        ungroup() 
+    }
+    res
+  }
+
+round_timestamp_scrape_tohour12 <-
+  purrr::partial(
+    .round_to_hour_at,
+    col_round = "timestamp_scrape",
+    col_value = "value",
+    interval = 12L,
+    f_sum = base::min,
+    na.rm = TRUE
+  )
+
+odds_nfl_tr_proc <-
   odds_nfl_tr_exist %>%
   gather(metric, value, matches("spread|total|moneyline")) %>%
   separate(metric, into = c("metric", "side"), sep = "_") %>%
   mutate(gm = sprintf("%s @ %s", tm_home, tm_away)) %>%
   filter(!str_detect(metric, "moneyline")) %>%
-  inner_join(tm_colors %>% select(tm_home = tm, color_home = primary)) %>%
-  inner_join(tm_colors %>% select(tm_away = tm, color_away = primary)) %>%
+  inner_join(
+    tm_colors %>% 
+      filter(league == "nfl") %>% 
+      select(tm_home = tm, color_home = primary)
+  ) %>%
+  # inner_join(tm_colors %>% select(tm_away = tm, color_away = primary)) %>%
   mutate_at(vars(wk), funs(sprintf("Week %02d", .))) %>%
   select(
     timestamp_scrape,
@@ -38,17 +97,34 @@ odds_nfl_tr_viz <-
     wk,
     gm,
     color_home,
-    color_away,
+    # color_away,
     metric,
     value
-  )
-odds_nfl_tr_viz
+  ) %>% 
+  distinct() %>% 
+  round_timestamp_scrape_tohour12() %>% 
+  arrange(timestamp_scrape)
+
+# # Debugging...
+# odds_nfl_tr_proc %>% 
+#   count(season, wk, gm, metric, sort = TRUE)
+
+wk_nfl_last <- 
+  odds_nfl_tr_proc %>% 
+  distinct(wk) %>% 
+  pull(wk) %>% 
+  sort() %>% 
+  rev() %>% 
+  pluck(1)
+wk_nfl_last
 
 visualize_odds_nfl_tr <-
   function(data,
            .metric = c("spread", "total"),
            ...,
-           add_hline = switch(.metric, spread = TRUE, total = FALSE)) {
+           add_hline = switch(.metric, spread = TRUE, total = FALSE),
+           date_breaks = "2 days",
+           legend.position = "none") {
     .metric <- match.arg(.metric)
     data_filt <-
       data %>%
@@ -65,13 +141,16 @@ visualize_odds_nfl_tr <-
     }
     viz <-
       viz +
-      scale_x_datetime(date_labels = "%a %I %p") +
+      scale_x_datetime(date_labels = "%a", date_breaks = date_breaks) +
       geom_line(aes(color = color_home, group = gm), size = 1) +
       scale_color_identity() +
-      facet_wrap(~ wk, scales = "free") +
+      facet_wrap(~ wk, scales = "free_x") +
       teplot::theme_te() +
-      theme(panel.grid.major = element_blank(),
-            legend.position = "none") +
+      theme(
+        # panel.grid.major = element_blank(),
+        # legend.position = legend.position,
+        axis.text.x = element_text(angle = 90)
+      ) +
       labs(
         title = sprintf("NFL Weekly %ss, 2018", str_to_title(.metric)),
         caption = "By Tony ElHabr. Data source: teamrankings.com",
@@ -81,7 +160,28 @@ visualize_odds_nfl_tr <-
     viz
   }
 
-.plotlify_viz_odds_nfl_tr <-
+viz_odds_nfl_tr_spread_last <-
+  odds_nfl_tr_proc %>%
+  filter(wk == wk_nfl_last) %>% 
+  visualize_odds_nfl_tr(
+    .metric = "spread",
+    legend.position = "bottom",
+    date_breaks = "12 hours"
+  )
+viz_odds_nfl_tr_spread_last
+
+viz_odds_nfl_tr_spread <-
+  odds_nfl_tr_proc %>%
+  visualize_odds_nfl_tr("spread")
+viz_odds_nfl_tr_spread
+
+viz_odds_nfl_tr_total <-
+  odds_nfl_tr_proc %>%
+  visualize_odds_nfl_tr("total")
+viz_odds_nfl_tr_total
+
+
+.plotlify_proc_odds_nfl_tr <-
   function(viz, ...) {
     stopifnot(all(c("gg", "ggplot") %in% class(viz)))
     viz %>%
@@ -120,7 +220,7 @@ export_as_plotly_widget <-
     if (file == ".") {
       message("`viz` should not be passed in with a pipe.")
     }
-    ly <- .plotlify_viz_odds_nfl_tr(viz, ...)
+    ly <- .plotlify_proc_odds_nfl_tr(viz, ...)
     .export_plotly_widget(ly, file = file)
   }
 
@@ -132,16 +232,6 @@ export_png <-
     width = 10, 
     height = 10
   )
-
-viz_odds_nfl_tr_spread <-
-  odds_nfl_tr_viz %>%
-  visualize_odds_nfl_tr("spread")
-viz_odds_nfl_tr_spread
-
-viz_odds_nfl_tr_total <-
-  odds_nfl_tr_viz %>%
-  visualize_odds_nfl_tr("total")
-viz_odds_nfl_tr_total
 
 export_png(viz_odds_nfl_tr_spread)
 export_png(viz_odds_nfl_tr_total)

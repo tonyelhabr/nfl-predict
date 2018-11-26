@@ -19,6 +19,38 @@ tm_colors <-
 #   select(tm, secondary) %>% 
 #   deframe()
 
+
+odds_nfl_tr_proc %>% count(metric, sort = TRUE)
+odds_nfl_tr_proc %>% 
+  distinct() %>% 
+  group_by_all() %>% 
+  count(sort = TRUE) %>% 
+  filter(n > 1)
+odds_nfl_tr_proc %>% 
+  distinct() %>% 
+  distinctify_data_at(unit = "day") %>% 
+  group_by_all() %>% 
+  count(sort = TRUE) %>% 
+  filter(n > 1)
+odds_nfl_tr_proc %>% 
+  distinct() %>% 
+  distinctify_data_at(unit = "day") %>% 
+  count(timestamp_scrape, wk, gm, sort = TRUE)
+
+odds_nfl_tr_proc %>% 
+  distinct() %>% 
+  spread(metric, value) %>% 
+  mutate(
+    timestamp_trunc = lubridate::floor_date(timestamp_scrape, unit = "hour")
+  ) %>% 
+  select(
+    timestamp_trunc,
+    everything()
+  ) %>% 
+  mutate(
+    timestamp_trunc = lubridate::floor_date(timestamp_trunc, unit = "day")
+  ) 
+
 .wk <- odds_nfl_tr_exist %>% tetidy::pull_distinctly(wk)
 # .wk <- c(1L:10L)
 data_filt <-

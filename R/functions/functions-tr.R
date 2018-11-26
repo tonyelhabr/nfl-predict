@@ -262,8 +262,8 @@
 .get_odds_nfl_tr <-
   function(...) {
     .get_odds_sport_tr(
-      f_request = f_request,
-      f_parse = f_parse,
+      f_request = .request_odds_nfl_tr,
+      f_parse = .parse_odds_sport_tr,
       ...
     )
   }
@@ -271,8 +271,8 @@
 .get_odds_nba_tr <-
   function(...) {
     .get_odds_sport_tr(
-      f_request = f_request,
-      f_parse = f_parse,
+      f_request = .request_odds_nba_tr,
+      f_parse = .parse_odds_sport_tr,
       ...
     )
   }
@@ -356,7 +356,8 @@
 
 .do_get_odds_sport_tr <-
   function(..., f_get, f_postprocess = NULL, verbose = TRUE) {
-    f_get_possibly <- purrr::possibly(f_get, otherwise = NULL)
+    # f_get_possibly <- purrr::possibly(f_get, otherwise = NULL)
+    f_get_possibly <- f_get
     res <- f_get_possibly(...)
     if(is.null(res)) {
       if(verbose) {

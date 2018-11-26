@@ -2,7 +2,7 @@
 
 odds_nfl_tr_exist <- import_odds_nfl_tr()
 
-.wk <- 12L
+.wk <- 13L
 .wk_lag1 <- .wk - 1L
 
 # undebug(do_get_scores_nfl_espn)
@@ -35,12 +35,6 @@ odds_nfl_tr_open <-
   group_by(gm) %>%
   filter(row_number(timestamp_scrape) == 1L) %>%
   ungroup() %>%
-  # right_join(
-  #   odds_nfl_tr_exist %>% 
-  #     filter(wk == .wk) %>% 
-  #     select(season, wk, tm_home, tm_away)
-  # ) %>%
-  # .reorder_cols_nfl_at() %>%
   .arrange_gm_nfl()
 odds_nfl_tr_open
 
