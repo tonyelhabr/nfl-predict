@@ -12,6 +12,10 @@ scores_lag1_trim <-
   select(tm_home, tm_away, pts_home, pts_away)
 scores_lag1_trim
 scores_lag1_trim %>% teproj::export_path(config$path_scores_lag1_nfl_temp)
+if(interactive()) {
+  file.show(config$path_scores_lag1_nfl_temp)
+}
+
 
 odds_nfl_tr_lag1_close <-
   odds_nfl_tr_exist %>% 
@@ -26,6 +30,7 @@ odds_nfl_tr_lag1_close_trim <-
   odds_nfl_tr_lag1_close %>% 
   select(tm_home, tm_away, spread_home, total, timestamp_scrape)
 odds_nfl_tr_lag1_close_trim %>% teproj::export_path(config$path_odds_lag1_nfl_temp)
+file.show(config$path_odds_lag1_nfl_temp)
 
 odds_nfl_tr_open <-
   odds_nfl_tr_exist %>%
@@ -42,5 +47,8 @@ odds_nfl_tr_open_trim <-
   odds_nfl_tr_open %>% 
   select(tm_home, tm_away, spread_home, total, timestamp_scrape)
 odds_nfl_tr_open_trim %>% teproj::export_path(config$path_odds_nfl_temp)
+if(interactive()) {
+  file.show(config$path_odds_nfl_temp)
+}
 
 
