@@ -35,6 +35,6 @@ if(interactive()) {
   import_nba_tm()
 }
 
-message(tibble:::op.tibble)
+# message(tibble:::op.tibble)
 # tibble:::tibble_opt("print_max")
-file.show("R/update-googlesheets-nfl.R")
+# file.show("R/update-googlesheets-nfl.R")
