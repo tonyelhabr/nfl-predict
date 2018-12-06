@@ -37,4 +37,4 @@ if(interactive()) {
 
 # message(tibble:::op.tibble)
 # tibble:::tibble_opt("print_max")
-# file.show("R/update-googlesheets-nfl.R")
+# file.edit("R/update-googlesheets-nfl.R")
