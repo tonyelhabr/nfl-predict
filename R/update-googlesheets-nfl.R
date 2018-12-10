@@ -2,7 +2,7 @@
 
 odds_nfl_tr_exist <- import_odds_nfl_tr()
 
-.wk <- 14L
+.wk <- 15L
 .wk_lag1 <- .wk - 1L
 
 # undebug(do_get_scores_nfl_espn)
@@ -38,7 +38,6 @@ teproj::export_path(
 if(interactive()) {
   file.show(config$path_odds_lag1_nfl_temp)
 }
-
 
 odds_nfl_tr_open <-
   odds_nfl_tr_exist %>%
