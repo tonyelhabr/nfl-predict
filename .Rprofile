@@ -33,8 +33,10 @@ if(interactive()) {
   import_nfl_tm()
   import_nfl_game_result()
   import_nba_tm()
+  # file.show("R/update-googlesheets-nfl.R")
 }
 
 # message(tibble:::op.tibble)
 # tibble:::tibble_opt("print_max")
-# file.edit("R/update-googlesheets-nfl.R")
+# file.show("R/update-googlesheets-nfl.R")
+# fs::file_show("R/update-googlesheets-nfl.R")
