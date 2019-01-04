@@ -2,7 +2,7 @@
 
 odds_nfl_tr_exist <- import_odds_nfl_tr()
 
-.wk <- 16L
+.wk <- 17L
 .wk_lag1 <- .wk - 1L
 
 # undebug(do_get_scores_nfl_espn)
@@ -21,7 +21,7 @@ if(interactive()) {
 
 odds_nfl_tr_lag1_close <-
   odds_nfl_tr_exist %>% 
-  filter(wk == .wk_lag1) %>% 
+  filter(wk == .wk) %>% 
   mutate(gm = sprintf("%sv%s", tm_home, tm_away)) %>% 
   group_by(gm) %>% 
   filter(row_number(desc(timestamp_scrape)) == 1L) %>% 
