@@ -30,7 +30,7 @@ sched_espn2 <-
     tm_away_name = teamNameAway
   )
 sched_espn2
-path_sched_espn2 <- file.path("data" "schedule-nfl-2018-espn2.csv")
+path_sched_espn2 <- file.path("data", "schedule-nfl-2018-espn2.csv")
 
 sched_espn2 %>%
   teproj::export_path(path_sched_espn2)

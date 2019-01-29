@@ -22,7 +22,8 @@ odds_nfl_tr_lag1_close <-
   odds_nfl_tr_exist %>% 
   # filter(wk == .wk) %>% 
   # filter(date == max(date) | date == (max(date) - lubridate::days(1))) %>% 
-  filter(date == (max(date) - lubridate::days(7)) | date == (max(date) - lubridate::days(8))) %>% 
+  # filter(date == (max(date) - lubridate::days(7)) | date == (max(date) - lubridate::days(8))) %>% 
+  filter(date == max(date)) %>% 
   mutate(gm = sprintf("%sv%s", tm_home, tm_away)) %>% 
   group_by(gm) %>% 
   filter(row_number(desc(timestamp_scrape)) == 1L) %>% 

@@ -65,7 +65,7 @@ cont <- httr::content(resp, as = "parsed")
   }
 
 .clean_time_col_at <-
-  purrr::purrr::partial(.add_time_col_at, col_out = col)
+  purrr::partial(.add_time_col_at, col_out = col)
 
 data <-
   .convert_list_to_tbl(cont) %>% 
