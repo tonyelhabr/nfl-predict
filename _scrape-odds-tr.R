@@ -13,8 +13,8 @@ if(!interactive()) {
   message(msg)
 }
 
-odds_nfl_tr <- do_get_odds_nfl_tr()
-success <- insert_into_db_odds_tr(data = odds_nfl_tr)
+# odds_nfl_tr <- do_get_odds_nfl_tr()
+# success <- insert_into_db_odds_tr(data = odds_nfl_tr)
 odds_nba_tr <- do_get_odds_nba_tr()
 success <- insert_into_db_odds_tr(data = odds_nba_tr)
 
