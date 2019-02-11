@@ -18,8 +18,8 @@ if(length(path_gitconfig) == 1L) {
       to = file.path(e["HOME"], basename(path_gitconfig)),
       # recursive = TRUE,
       overwrite = TRUE
-      )
     )
+  )
 }
 
 system('git status')

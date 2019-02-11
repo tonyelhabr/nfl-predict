@@ -62,37 +62,43 @@ stopifnot(nrow(tm_colors) == 62L)
       res <-
         res %>% 
         group_by(!!!cols_grp_syms) %>% 
-        summarise_at(vars(!!col_value_sym), funs(f_sum(., ...) %>% na_if(Inf))) %>% 
+        summarise_at(vars(!!col_value_sym), funs(f_sum(., na.rm = TRUE) %>% na_if(Inf))) %>% 
         ungroup() 
     }
     res
   }
 
-round_timestamp_scrape_tohour12 <-
-  purrr::partial(
-    .round_to_hour_at,
+round_timestamp_scrape_tohour12 <- function(...) {
+  .round_to_hour_at(
+    ...,
     col_round = "timestamp_scrape",
     col_value = "value",
     interval = 12L,
-    f_sum = base::min,
-    na.rm = TRUE
+    f_sum = base::min
+  )
+}
+
+
+odds_tr_exist <-
+  bind_rows(
+    odds_nba_tr_exist %>% mutate(lg = "nba"),
+    odds_nfl_tr_exist %>% mutate(lg = "nfl")
   )
 
-odds_nfl_tr_proc <-
-  odds_nfl_tr_exist %>%
-  gather(metric, value, matches("spread|total|moneyline")) %>%
-  separate(metric, into = c("metric", "side"), sep = "_") %>%
-  mutate(gm = sprintf("%s @ %s", tm_home, tm_away)) %>%
-  filter(!str_detect(metric, "moneyline")) %>%
+odds_tr_slim <-
+  odds_tr_exist %>%
   inner_join(
     tm_colors %>% 
-      filter(league == "nfl") %>% 
-      select(tm_home = tm, color_home = primary)
-  ) %>%
-  # inner_join(tm_colors %>% select(tm_away = tm, color_away = primary)) %>%
+      select(tm_home = tm, color_home = primary, lg = league)
+  ) %>% 
+  gather(metric, value, matches("spread|total|moneyline")) %>%
+  separate(metric, into = c("metric", "side"), sep = "_") %>% 
+  filter(!str_detect(metric, "moneyline")) %>%
+  mutate(gm = sprintf("%s @ %s", tm_home, tm_away)) %>%
   mutate_at(vars(wk), funs(sprintf("Week %02d", .))) %>%
   select(
     timestamp_scrape,
+    lg,
     season,
     wk,
     gm,
@@ -100,8 +106,12 @@ odds_nfl_tr_proc <-
     # color_away,
     metric,
     value
-  ) %>% 
-  distinct() %>% 
+  )
+odds_tr_slim
+
+odds_tr_proc <-
+  odds_tr_exist_slim %>% 
+  distinct()  %>% 
   round_timestamp_scrape_tohour12() %>% 
   arrange(timestamp_scrape)
 
@@ -109,6 +119,10 @@ odds_nfl_tr_proc <-
 # odds_nfl_tr_proc %>% 
 #   count(season, wk, gm, metric, sort = TRUE)
 
+
+odds_nfl_tr_proc <-
+  odds_tr_proc %>% 
+  filter(lg == "nfl")
 wk_nfl_last <- 
   odds_nfl_tr_proc %>% 
   distinct(wk) %>% 

@@ -133,7 +133,7 @@ get_distinct_tms_at <-
   }
 
 distinctify_data_at <-
-  function(data, unit = "day", col = "timestamp_scrape", rgx_exclude = "record") {
+  function(data, unit = "hour", col = "timestamp_scrape", rgx_exclude = "record") {
 
     # browser()
     stopifnot(is.data.frame(data))

@@ -7,3 +7,4 @@
 **.log
 **.ipynb_checkpoints/
 data/temp/*
+# **.sqlite
