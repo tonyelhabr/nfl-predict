@@ -14,7 +14,7 @@ if(file.exists(path_r_profile)) {
 rm("path_r_profile")
 
 suppressWarnings(suppressPackageStartupMessages(library("tidyverse")))
-suppressWarnings(suppressPackageStartupMessages(library("tidylog")))
+# suppressWarnings(suppressPackageStartupMessages(library("tidylog")))
 suppressWarnings(suppressPackageStartupMessages(library("rlang")))
 suppressWarnings(suppressPackageStartupMessages(library("teplot")))
 
