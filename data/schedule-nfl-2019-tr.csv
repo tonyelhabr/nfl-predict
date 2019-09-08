@@ -1,0 +1,257 @@
+date,weekday,time,location,wk,tm_home,tm_away
+2019-09-05,Thu,8:20 PM,Soldier Field,1,Chicago,Green Bay
+2019-09-08,Sun,1:00 PM,Bank of America Stadium,1,Carolina,LA Rams
+2019-09-08,Sun,1:00 PM,Lincoln Financial Field,1,Philadelphia,Washington
+2019-09-08,Sun,1:00 PM,MetLife Stadium,1,NY Jets,Buffalo
+2019-09-08,Sun,1:00 PM,U.S. Bank Stadium,1,Minnesota,Atlanta
+2019-09-08,Sun,1:00 PM,Hard Rock Stadium,1,Miami,Baltimore
+2019-09-08,Sun,1:00 PM,TIAA Bank Field,1,Jacksonville,Kansas City
+2019-09-08,Sun,1:00 PM,FirstEnergy Stadium,1,Cleveland,Tennessee
+2019-09-08,Sun,4:05 PM,CenturyLink Field,1,Seattle,Cincinnati
+2019-09-08,Sun,4:05 PM,Dignity Health Sports Park,1,LA Chargers,Indianapolis
+2019-09-08,Sun,4:25 PM,Raymond James Stadium,1,Tampa Bay,San Francisco
+2019-09-08,Sun,4:25 PM,AT&T Stadium,1,Dallas,NY Giants
+2019-09-08,Sun,4:25 PM,State Farm Stadium,1,Arizona,Detroit
+2019-09-08,Sun,8:20 PM,Gillette Stadium,1,New England,Pittsburgh
+2019-09-09,Mon,7:10 PM,Mercedes-Benz Superdome,1,New Orleans,Houston
+2019-09-09,Mon,10:20 PM,RingCentral Coliseum,1,Oakland,Denver
+2019-09-12,Thu,8:20 PM,Bank of America Stadium,2,Carolina,Tampa Bay
+2019-09-15,Sun,1:00 PM,M&T Bank Stadium,2,Baltimore,Arizona
+2019-09-15,Sun,1:00 PM,FedExField,2,Washington,Dallas
+2019-09-15,Sun,1:00 PM,Nissan Stadium,2,Tennessee,Indianapolis
+2019-09-15,Sun,1:00 PM,Heinz Field,2,Pittsburgh,Seattle
+2019-09-15,Sun,1:00 PM,Paul Brown Stadium,2,Cincinnati,San Francisco
+2019-09-15,Sun,1:00 PM,Ford Field,2,Detroit,LA Chargers
+2019-09-15,Sun,1:00 PM,Lambeau Field,2,Green Bay,Minnesota
+2019-09-15,Sun,1:00 PM,NRG Stadium,2,Houston,Jacksonville
+2019-09-15,Sun,1:00 PM,Hard Rock Stadium,2,Miami,New England
+2019-09-15,Sun,1:00 PM,MetLife Stadium,2,NY Giants,Buffalo
+2019-09-15,Sun,4:05 PM,RingCentral Coliseum,2,Oakland,Kansas City
+2019-09-15,Sun,4:25 PM,Los Angeles Memorial Coliseum,2,LA Rams,New Orleans
+2019-09-15,Sun,4:25 PM,Empower Field at Mile High,2,Denver,Chicago
+2019-09-15,Sun,8:20 PM,Mercedes-Benz Stadium,2,Atlanta,Philadelphia
+2019-09-16,Mon,8:15 PM,MetLife Stadium,2,NY Jets,Cleveland
+2019-09-19,Thu,8:20 PM,TIAA Bank Field,3,Jacksonville,Tennessee
+2019-09-22,Sun,1:00 PM,New Era Field,3,Buffalo,Cincinnati
+2019-09-22,Sun,1:00 PM,Lincoln Financial Field,3,Philadelphia,Detroit
+2019-09-22,Sun,1:00 PM,Gillette Stadium,3,New England,NY Jets
+2019-09-22,Sun,1:00 PM,U.S. Bank Stadium,3,Minnesota,Oakland
+2019-09-22,Sun,1:00 PM,Arrowhead Stadium,3,Kansas City,Baltimore
+2019-09-22,Sun,1:00 PM,Lucas Oil Stadium,3,Indianapolis,Atlanta
+2019-09-22,Sun,1:00 PM,AT&T Stadium,3,Dallas,Miami
+2019-09-22,Sun,1:00 PM,Lambeau Field,3,Green Bay,Denver
+2019-09-22,Sun,4:05 PM,Raymond James Stadium,3,Tampa Bay,NY Giants
+2019-09-22,Sun,4:05 PM,State Farm Stadium,3,Arizona,Carolina
+2019-09-22,Sun,4:25 PM,Dignity Health Sports Park,3,LA Chargers,Houston
+2019-09-22,Sun,4:25 PM,Levi's Stadium,3,San Francisco,Pittsburgh
+2019-09-22,Sun,4:25 PM,CenturyLink Field,3,Seattle,New Orleans
+2019-09-22,Sun,8:20 PM,FirstEnergy Stadium,3,Cleveland,LA Rams
+2019-09-23,Mon,8:15 PM,FedExField,3,Washington,Chicago
+2019-09-26,Thu,8:20 PM,Lambeau Field,4,Green Bay,Philadelphia
+2019-09-29,Sun,1:00 PM,Mercedes-Benz Stadium,4,Atlanta,Tennessee
+2019-09-29,Sun,1:00 PM,MetLife Stadium,4,NY Giants,Washington
+2019-09-29,Sun,1:00 PM,Hard Rock Stadium,4,Miami,LA Chargers
+2019-09-29,Sun,1:00 PM,Lucas Oil Stadium,4,Indianapolis,Oakland
+2019-09-29,Sun,1:00 PM,NRG Stadium,4,Houston,Carolina
+2019-09-29,Sun,1:00 PM,Ford Field,4,Detroit,Kansas City
+2019-09-29,Sun,1:00 PM,M&T Bank Stadium,4,Baltimore,Cleveland
+2019-09-29,Sun,1:00 PM,New Era Field,4,Buffalo,New England
+2019-09-29,Sun,4:05 PM,Los Angeles Memorial Coliseum,4,LA Rams,Tampa Bay
+2019-09-29,Sun,4:05 PM,State Farm Stadium,4,Arizona,Seattle
+2019-09-29,Sun,4:25 PM,Soldier Field,4,Chicago,Minnesota
+2019-09-29,Sun,4:25 PM,Empower Field at Mile High,4,Denver,Jacksonville
+2019-09-29,Sun,8:20 PM,Mercedes-Benz Superdome,4,New Orleans,Dallas
+2019-09-30,Mon,8:15 PM,Heinz Field,4,Pittsburgh,Cincinnati
+2019-10-03,Thu,8:20 PM,CenturyLink Field,5,Seattle,LA Rams
+2019-10-06,Sun,1:00 PM,Paul Brown Stadium,5,Cincinnati,Arizona
+2019-10-06,Sun,1:00 PM,NRG Stadium,5,Houston,Atlanta
+2019-10-06,Sun,1:00 PM,Mercedes-Benz Superdome,5,New Orleans,Tampa Bay
+2019-10-06,Sun,1:00 PM,MetLife Stadium,5,NY Giants,Minnesota
+2019-10-06,Sun,1:00 PM,Bank of America Stadium,5,Carolina,Jacksonville
+2019-10-06,Sun,1:00 PM,Tottenham Hotspur Stadium,5,Oakland,Chicago
+2019-10-06,Sun,1:00 PM,FedExField,5,Washington,New England
+2019-10-06,Sun,1:00 PM,Nissan Stadium,5,Tennessee,Buffalo
+2019-10-06,Sun,1:00 PM,Lincoln Financial Field,5,Philadelphia,NY Jets
+2019-10-06,Sun,1:00 PM,Heinz Field,5,Pittsburgh,Baltimore
+2019-10-06,Sun,4:05 PM,Dignity Health Sports Park,5,LA Chargers,Denver
+2019-10-06,Sun,4:25 PM,AT&T Stadium,5,Dallas,Green Bay
+2019-10-06,Sun,8:20 PM,Arrowhead Stadium,5,Kansas City,Indianapolis
+2019-10-07,Mon,8:15 PM,Levi's Stadium,5,San Francisco,Cleveland
+2019-10-10,Thu,8:20 PM,Gillette Stadium,6,New England,NY Giants
+2019-10-13,Sun,9:30 AM,Tottenham Hotspur Stadium,6,Tampa Bay,Carolina
+2019-10-13,Sun,1:00 PM,Hard Rock Stadium,6,Miami,Washington
+2019-10-13,Sun,1:00 PM,U.S. Bank Stadium,6,Minnesota,Philadelphia
+2019-10-13,Sun,1:00 PM,Arrowhead Stadium,6,Kansas City,Houston
+2019-10-13,Sun,1:00 PM,TIAA Bank Field,6,Jacksonville,New Orleans
+2019-10-13,Sun,1:00 PM,FirstEnergy Stadium,6,Cleveland,Seattle
+2019-10-13,Sun,1:00 PM,M&T Bank Stadium,6,Baltimore,Cincinnati
+2019-10-13,Sun,4:05 PM,Los Angeles Memorial Coliseum,6,LA Rams,San Francisco
+2019-10-13,Sun,4:05 PM,State Farm Stadium,6,Arizona,Atlanta
+2019-10-13,Sun,4:25 PM,MetLife Stadium,6,NY Jets,Dallas
+2019-10-13,Sun,4:25 PM,Empower Field at Mile High,6,Denver,Tennessee
+2019-10-13,Sun,8:20 PM,Dignity Health Sports Park,6,LA Chargers,Pittsburgh
+2019-10-14,Mon,8:15 PM,Lambeau Field,6,Green Bay,Detroit
+2019-10-17,Thu,8:20 PM,Empower Field at Mile High,7,Denver,Kansas City
+2019-10-20,Sun,1:00 PM,Mercedes-Benz Stadium,7,Atlanta,LA Rams
+2019-10-20,Sun,1:00 PM,New Era Field,7,Buffalo,Miami
+2019-10-20,Sun,1:00 PM,Paul Brown Stadium,7,Cincinnati,Jacksonville
+2019-10-20,Sun,1:00 PM,Ford Field,7,Detroit,Minnesota
+2019-10-20,Sun,1:00 PM,Lambeau Field,7,Green Bay,Oakland
+2019-10-20,Sun,1:00 PM,Lucas Oil Stadium,7,Indianapolis,Houston
+2019-10-20,Sun,1:00 PM,MetLife Stadium,7,NY Giants,Arizona
+2019-10-20,Sun,1:00 PM,FedExField,7,Washington,San Francisco
+2019-10-20,Sun,4:05 PM,Nissan Stadium,7,Tennessee,LA Chargers
+2019-10-20,Sun,4:25 PM,Soldier Field,7,Chicago,New Orleans
+2019-10-20,Sun,4:25 PM,CenturyLink Field,7,Seattle,Baltimore
+2019-10-20,Sun,8:20 PM,AT&T Stadium,7,Dallas,Philadelphia
+2019-10-21,Mon,8:15 PM,MetLife Stadium,7,NY Jets,New England
+2019-10-24,Thu,8:20 PM,U.S. Bank Stadium,8,Minnesota,Washington
+2019-10-27,Sun,1:00 PM,Mercedes-Benz Stadium,8,Atlanta,Seattle
+2019-10-27,Sun,1:00 PM,Nissan Stadium,8,Tennessee,Tampa Bay
+2019-10-27,Sun,1:00 PM,Mercedes-Benz Superdome,8,New Orleans,Arizona
+2019-10-27,Sun,1:00 PM,Wembley Stadium,8,LA Rams,Cincinnati
+2019-10-27,Sun,1:00 PM,TIAA Bank Field,8,Jacksonville,NY Jets
+2019-10-27,Sun,1:00 PM,NRG Stadium,8,Houston,Oakland
+2019-10-27,Sun,1:00 PM,New Era Field,8,Buffalo,Philadelphia
+2019-10-27,Sun,1:00 PM,Soldier Field,8,Chicago,LA Chargers
+2019-10-27,Sun,1:00 PM,Ford Field,8,Detroit,NY Giants
+2019-10-27,Sun,4:05 PM,Levi's Stadium,8,San Francisco,Carolina
+2019-10-27,Sun,4:25 PM,Lucas Oil Stadium,8,Indianapolis,Denver
+2019-10-27,Sun,4:25 PM,Gillette Stadium,8,New England,Cleveland
+2019-10-27,Sun,8:20 PM,Arrowhead Stadium,8,Kansas City,Green Bay
+2019-10-28,Mon,8:15 PM,Heinz Field,8,Pittsburgh,Miami
+2019-10-31,Thu,8:20 PM,State Farm Stadium,9,Arizona,San Francisco
+2019-11-03,Sun,9:30 AM,Wembley Stadium,9,Jacksonville,Houston
+2019-11-03,Sun,1:00 PM,New Era Field,9,Buffalo,Washington
+2019-11-03,Sun,1:00 PM,Bank of America Stadium,9,Carolina,Tennessee
+2019-11-03,Sun,1:00 PM,Arrowhead Stadium,9,Kansas City,Minnesota
+2019-11-03,Sun,1:00 PM,Hard Rock Stadium,9,Miami,NY Jets
+2019-11-03,Sun,1:00 PM,Lincoln Financial Field,9,Philadelphia,Chicago
+2019-11-03,Sun,1:00 PM,Heinz Field,9,Pittsburgh,Indianapolis
+2019-11-03,Sun,4:05 PM,CenturyLink Field,9,Seattle,Tampa Bay
+2019-11-03,Sun,4:05 PM,RingCentral Coliseum,9,Oakland,Detroit
+2019-11-03,Sun,4:25 PM,Empower Field at Mile High,9,Denver,Cleveland
+2019-11-03,Sun,4:25 PM,Dignity Health Sports Park,9,LA Chargers,Green Bay
+2019-11-03,Sun,8:20 PM,M&T Bank Stadium,9,Baltimore,New England
+2019-11-04,Mon,8:15 PM,MetLife Stadium,9,NY Giants,Dallas
+2019-11-07,Thu,8:20 PM,RingCentral Coliseum,10,Oakland,LA Chargers
+2019-11-10,Sun,1:00 PM,Paul Brown Stadium,10,Cincinnati,Baltimore
+2019-11-10,Sun,1:00 PM,Soldier Field,10,Chicago,Detroit
+2019-11-10,Sun,1:00 PM,FirstEnergy Stadium,10,Cleveland,Buffalo
+2019-11-10,Sun,1:00 PM,Nissan Stadium,10,Tennessee,Kansas City
+2019-11-10,Sun,1:00 PM,Raymond James Stadium,10,Tampa Bay,Arizona
+2019-11-10,Sun,1:00 PM,MetLife Stadium,10,NY Jets,NY Giants
+2019-11-10,Sun,1:00 PM,Mercedes-Benz Superdome,10,New Orleans,Atlanta
+2019-11-10,Sun,1:00 PM,Lambeau Field,10,Green Bay,Carolina
+2019-11-10,Sun,4:05 PM,Lucas Oil Stadium,10,Indianapolis,Miami
+2019-11-10,Sun,4:25 PM,Heinz Field,10,Pittsburgh,LA Rams
+2019-11-10,Sun,8:20 PM,AT&T Stadium,10,Dallas,Minnesota
+2019-11-11,Mon,8:15 PM,Levi's Stadium,10,San Francisco,Seattle
+2019-11-14,Thu,8:20 PM,FirstEnergy Stadium,11,Cleveland,Pittsburgh
+2019-11-17,Sun,1:00 PM,Lucas Oil Stadium,11,Indianapolis,Jacksonville
+2019-11-17,Sun,1:00 PM,Ford Field,11,Detroit,Dallas
+2019-11-17,Sun,1:00 PM,Bank of America Stadium,11,Carolina,Atlanta
+2019-11-17,Sun,1:00 PM,M&T Bank Stadium,11,Baltimore,Houston
+2019-11-17,Sun,1:00 PM,Hard Rock Stadium,11,Miami,Buffalo
+2019-11-17,Sun,1:00 PM,FedExField,11,Washington,NY Jets
+2019-11-17,Sun,1:00 PM,Raymond James Stadium,11,Tampa Bay,New Orleans
+2019-11-17,Sun,1:00 PM,U.S. Bank Stadium,11,Minnesota,Denver
+2019-11-17,Sun,4:05 PM,Levi's Stadium,11,San Francisco,Arizona
+2019-11-17,Sun,4:25 PM,Lincoln Financial Field,11,Philadelphia,New England
+2019-11-17,Sun,4:25 PM,RingCentral Coliseum,11,Oakland,Cincinnati
+2019-11-17,Sun,8:20 PM,Los Angeles Memorial Coliseum,11,LA Rams,Chicago
+2019-11-18,Mon,8:15 PM,Estadio Azteca,11,LA Chargers,Kansas City
+2019-11-21,Thu,8:20 PM,NRG Stadium,12,Houston,Indianapolis
+2019-11-24,Sun,1:00 PM,Paul Brown Stadium,12,Cincinnati,Pittsburgh
+2019-11-24,Sun,1:00 PM,Soldier Field,12,Chicago,NY Giants
+2019-11-24,Sun,1:00 PM,New Era Field,12,Buffalo,Denver
+2019-11-24,Sun,1:00 PM,Mercedes-Benz Stadium,12,Atlanta,Tampa Bay
+2019-11-24,Sun,1:00 PM,FirstEnergy Stadium,12,Cleveland,Miami
+2019-11-24,Sun,1:00 PM,FedExField,12,Washington,Detroit
+2019-11-24,Sun,1:00 PM,MetLife Stadium,12,NY Jets,Oakland
+2019-11-24,Sun,1:00 PM,Mercedes-Benz Superdome,12,New Orleans,Carolina
+2019-11-24,Sun,4:05 PM,Nissan Stadium,12,Tennessee,Jacksonville
+2019-11-24,Sun,4:25 PM,Gillette Stadium,12,New England,Dallas
+2019-11-24,Sun,4:25 PM,Levi's Stadium,12,San Francisco,Green Bay
+2019-11-24,Sun,8:20 PM,Lincoln Financial Field,12,Philadelphia,Seattle
+2019-11-25,Mon,8:15 PM,Los Angeles Memorial Coliseum,12,LA Rams,Baltimore
+2019-11-28,Thu,12:30 PM,Ford Field,13,Detroit,Chicago
+2019-11-28,Thu,4:30 PM,AT&T Stadium,13,Dallas,Buffalo
+2019-11-28,Thu,8:20 PM,Mercedes-Benz Stadium,13,Atlanta,New Orleans
+2019-12-01,Sun,1:00 PM,M&T Bank Stadium,13,Baltimore,San Francisco
+2019-12-01,Sun,1:00 PM,Bank of America Stadium,13,Carolina,Washington
+2019-12-01,Sun,1:00 PM,Paul Brown Stadium,13,Cincinnati,NY Jets
+2019-12-01,Sun,1:00 PM,Lucas Oil Stadium,13,Indianapolis,Tennessee
+2019-12-01,Sun,1:00 PM,TIAA Bank Field,13,Jacksonville,Tampa Bay
+2019-12-01,Sun,1:00 PM,Arrowhead Stadium,13,Kansas City,Oakland
+2019-12-01,Sun,1:00 PM,Hard Rock Stadium,13,Miami,Philadelphia
+2019-12-01,Sun,1:00 PM,MetLife Stadium,13,NY Giants,Green Bay
+2019-12-01,Sun,4:05 PM,State Farm Stadium,13,Arizona,LA Rams
+2019-12-01,Sun,4:25 PM,Empower Field at Mile High,13,Denver,LA Chargers
+2019-12-01,Sun,4:25 PM,Heinz Field,13,Pittsburgh,Cleveland
+2019-12-01,Sun,8:20 PM,NRG Stadium,13,Houston,New England
+2019-12-02,Mon,8:15 PM,CenturyLink Field,13,Seattle,Minnesota
+2019-12-05,Thu,8:20 PM,Soldier Field,14,Chicago,Dallas
+2019-12-08,Sun,1:00 PM,Mercedes-Benz Stadium,14,Atlanta,Carolina
+2019-12-08,Sun,1:00 PM,Raymond James Stadium,14,Tampa Bay,Indianapolis
+2019-12-08,Sun,1:00 PM,MetLife Stadium,14,NY Jets,Miami
+2019-12-08,Sun,1:00 PM,Mercedes-Benz Superdome,14,New Orleans,San Francisco
+2019-12-08,Sun,1:00 PM,U.S. Bank Stadium,14,Minnesota,Detroit
+2019-12-08,Sun,1:00 PM,NRG Stadium,14,Houston,Denver
+2019-12-08,Sun,1:00 PM,Lambeau Field,14,Green Bay,Washington
+2019-12-08,Sun,1:00 PM,New Era Field,14,Buffalo,Baltimore
+2019-12-08,Sun,1:00 PM,FirstEnergy Stadium,14,Cleveland,Cincinnati
+2019-12-08,Sun,4:05 PM,TIAA Bank Field,14,Jacksonville,LA Chargers
+2019-12-08,Sun,4:25 PM,RingCentral Coliseum,14,Oakland,Tennessee
+2019-12-08,Sun,4:25 PM,Gillette Stadium,14,New England,Kansas City
+2019-12-08,Sun,4:25 PM,State Farm Stadium,14,Arizona,Pittsburgh
+2019-12-08,Sun,8:20 PM,Los Angeles Memorial Coliseum,14,LA Rams,Seattle
+2019-12-09,Mon,8:15 PM,Lincoln Financial Field,14,Philadelphia,NY Giants
+2019-12-12,Thu,8:20 PM,M&T Bank Stadium,15,Baltimore,NY Jets
+2019-12-15,Sun,1:00 PM,Bank of America Stadium,15,Carolina,Seattle
+2019-12-15,Sun,1:00 PM,FedExField,15,Washington,Philadelphia
+2019-12-15,Sun,1:00 PM,Nissan Stadium,15,Tennessee,Houston
+2019-12-15,Sun,1:00 PM,Heinz Field,15,Pittsburgh,Buffalo
+2019-12-15,Sun,1:00 PM,MetLife Stadium,15,NY Giants,Miami
+2019-12-15,Sun,1:00 PM,Arrowhead Stadium,15,Kansas City,Denver
+2019-12-15,Sun,1:00 PM,Lambeau Field,15,Green Bay,Chicago
+2019-12-15,Sun,1:00 PM,Ford Field,15,Detroit,Tampa Bay
+2019-12-15,Sun,1:00 PM,Paul Brown Stadium,15,Cincinnati,New England
+2019-12-15,Sun,4:05 PM,RingCentral Coliseum,15,Oakland,Jacksonville
+2019-12-15,Sun,4:05 PM,State Farm Stadium,15,Arizona,Cleveland
+2019-12-15,Sun,4:25 PM,Levi's Stadium,15,San Francisco,Atlanta
+2019-12-15,Sun,4:25 PM,AT&T Stadium,15,Dallas,LA Rams
+2019-12-15,Sun,8:20 PM,Dignity Health Sports Park,15,LA Chargers,Minnesota
+2019-12-16,Mon,8:15 PM,Mercedes-Benz Superdome,15,New Orleans,Indianapolis
+2019-12-22,Sun,1:00 PM,Levi's Stadium,16,San Francisco,LA Rams
+2019-12-22,Sun,1:00 PM,Gillette Stadium,16,New England,Buffalo
+2019-12-22,Sun,1:00 PM,Dignity Health Sports Park,16,LA Chargers,Oakland
+2019-12-22,Sun,1:00 PM,Empower Field at Mile High,16,Denver,Detroit
+2019-12-22,Sun,1:00 PM,Raymond James Stadium,16,Tampa Bay,Houston
+2019-12-22,Sun,1:00 PM,Lucas Oil Stadium,16,Indianapolis,Carolina
+2019-12-22,Sun,1:00 PM,Hard Rock Stadium,16,Miami,Cincinnati
+2019-12-22,Sun,1:00 PM,MetLife Stadium,16,NY Jets,Pittsburgh
+2019-12-22,Sun,1:00 PM,Mercedes-Benz Stadium,16,Atlanta,Jacksonville
+2019-12-22,Sun,1:00 PM,FirstEnergy Stadium,16,Cleveland,Baltimore
+2019-12-22,Sun,1:00 PM,FedExField,16,Washington,NY Giants
+2019-12-22,Sun,1:00 PM,Nissan Stadium,16,Tennessee,New Orleans
+2019-12-22,Sun,4:25 PM,Lincoln Financial Field,16,Philadelphia,Dallas
+2019-12-22,Sun,4:25 PM,CenturyLink Field,16,Seattle,Arizona
+2019-12-22,Sun,8:20 PM,Soldier Field,16,Chicago,Kansas City
+2019-12-23,Mon,8:15 PM,U.S. Bank Stadium,16,Minnesota,Green Bay
+2019-12-29,Sun,1:00 PM,Paul Brown Stadium,17,Cincinnati,Cleveland
+2019-12-29,Sun,1:00 PM,AT&T Stadium,17,Dallas,Washington
+2019-12-29,Sun,1:00 PM,Ford Field,17,Detroit,Green Bay
+2019-12-29,Sun,1:00 PM,NRG Stadium,17,Houston,Tennessee
+2019-12-29,Sun,1:00 PM,TIAA Bank Field,17,Jacksonville,Indianapolis
+2019-12-29,Sun,1:00 PM,Arrowhead Stadium,17,Kansas City,LA Chargers
+2019-12-29,Sun,1:00 PM,U.S. Bank Stadium,17,Minnesota,Chicago
+2019-12-29,Sun,1:00 PM,Gillette Stadium,17,New England,Miami
+2019-12-29,Sun,1:00 PM,MetLife Stadium,17,NY Giants,Philadelphia
+2019-12-29,Sun,1:00 PM,Raymond James Stadium,17,Tampa Bay,Atlanta
+2019-12-29,Sun,1:00 PM,M&T Bank Stadium,17,Baltimore,Pittsburgh
+2019-12-29,Sun,1:00 PM,New Era Field,17,Buffalo,NY Jets
+2019-12-29,Sun,1:00 PM,Bank of America Stadium,17,Carolina,New Orleans
+2019-12-29,Sun,4:25 PM,Empower Field at Mile High,17,Denver,Oakland
+2019-12-29,Sun,4:25 PM,CenturyLink Field,17,Seattle,San Francisco
+2019-12-29,Sun,4:25 PM,Los Angeles Memorial Coliseum,17,LA Rams,Arizona

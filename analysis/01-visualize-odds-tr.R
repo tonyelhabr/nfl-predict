@@ -207,7 +207,7 @@ viz_odds_nfl_tr_total
   function(viz,
            ...,
            file = deparse(substitute(viz)),
-           dir = "figs",
+           dir = "output",
            ext = "html",
            path_dummy = paste0(file, ".", ext),
            path = file.path(dir, path_dummy)) {

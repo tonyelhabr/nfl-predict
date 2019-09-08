@@ -3,10 +3,10 @@
 # .get_url_nfl <-
 #   function(week = 1L,
 #            ...,
-#            url_base = "https://www.teamrankings.com/",
-#            url_nfl_suffix = "nfl-odds-week-") {
+#            url_base = 'https://www.teamrankings.com/',
+#            url_nfl_suffix = 'nfl-odds-week-') {
 #     stopifnot(is.numeric(week), (week > 0 & week < 18))
-#     sprintf("%s%s%s", url_base, url_nfl_suffix, week)
+#     sprintf('%s%s%s', url_base, url_nfl_suffix, week)
 #   }
 # 
 # url <- .get_url_nfl(week = 1)
@@ -14,36 +14,36 @@
 # works, but not a function ----
 # req <-
 #   httr::POST(
-#     url = "https://www.teamrankings.com/ajax/league/v3/odds_controller.php",
-#     encode = "form",
-#     httr::user_agent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"),
+#     url = 'https://www.teamrankings.com/ajax/league/v3/odds_controller.php',
+#     encode = 'form',
+#     httr::user_agent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'),
 #     httr::add_headers(
-#       `Referer` = "https://www.teamrankings.com/nfl/odds/"
+#       `Referer` = 'https://www.teamrankings.com/nfl/odds/'
 #     ),
 #     body = list(
-#       league = "nfl",
-#       view_type = "odds",
-#       view = "latest",
+#       league = 'nfl',
+#       view_type = 'odds',
+#       view = 'latest',
 #       period_id = 458,
 #       season_id = 16,
-#       picks_base_url = "/nfl/picks"
+#       picks_base_url = '/nfl/picks'
 #     )
 #   )
 # req
 
 .request_odds_tr <-
-  function(league = c("nfl", "nba", "mlb", "ncf", "ncb"),
-           view_type = "odds",
-           view = "latest",
+  function(league = c('nfl', 'nba', 'mlb', 'ncf', 'ncb'),
+           view_type = 'odds',
+           view = 'latest',
            period_id = NULL,
            season_id = NULL,
-           picks_base_url = sprintf("/%s/picks", league),
+           picks_base_url = sprintf('/%s/picks', league),
            ...,
-           url = "https://www.teamrankings.com/ajax/league/v3/odds_controller.php",
-           encode = "form",
+           url = 'https://www.teamrankings.com/ajax/league/v3/odds_controller.php',
+           encode = 'form',
            user_agent = httr::user_agent(
-             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"),
-           headers = httr::add_headers(`Referer` = sprintf("https://www.teamrankings.com/%s/odds/", league))) {
+             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'),
+           headers = httr::add_headers(`Referer` = sprintf('https://www.teamrankings.com/%s/odds/', league))) {
     league <- match.arg(league, several.ok = FALSE)
     body <-
       list(
@@ -54,7 +54,7 @@
         picks_base_url = picks_base_url
       )
     # NOTE: It doesn't seem like the other leagues have this parameter.
-    if(league %in% c("nfl", "ncf")) {
+    if(league %in% c('nfl', 'ncf')) {
       body <-
         c(body,
           list(period_id = period_id)
@@ -71,9 +71,9 @@
   }
 
 .request_odds_nfl_tr <-
-  function(league = "nfl",
-           period_id = 458,
-           season_id = 16,
+  function(league = 'nfl',
+           period_id = config$period_id_odds_tr_nfl,
+           season_id = config$season_id_odds_tr_nfl,
            ...) {
     .request_odds_tr(
       league = league,
@@ -84,7 +84,7 @@
   }
 
 .request_odds_nba_tr <-
-  function(league = "nba",
+  function(league = 'nba',
            season_id = 216,
            ...) {
     .request_odds_tr(
@@ -96,9 +96,9 @@
 
 # req_h <-
 #   req_t %>%
-#   str_split("\r\n") %>% 
+#   str_split('\r\n') %>% 
 #   unlist() %>% 
-#   paste(sep = "", collapse = "\n")
+#   paste(sep = '', collapse = '\n')
 # req_h
 
 .extract_val_at_every <-
@@ -120,14 +120,14 @@
       pluck(idx)
     dddmonyyyy <-
       data_idx %>% 
-      rvest::html_nodes("h2") %>%
+      rvest::html_nodes('h2') %>%
       rvest::html_text() %>% 
-      str_remove_all("(st|nd|rd|th)\\,") %>%
-      str_replace_all("\\s+", " ") %>% 
-      str_remove_all("\\,")
+      str_remove_all('(st|nd|rd|th)\\,') %>%
+      str_replace_all('\\s+', ' ') %>% 
+      str_remove_all('\\,')
     ymds <-
       dddmonyyyy %>% 
-      strptime("%A %B %d %Y") %>% 
+      strptime('%A %B %d %Y') %>% 
       lubridate::ymd()
     wds <-
       ymds %>%
@@ -135,26 +135,26 @@
 
     times0 <-
       data_idx %>% 
-      # rvest::html_nodes("tr th") %>% 
+      # rvest::html_nodes('tr th') %>% 
       rvest::html_nodes("tr [class='text-left']") %>% 
       rvest::html_text() %>% 
       str_trim()
     # Debugging...
-    # ymds <- rep(lubridate::ymd("2018-09-23"), 2)
-    # times0 <- c("1:00 PM EST", "4:25 PM EST")
+    # ymds <- rep(lubridate::ymd('2018-09-23'), 2)
+    # times0 <- c('1:00 PM EST', '4:25 PM EST')
     times <-
-      purrr::map2_chr(ymds, times0, ~paste0(.x, " ", .y)) %>% 
+      purrr::map2_chr(ymds, times0, ~paste0(.x, ' ', .y)) %>% 
       lubridate::ymd_hm() %>%  
-      lubridate::force_tz(tzone = "America/New_York")
+      lubridate::force_tz(tzone = 'America/New_York')
     txt <-
       data_idx %>% 
-      rvest::html_nodes("tr td") %>% 
+      rvest::html_nodes('tr td') %>% 
       rvest::html_text()
     
     tms_away <- .extract_tm_away(v = txt)
     tms_home <- .extract_tm_home(v = txt)
     spreads_home <- .extract_spread_home(v = txt)
-    spreads_home[spreads_home == "(Pick)"] <- 0
+    spreads_home[spreads_home == '(Pick)'] <- 0
     totals <- .extract_total_home(v = txt)
     moneylines_home <- .extract_moneyline_home(v = txt)
     moneylines_away <- .extract_moneyline_away(v = txt)
@@ -173,21 +173,21 @@
     # gms <-
     #   gms %>% 
     #   mutate_at(
-    #     vars(matches("spread|total|moneyline")), 
-    #     funs(if_else(. != "--", as.numeric(.), NA_real_))
+    #     vars(matches('spread|total|moneyline')), 
+    #     funs(if_else(. != '--', as.numeric(.), NA_real_))
     #   )
     gms
   }
 
 .parse_odds_sport_tr <-
   function(req, ..., verbose = TRUE) {
-    # stopifnot(class(req) == "response")
+    # stopifnot(class(req) == 'response')
     txt <-
       req %>%
-      httr::content(as = "text")
+      httr::content(as = 'text')
     if(is.null(txt)) {
       if(verbose) {
-        msg <- "Returning nothing. (No games today?)"
+        msg <- 'Returning nothing. (No games today?)'
         message(msg)
       }
       return(NULL)
@@ -198,7 +198,7 @@
     
     mods <-
       html %>% 
-      rvest::html_nodes(".module")
+      rvest::html_nodes('.module')
 
     # TODO: Use `purrr::possibly()` here?
     suppressWarnings(
@@ -217,8 +217,8 @@
         data  %>% 
         unnest(data_parsed) %>% 
         mutate_at(
-          vars(matches("spread|total|moneyline")), 
-          funs(if_else(. != "--", as.numeric(.), NA_real_))
+          vars(matches('spread|total|moneyline')), 
+          funs(if_else(. != '--', as.numeric(.), NA_real_))
         ) %>% 
         select(-idx)
     )
@@ -230,7 +230,7 @@
     #     filter(is.na(spread_home) | is.na(total) | is.na(moneyline_home) | is.na(moneyline_away))
     #   
     #   if(nrow(data_filt) > 0L) {
-    #     msg_format <- "Missing odds data for %s @ %s on %s."
+    #     msg_format <- 'Missing odds data for %s @ %s on %s.'
     #     data_filt %>% 
     #       mutate(
     #         msg = purrr::pwalk(list(tm_away, tm_home, date),~sprintf(msg_format, ..1, ..2, ..3))
@@ -248,7 +248,7 @@
     res <- f_request_possibly(...)
     if(is.null(res)) {
       if(verbose) {
-        msg <- "Something went wrong."
+        msg <- 'Something went wrong.'
         message(msg)
       }
       return(NULL)
@@ -281,15 +281,15 @@
   function(data,
            col,
            ...,
-           col_suffix = c("home", "away"),
-           col_prefix = "tm_",
-           col_tr = "tm_name_tr",
+           col_suffix = c('home', 'away'),
+           col_prefix = 'tm_',
+           col_tr = 'tm_name_tr',
            .data_source) {
     col_tr_sym <- sym(col_tr)
     
     tm_trim <-
       .data_source %>%
-      filter(status == 1L) %>%
+      filter(status == 1) %>%
       select(tm, !!col_tr_sym)
     
     if(missing(col)) {
@@ -297,7 +297,7 @@
       col <- paste0(col_prefix, col_suffix)
     }
     col_sym <- sym(col)
-    col_tr_new <- paste0(col, "_tr")
+    col_tr_new <- paste0(col, '_tr')
     col_tr_new_sym <- sym(col_tr_new)
     
     col_names_orig <- names(data)
@@ -318,8 +318,8 @@
 .fix_tm_cols_sport_tr_at <-
   function(data, ..., .data_source) {
     data %>%
-      .fix_tm_col_sport_tr_at(col_suffix = "home", .data_source = .data_source, ...) %>% 
-      .fix_tm_col_sport_tr_at(col_suffix = "away", .data_source = .data_source, ...)
+      .fix_tm_col_sport_tr_at(col_suffix = 'home', .data_source = .data_source, ...) %>% 
+      .fix_tm_col_sport_tr_at(col_suffix = 'away', .data_source = .data_source, ...)
   }
 
 .fix_tm_cols_nfl_tr_at <-
@@ -361,7 +361,7 @@
     res <- f_get_possibly(...)
     if(is.null(res)) {
       if(verbose) {
-        msg <- "Something went wrong."
+        msg <- 'Something went wrong.'
         message(msg)
       }
       return(NULL)

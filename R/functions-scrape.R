@@ -19,7 +19,7 @@
     nms_sep <-
       paste0(col, seq(1, n_cols_max, by = 1))
     data %>%
-      separate(!!col_sym, into = nms_sep, sep = rgx_split, fill = "right")
+      separate(!!col_sym, into = nms_sep, sep = rgx_split, fill = 'right')
   }
 
 .convert_list_to_tbl <-
@@ -36,15 +36,15 @@
       filter(status %in% .status) %>% 
       select(tm, tm_other = !!col_sym)
     data %>%
-      inner_join(tm_trim, by = c("tm_home" = "tm_other")) %>% 
+      inner_join(tm_trim, by = c('tm_home' = 'tm_other')) %>% 
       mutate(tm_home = tm) %>% 
       select(-tm) %>% 
-      inner_join(tm_trim, by = c("tm_away" = "tm_other")) %>% 
+      inner_join(tm_trim, by = c('tm_away' = 'tm_other')) %>% 
       mutate(tm_away = tm) %>% 
       select(-tm)
   }
 
-# NOTE: Allow for "inactive" teams to also be considered via the status field.
+# NOTE: Allow for 'inactive' teams to also be considered via the status field.
 .recode_tm_cols_nfl_strictly_at <-
   function(..., .data_source = import_nfl_tm()) {
     .recode_tm_cols_sport_strictly_at(..., .data_source = .data_source)
@@ -64,10 +64,10 @@
       select(tm, tm_other = !!col_sym)
 
     data %>%
-      left_join(tm_trim, by = c("tm_home" = "tm_other")) %>% 
+      left_join(tm_trim, by = c('tm_home' = 'tm_other')) %>% 
       mutate(tm_home = coalesce(tm, tm_home)) %>% 
       select(-tm) %>% 
-      left_join(tm_trim, by = c("tm_away" = "tm_other")) %>% 
+      left_join(tm_trim, by = c('tm_away' = 'tm_other')) %>% 
       mutate(tm_away = coalesce(tm, tm_away)) %>% 
       select(-tm)
   }
@@ -103,14 +103,14 @@
   }
 
 .add_wk_col_at <-
-  function(data, val, col = "wk") {
+  function(data, val, col = 'wk') {
     col_sym <- sym(col)
     data %>%
       mutate(!!col := as.integer(val))
   }
 
 .add_season_col_at <-
-  function(data, val, col = "season") {
+  function(data, val, col = 'season') {
     col_sym <- sym(col)
     data %>%
       mutate(!!col := as.integer(val))
@@ -121,19 +121,26 @@
 .add_timeperiod_cols_nfl <-
   function(data, ..., .season = config$season_current_nfl, .data_source = import_nfl_game_result()) {
     if(.season != config$season_current_nfl) {
-      stop("Not currently implemented.", call. = FALSE)
+      stop('Not currently implemented.', call. = FALSE)
     }
     
     game_result_trim <-
       .data_source %>% 
-      filter(season == .season) %>% 
+      filter(season == .season)
+    
+    if(nrow(game_result_trim) == 0) {
+      stop('No data to add from .add_timeperiod_cols_nfl()`.', call. = FALSE)
+    }
+    
+    game_result_trim <-
+      game_result_trim %>% 
       select(season, wk, tm_home, tm_away)
     
-    col_names_out <- c("season", "wk", names(data))
+    col_names_out <- c('season', 'wk', names(data))
     data %>%
       left_join(
         game_result_trim,
-        by = c("tm_home", "tm_away")
+        by = c('tm_home', 'tm_away')
       ) %>% 
       select(one_of(col_names_out))
   }
@@ -142,16 +149,16 @@
 .SEASON_MIN_TONY <- 2012L
 .arrange_gm_nfl <-
   function(data, ..., .season = config$season_current_nfl, .data_source = import_nfl_game_result()) {
-    # NOTE: Not sure what is the most "correct" way of getting the minimum season value.
+    # NOTE: Not sure what is the most 'correct' way of getting the minimum season value.
 
-    if("season" %in% names(data)) {
+    if('season' %in% names(data)) {
       .seasons <-
         data %>% 
         distinct(season) %>% 
         pull(season)
       
       if(length(.seasons) > 1L) {
-        stop("Expecting only one distinct season.", call. = FALSE)
+        stop('Expecting only one distinct season.', call. = FALSE)
         return(data)
       }
       

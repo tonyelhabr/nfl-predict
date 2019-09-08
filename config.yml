@@ -1,34 +1,37 @@
 default:
-  path_odds_tr: "data/odds-tr.sqlite"
+  path_odds_tr: 'data/odds-tr.sqlite'
   overwrite: false
   local: true
-  file_db_nfl: "db_nfl"
-  file_db_nba: "db_nba"
-  key_db_nfl: "1bEMxcK0ULiHEltOMp_SqZYNZiILwVhlawCHVEe3mYkc" # googlesheets::gs_title(config$file_db_nfl)$sheet_key
-  key_db_nba: "1zBLbpp-LHkdiCnjsTLfPG12RY-42txALZHG7jSekmp0" # googlesheets::gs_title(config$file_db_nba)$sheet_key
-  path_db_sports_local: "data-raw/db_sports.xlsx"
-  ws_nfl_tm: "nfl_tm"
-  ws_nba_tm: "nba_tm"
-  ws_nfl_game_result: "nfl_game_result"
-  season_current_nfl: 2018
+  file_db_nfl: 'db_nfl'
+  file_db_nba: 'db_nba'
+  key_db_nfl: '1bEMxcK0ULiHEltOMp_SqZYNZiILwVhlawCHVEe3mYkc' # googlesheets::gs_title(config$file_db_nfl)$sheet_key
+  key_db_nba: '1zBLbpp-LHkdiCnjsTLfPG12RY-42txALZHG7jSekmp0' # googlesheets::gs_title(config$file_db_nba)$sheet_key
+  path_db_sports_local: 'data-raw/db_sports.xlsx'
+  ws_nfl_tm: 'nfl_tm'
+  ws_nba_tm: 'nba_tm'
+  ws_nfl_game_result: 'nfl_game_result'
+  season_current_nfl: 2019
   season_current_nba: 2018
+  period_id_odds_tr_nfl: 480 # 458 for 2018
+  season_id_odds_tr_nfl: 17 # 16 for 2018
+  season_id_odds_tr_nba: 216 # for 2018
   
-  path_trends_hist_nfl_tr_manual: "data-raw/trends-hist-nfl-tr-manual.xlsx"
+  path_trends_hist_nfl_tr_manual: 'data-raw/trends-hist-nfl-tr-manual.xlsx'
   
-  path_scores_hist_nfl_espn: "data/scores-hist-nfl-espn.csv"
-  path_trends_hist_nfl_tr: "data/trends-hist-nfl-tr.csv"
-  path_odds_hist_nfl_pfref: "data/odds-hist-nfl-pfref.csv"
-  # path_odds_hist_fl: "data/odds-hist-fl.csv"
-  # path_wintotals_hist_nfl_sportsoddshistory_dl: "data-raw/nfl-regular-season-win-total-results-by-team.html"
-  path_wintotals_hist_nfl_sportsoddshistory: "data/wintotals-hist-nfl-sportsoddhistory.csv"
+  path_scores_hist_nfl_espn: 'data/scores-hist-nfl-espn.csv'
+  path_trends_hist_nfl_tr: 'data/trends-hist-nfl-tr.csv'
+  path_odds_hist_nfl_pfref: 'data/odds-hist-nfl-pfref.csv'
+  # path_odds_hist_fl: 'data/odds-hist-fl.csv'
+  # path_wintotals_hist_nfl_sportsoddshistory_dl: 'data-raw/nfl-regular-season-win-total-results-by-team.html'
+  path_wintotals_hist_nfl_sportsoddshistory: 'data/wintotals-hist-nfl-sportsoddhistory.csv'
 
-  path_scores_lag1_nfl_temp: "data/temp/scores-lag1-nfl-temp.csv"
-  path_odds_nfl_temp: "data/temp/odds-nfl-temp.csv"
-  path_odds_lag1_nfl_temp: "data/temp/odds-lag1-nfl-temp.csv"
+  path_scores_lag1_nfl_temp: 'data/temp/scores-lag1-nfl-temp.csv'
+  path_odds_nfl_temp: 'data/temp/odds-nfl-temp.csv'
+  path_odds_lag1_nfl_temp: 'data/temp/odds-lag1-nfl-temp.csv'
   
-  path_tm_nfl_city: "data/tm-nfl-city.csv"
+  path_tm_nfl_city: 'data/tm-nfl-city.csv'
   
-  path_schedule_nba_bbref: "data/schedule-nba-bbref.csv"
+  path_schedule_nba_bbref: 'data/schedule-nba-bbref.csv'
 
 production:
   

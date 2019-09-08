@@ -1,34 +1,23 @@
 
-library("base")
-library("methods")
-library("datasets")
-library("utils")
-library("grDevices")
-library("graphics")
-library("stats")
-
 path_r_profile <- "~/.Rprofile"
 if(file.exists(path_r_profile)) {
   source(path_r_profile)
 }
 rm("path_r_profile")
 
-suppressWarnings(suppressPackageStartupMessages(library("tidyverse")))
-# suppressWarnings(suppressPackageStartupMessages(library("tidylog")))
-suppressWarnings(suppressPackageStartupMessages(library("rlang")))
-suppressWarnings(suppressPackageStartupMessages(library("teplot")))
+.library_silently <- function(...) {
+  suppressWarnings(suppressPackageStartupMessages(base::library(...)))
+}
 
+.library_silently(tidyverse)
+.library_silently(rlang)
+.library_silently(teplot)
+rm('.library_silently')
+filter <- dplyr::filter
+select <- dplyr::select
+
+invisible(R.utils::sourceDirectory(file.path('R'), recursive = FALSE))
 config <- config::get()
-
-paths_funcs <-
-  list.files(
-    path = file.path("R", "functions"),
-    pattern = "func",
-    recursive = FALSE,
-    full.names = TRUE
-  )
-invisible(sapply(paths_funcs, source))
-rm("paths_funcs")
 
 if(interactive()) {
   import_nfl_tm()
@@ -37,9 +26,6 @@ if(interactive()) {
   
   # Trying to figure out how to automatically open a script.
   # file.show("R/update-googlesheets-nfl.R")
-
-  # file.show("R/update-googlesheets-nfl.R")
-
 }
 
 # fs::file_show("R/update-googlesheets-nfl.R")
@@ -47,4 +33,3 @@ if(interactive()) {
 # Change these options for this project?
 # message(tibble:::op.tibble)
 # tibble:::tibble_opt("print_max")
-

@@ -33,14 +33,14 @@ Be aware that there is some missing data due one of a number of reasons:
 
 ### Weekly Spreads
 
-!["NFL Weekly Spreads"](figs/viz_odds_nfl_tr_spread.png)
+!["NFL Weekly Spreads"](output/viz_odds_nfl_tr_spread.png)
 
-[Interactive version](http://htmlpreview.github.io/?https://github.com/tonyelhabr/sports-predict/blob/master/figs/viz_odds_nfl_tr_spread.html)
+[Interactive version](http://htmlpreview.github.io/?https://github.com/tonyelhabr/sports-predict/blob/master/output/viz_odds_nfl_tr_spread.html)
 
 
 ### Weekly Totals
 
-!["NFL Weekly Totals"](figs/viz_odds_nfl_tr_total.png)
+!["NFL Weekly Totals"](output/viz_odds_nfl_tr_total.png)
 
-[Interactive version](http://htmlpreview.github.io/?https://github.com/tonyelhabr/sports-predict/blob/master/figs/viz_odds_nfl_tr_total.html)
+[Interactive version](http://htmlpreview.github.io/?https://github.com/tonyelhabr/sports-predict/blob/master/output/viz_odds_nfl_tr_total.html)
 
