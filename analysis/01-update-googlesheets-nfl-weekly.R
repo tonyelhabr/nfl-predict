@@ -2,6 +2,7 @@
 today <- lubridate::today()
 today_wday <- today %>% lubridate::wday(label = TRUE)
 scrape_scores <- any(today_wday == c('Mon', 'Tue'))
+scrape_scores
 is_lag1 <- any(today_wday == c('Mon'))
 is_lag1
 
@@ -74,21 +75,27 @@ odds_nfl_tr_wk_join <-
         tm_home,
         tm_away,
         spread_home_close = spread_home,
-        totalclose = total,
+        total_close = total,
         timestamp_scrape_close = timestamp_scrape
       )
   ) %>%
+  .arrange_gm_nfl() %>% 
   select(
-    -matches('timestamp'),
-    everything(),
+    season,
+    wk,
+    tm_home,
+    tm_away,
+    spread_home_open,
+    total_open,
+    spread_home_close,
+    total_close,
     timestamp_scrape_open,
     timestamp_scrape_close
-  ) %>%
-  .arrange_gm_nfl()
+  )
 odds_nfl_tr_wk_join
 
-path <- ifelse(is_lag1, config$path_odds_lag1_nfl_temp, config$path_odds_nfl_temp)
-
+# path <- ifelse(is_lag1, config$path_odds_lag1_nfl_temp, config$path_odds_nfl_temp)
+path <- config$path_odds_nfl_temp
 teproj::export_path(
   odds_nfl_tr_wk_join,
   path
