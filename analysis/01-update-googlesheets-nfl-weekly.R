@@ -8,7 +8,7 @@ is_lag1
 
 odds_nfl_tr_exist <- import_odds_nfl_tr()
 
-.wk <- 3L
+.wk <- 4L
 .wk_lag1 <- .wk - 1L
 
 if(scrape_scores) {
@@ -103,3 +103,4 @@ teproj::export_path(
 if(interactive()) {
   file.show(path)
 }
+
