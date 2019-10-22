@@ -60,14 +60,17 @@
           list(period_id = period_id)
         )
     }
-    
-    httr::POST(
-      url = url,
-      encode = encode,
-      user_agent,
-      headers = headers,
-      body = body
-    )
+
+    res <-
+      httr::POST(
+        url = url,
+        encode = encode,
+        user_agent,
+        headers = headers,
+        body = body
+      )
+    # browser()
+    res
   }
 
 .request_odds_nfl_tr <-
@@ -85,8 +88,9 @@
 
 .request_odds_nba_tr <-
   function(league = 'nba',
-           season_id = 216,
+           season_id = config$season_id_odds_tr_nba,
            ...) {
+    # browser()
     .request_odds_tr(
       league = league,
       season_id = season_id,

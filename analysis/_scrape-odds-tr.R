@@ -17,8 +17,8 @@ if(!interactive()) {
 # undebug(.request_odds_tr)
 odds_nfl_tr <- do_get_odds_nfl_tr()
 success <- insert_into_db_odds_tr(data = odds_nfl_tr)
-# odds_nba_tr <- do_get_odds_nba_tr()
-# success <- insert_into_db_odds_tr(data = odds_nba_tr)
+odds_nba_tr <- do_get_odds_nba_tr()
+success <- insert_into_db_odds_tr(data = odds_nba_tr)
 
 if(!interactive()) {
   msg <- sprintf('Finished script at %s.', Sys.time())
