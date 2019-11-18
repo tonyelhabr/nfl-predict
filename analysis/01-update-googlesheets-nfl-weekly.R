@@ -8,7 +8,7 @@ is_lag1
 
 odds_nfl_tr_exist <- import_odds_nfl_tr()
 
-.wk <- 11L
+.wk <- 12L
 .wk_lag1 <- .wk - 1L
 
 if(scrape_scores) {
