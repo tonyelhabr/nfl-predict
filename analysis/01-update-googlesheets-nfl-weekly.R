@@ -40,7 +40,7 @@ odds_nfl_tr_aug <-
   arrange(time)
 odds_nfl_tr_aug
 
-odds_nfl_tr_aug %>% filter(date >= lubridate::ymd('2020-01-13')) %>% group_by(gm) %>% filter(timestamp_record == min(timestamp_record)) -> z
+odds_nfl_tr_aug %>% filter(date >= lubridate::ymd('2020-01-13')) %>% group_by(gm) %>% filter(timestamp_record == max(timestamp_record)) -> z
 
 odds_nfl_tr_wk <-
   odds_nfl_tr_aug %>% 
