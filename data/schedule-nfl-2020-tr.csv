@@ -1,0 +1,257 @@
+date,weekday,time,location,wk,tm_home,tm_away
+2020-09-10,Thu,8:20 PM,Arrowhead Stadium,1,Kansas City,Houston
+2020-09-13,Sun,1:00 PM,Mercedes-Benz Stadium,1,Atlanta,Seattle
+2020-09-13,Sun,1:00 PM,FedExField,1,Washington,Philadelphia
+2020-09-13,Sun,1:00 PM,Bills Stadium,1,Buffalo,NY Jets
+2020-09-13,Sun,1:00 PM,U.S. Bank Stadium,1,Minnesota,Green Bay
+2020-09-13,Sun,1:00 PM,TIAA Bank Field,1,Jacksonville,Indianapolis
+2020-09-13,Sun,1:00 PM,Ford Field,1,Detroit,Chicago
+2020-09-13,Sun,1:00 PM,M&T Bank Stadium,1,Baltimore,Cleveland
+2020-09-13,Sun,1:00 PM,Bank of America Stadium,1,Carolina,Las Vegas
+2020-09-13,Sun,1:00 PM,Gillette Stadium,1,New England,Miami
+2020-09-13,Sun,4:05 PM,Paul Brown Stadium,1,Cincinnati,LA Chargers
+2020-09-13,Sun,4:25 PM,Mercedes-Benz Superdome,1,New Orleans,Tampa Bay
+2020-09-13,Sun,4:25 PM,Levi's Stadium,1,San Francisco,Arizona
+2020-09-13,Sun,8:20 PM,SoFi Stadium,1,LA Rams,Dallas
+2020-09-14,Mon,7:10 PM,MetLife Stadium,1,NY Giants,Pittsburgh
+2020-09-14,Mon,10:20 PM,Empower Field at Mile High,1,Denver,Tennessee
+2020-09-17,Thu,8:20 PM,FirstEnergy Stadium,2,Cleveland,Cincinnati
+2020-09-20,Sun,1:00 PM,Soldier Field,2,Chicago,NY Giants
+2020-09-20,Sun,1:00 PM,Nissan Stadium,2,Tennessee,Jacksonville
+2020-09-20,Sun,1:00 PM,Raymond James Stadium,2,Tampa Bay,Carolina
+2020-09-20,Sun,1:00 PM,Lincoln Financial Field,2,Philadelphia,LA Rams
+2020-09-20,Sun,1:00 PM,AT&T Stadium,2,Dallas,Atlanta
+2020-09-20,Sun,1:00 PM,Lambeau Field,2,Green Bay,Detroit
+2020-09-20,Sun,1:00 PM,Lucas Oil Stadium,2,Indianapolis,Minnesota
+2020-09-20,Sun,1:00 PM,Hard Rock Stadium,2,Miami,Buffalo
+2020-09-20,Sun,1:00 PM,MetLife Stadium,2,NY Jets,San Francisco
+2020-09-20,Sun,1:00 PM,Heinz Field,2,Pittsburgh,Denver
+2020-09-20,Sun,4:05 PM,State Farm Stadium,2,Arizona,Washington
+2020-09-20,Sun,4:25 PM,SoFi Stadium,2,LA Chargers,Kansas City
+2020-09-20,Sun,4:25 PM,NRG Stadium,2,Houston,Baltimore
+2020-09-20,Sun,8:20 PM,CenturyLink Field,2,Seattle,New England
+2020-09-21,Mon,8:15 PM,Allegiant Stadium,2,Las Vegas,New Orleans
+2020-09-24,Thu,8:20 PM,TIAA Bank Field,3,Jacksonville,Miami
+2020-09-27,Sun,1:00 PM,MetLife Stadium,3,NY Giants,San Francisco
+2020-09-27,Sun,1:00 PM,U.S. Bank Stadium,3,Minnesota,Tennessee
+2020-09-27,Sun,1:00 PM,FirstEnergy Stadium,3,Cleveland,Washington
+2020-09-27,Sun,1:00 PM,Lincoln Financial Field,3,Philadelphia,Cincinnati
+2020-09-27,Sun,1:00 PM,Bills Stadium,3,Buffalo,LA Rams
+2020-09-27,Sun,1:00 PM,Mercedes-Benz Stadium,3,Atlanta,Chicago
+2020-09-27,Sun,1:00 PM,Gillette Stadium,3,New England,Las Vegas
+2020-09-27,Sun,1:00 PM,Heinz Field,3,Pittsburgh,Houston
+2020-09-27,Sun,4:05 PM,SoFi Stadium,3,LA Chargers,Carolina
+2020-09-27,Sun,4:05 PM,Lucas Oil Stadium,3,Indianapolis,NY Jets
+2020-09-27,Sun,4:25 PM,State Farm Stadium,3,Arizona,Detroit
+2020-09-27,Sun,4:25 PM,Empower Field at Mile High,3,Denver,Tampa Bay
+2020-09-27,Sun,4:25 PM,CenturyLink Field,3,Seattle,Dallas
+2020-09-27,Sun,8:20 PM,Mercedes-Benz Superdome,3,New Orleans,Green Bay
+2020-09-28,Mon,8:15 PM,M&T Bank Stadium,3,Baltimore,Kansas City
+2020-10-01,Thu,8:20 PM,MetLife Stadium,4,NY Jets,Denver
+2020-10-04,Sun,1:00 PM,Bank of America Stadium,4,Carolina,Arizona
+2020-10-04,Sun,1:00 PM,FedExField,4,Washington,Baltimore
+2020-10-04,Sun,1:00 PM,Raymond James Stadium,4,Tampa Bay,LA Chargers
+2020-10-04,Sun,1:00 PM,Hard Rock Stadium,4,Miami,Seattle
+2020-10-04,Sun,1:00 PM,Soldier Field,4,Chicago,Indianapolis
+2020-10-04,Sun,1:00 PM,Paul Brown Stadium,4,Cincinnati,Jacksonville
+2020-10-04,Sun,1:00 PM,AT&T Stadium,4,Dallas,Cleveland
+2020-10-04,Sun,1:00 PM,Ford Field,4,Detroit,New Orleans
+2020-10-04,Sun,1:00 PM,NRG Stadium,4,Houston,Minnesota
+2020-10-04,Sun,1:00 PM,Nissan Stadium,4,Tennessee,Pittsburgh
+2020-10-04,Sun,4:05 PM,SoFi Stadium,4,LA Rams,NY Giants
+2020-10-04,Sun,4:25 PM,Allegiant Stadium,4,Las Vegas,Buffalo
+2020-10-04,Sun,4:25 PM,Arrowhead Stadium,4,Kansas City,New England
+2020-10-04,Sun,8:20 PM,Levi's Stadium,4,San Francisco,Philadelphia
+2020-10-05,Mon,8:15 PM,Lambeau Field,4,Green Bay,Atlanta
+2020-10-08,Thu,8:20 PM,Soldier Field,5,Chicago,Tampa Bay
+2020-10-11,Sun,1:00 PM,Mercedes-Benz Stadium,5,Atlanta,Carolina
+2020-10-11,Sun,1:00 PM,FedExField,5,Washington,LA Rams
+2020-10-11,Sun,1:00 PM,Nissan Stadium,5,Tennessee,Buffalo
+2020-10-11,Sun,1:00 PM,MetLife Stadium,5,NY Jets,Arizona
+2020-10-11,Sun,1:00 PM,M&T Bank Stadium,5,Baltimore,Cincinnati
+2020-10-11,Sun,1:00 PM,Gillette Stadium,5,New England,Denver
+2020-10-11,Sun,1:00 PM,Heinz Field,5,Pittsburgh,Philadelphia
+2020-10-11,Sun,1:00 PM,NRG Stadium,5,Houston,Jacksonville
+2020-10-11,Sun,1:00 PM,Arrowhead Stadium,5,Kansas City,Las Vegas
+2020-10-11,Sun,4:05 PM,Levi's Stadium,5,San Francisco,Miami
+2020-10-11,Sun,4:25 PM,AT&T Stadium,5,Dallas,NY Giants
+2020-10-11,Sun,4:25 PM,FirstEnergy Stadium,5,Cleveland,Indianapolis
+2020-10-11,Sun,8:20 PM,CenturyLink Field,5,Seattle,Minnesota
+2020-10-12,Mon,8:15 PM,Mercedes-Benz Superdome,5,New Orleans,LA Chargers
+2020-10-15,Thu,8:20 PM,Bills Stadium,6,Buffalo,Kansas City
+2020-10-18,Sun,1:00 PM,Lucas Oil Stadium,6,Indianapolis,Cincinnati
+2020-10-18,Sun,1:00 PM,TIAA Bank Field,6,Jacksonville,Detroit
+2020-10-18,Sun,1:00 PM,U.S. Bank Stadium,6,Minnesota,Atlanta
+2020-10-18,Sun,1:00 PM,MetLife Stadium,6,NY Giants,Washington
+2020-10-18,Sun,1:00 PM,Bank of America Stadium,6,Carolina,Chicago
+2020-10-18,Sun,1:00 PM,Lincoln Financial Field,6,Philadelphia,Baltimore
+2020-10-18,Sun,1:00 PM,Nissan Stadium,6,Tennessee,Houston
+2020-10-18,Sun,1:00 PM,Heinz Field,6,Pittsburgh,Cleveland
+2020-10-18,Sun,4:05 PM,Empower Field at Mile High,6,Denver,Miami
+2020-10-18,Sun,4:05 PM,SoFi Stadium,6,LA Chargers,NY Jets
+2020-10-18,Sun,4:25 PM,Raymond James Stadium,6,Tampa Bay,Green Bay
+2020-10-18,Sun,8:20 PM,Levi's Stadium,6,San Francisco,LA Rams
+2020-10-19,Mon,8:15 PM,AT&T Stadium,6,Dallas,Arizona
+2020-10-22,Thu,8:20 PM,Lincoln Financial Field,7,Philadelphia,NY Giants
+2020-10-25,Sun,1:00 PM,NRG Stadium,7,Houston,Green Bay
+2020-10-25,Sun,1:00 PM,Hard Rock Stadium,7,Miami,LA Chargers
+2020-10-25,Sun,1:00 PM,Paul Brown Stadium,7,Cincinnati,Cleveland
+2020-10-25,Sun,1:00 PM,FedExField,7,Washington,Dallas
+2020-10-25,Sun,1:00 PM,MetLife Stadium,7,NY Jets,Buffalo
+2020-10-25,Sun,1:00 PM,Mercedes-Benz Superdome,7,New Orleans,Carolina
+2020-10-25,Sun,1:00 PM,Mercedes-Benz Stadium,7,Atlanta,Detroit
+2020-10-25,Sun,1:00 PM,M&T Bank Stadium,7,Baltimore,Pittsburgh
+2020-10-25,Sun,4:05 PM,State Farm Stadium,7,Arizona,Seattle
+2020-10-25,Sun,4:25 PM,Empower Field at Mile High,7,Denver,Kansas City
+2020-10-25,Sun,4:25 PM,Gillette Stadium,7,New England,San Francisco
+2020-10-25,Sun,8:20 PM,Allegiant Stadium,7,Las Vegas,Tampa Bay
+2020-10-26,Mon,8:15 PM,SoFi Stadium,7,LA Rams,Chicago
+2020-10-29,Thu,8:20 PM,Bank of America Stadium,8,Carolina,Atlanta
+2020-11-01,Sun,1:00 PM,Paul Brown Stadium,8,Cincinnati,Tennessee
+2020-11-01,Sun,1:00 PM,FirstEnergy Stadium,8,Cleveland,Las Vegas
+2020-11-01,Sun,1:00 PM,Ford Field,8,Detroit,Indianapolis
+2020-11-01,Sun,1:00 PM,Lambeau Field,8,Green Bay,Minnesota
+2020-11-01,Sun,1:00 PM,Bills Stadium,8,Buffalo,New England
+2020-11-01,Sun,1:00 PM,Arrowhead Stadium,8,Kansas City,NY Jets
+2020-11-01,Sun,1:00 PM,Hard Rock Stadium,8,Miami,LA Rams
+2020-11-01,Sun,4:05 PM,SoFi Stadium,8,LA Chargers,Jacksonville
+2020-11-01,Sun,4:25 PM,Soldier Field,8,Chicago,New Orleans
+2020-11-01,Sun,4:25 PM,CenturyLink Field,8,Seattle,San Francisco
+2020-11-01,Sun,8:20 PM,Lincoln Financial Field,8,Philadelphia,Dallas
+2020-11-02,Mon,8:15 PM,MetLife Stadium,8,NY Giants,Tampa Bay
+2020-11-05,Thu,8:20 PM,Levi's Stadium,9,San Francisco,Green Bay
+2020-11-08,Sun,1:00 PM,U.S. Bank Stadium,9,Minnesota,Detroit
+2020-11-08,Sun,1:00 PM,FedExField,9,Washington,NY Giants
+2020-11-08,Sun,1:00 PM,Arrowhead Stadium,9,Kansas City,Carolina
+2020-11-08,Sun,1:00 PM,Mercedes-Benz Stadium,9,Atlanta,Denver
+2020-11-08,Sun,1:00 PM,Lucas Oil Stadium,9,Indianapolis,Baltimore
+2020-11-08,Sun,1:00 PM,TIAA Bank Field,9,Jacksonville,Houston
+2020-11-08,Sun,1:00 PM,Bills Stadium,9,Buffalo,Seattle
+2020-11-08,Sun,1:00 PM,Nissan Stadium,9,Tennessee,Chicago
+2020-11-08,Sun,4:05 PM,SoFi Stadium,9,LA Chargers,Las Vegas
+2020-11-08,Sun,4:25 PM,State Farm Stadium,9,Arizona,Miami
+2020-11-08,Sun,4:25 PM,AT&T Stadium,9,Dallas,Pittsburgh
+2020-11-08,Sun,8:20 PM,Raymond James Stadium,9,Tampa Bay,New Orleans
+2020-11-09,Mon,8:15 PM,MetLife Stadium,9,NY Jets,New England
+2020-11-12,Thu,8:20 PM,Nissan Stadium,10,Tennessee,Indianapolis
+2020-11-15,Sun,1:00 PM,FirstEnergy Stadium,10,Cleveland,Houston
+2020-11-15,Sun,1:00 PM,Ford Field,10,Detroit,Washington
+2020-11-15,Sun,1:00 PM,Lambeau Field,10,Green Bay,Jacksonville
+2020-11-15,Sun,1:00 PM,MetLife Stadium,10,NY Giants,Philadelphia
+2020-11-15,Sun,1:00 PM,Bank of America Stadium,10,Carolina,Tampa Bay
+2020-11-15,Sun,1:00 PM,Heinz Field,10,Pittsburgh,Cincinnati
+2020-11-15,Sun,4:05 PM,State Farm Stadium,10,Arizona,Buffalo
+2020-11-15,Sun,4:05 PM,Allegiant Stadium,10,Las Vegas,Denver
+2020-11-15,Sun,4:05 PM,Hard Rock Stadium,10,Miami,NY Jets
+2020-11-15,Sun,4:25 PM,SoFi Stadium,10,LA Rams,Seattle
+2020-11-15,Sun,4:25 PM,Mercedes-Benz Superdome,10,New Orleans,San Francisco
+2020-11-15,Sun,8:20 PM,Gillette Stadium,10,New England,Baltimore
+2020-11-16,Mon,8:15 PM,Soldier Field,10,Chicago,Minnesota
+2020-11-19,Thu,8:20 PM,CenturyLink Field,11,Seattle,Arizona
+2020-11-22,Sun,1:00 PM,Bank of America Stadium,11,Carolina,Detroit
+2020-11-22,Sun,1:00 PM,M&T Bank Stadium,11,Baltimore,Tennessee
+2020-11-22,Sun,1:00 PM,FirstEnergy Stadium,11,Cleveland,Philadelphia
+2020-11-22,Sun,1:00 PM,Lucas Oil Stadium,11,Indianapolis,Green Bay
+2020-11-22,Sun,1:00 PM,FedExField,11,Washington,Cincinnati
+2020-11-22,Sun,1:00 PM,Mercedes-Benz Superdome,11,New Orleans,Atlanta
+2020-11-22,Sun,1:00 PM,NRG Stadium,11,Houston,New England
+2020-11-22,Sun,1:00 PM,TIAA Bank Field,11,Jacksonville,Pittsburgh
+2020-11-22,Sun,4:05 PM,Empower Field at Mile High,11,Denver,LA Chargers
+2020-11-22,Sun,4:25 PM,U.S. Bank Stadium,11,Minnesota,Dallas
+2020-11-22,Sun,8:20 PM,Allegiant Stadium,11,Las Vegas,Kansas City
+2020-11-23,Mon,8:15 PM,Raymond James Stadium,11,Tampa Bay,LA Rams
+2020-11-26,Thu,12:30 PM,Ford Field,12,Detroit,Houston
+2020-11-26,Thu,4:30 PM,AT&T Stadium,12,Dallas,Washington
+2020-11-26,Thu,8:20 PM,Heinz Field,12,Pittsburgh,Baltimore
+2020-11-29,Sun,1:00 PM,Gillette Stadium,12,New England,Arizona
+2020-11-29,Sun,1:00 PM,Lucas Oil Stadium,12,Indianapolis,Tennessee
+2020-11-29,Sun,1:00 PM,Paul Brown Stadium,12,Cincinnati,NY Giants
+2020-11-29,Sun,1:00 PM,Bills Stadium,12,Buffalo,LA Chargers
+2020-11-29,Sun,1:00 PM,Mercedes-Benz Stadium,12,Atlanta,Las Vegas
+2020-11-29,Sun,1:00 PM,TIAA Bank Field,12,Jacksonville,Cleveland
+2020-11-29,Sun,1:00 PM,MetLife Stadium,12,NY Jets,Miami
+2020-11-29,Sun,1:00 PM,U.S. Bank Stadium,12,Minnesota,Carolina
+2020-11-29,Sun,4:05 PM,Empower Field at Mile High,12,Denver,New Orleans
+2020-11-29,Sun,4:05 PM,SoFi Stadium,12,LA Rams,San Francisco
+2020-11-29,Sun,4:25 PM,Raymond James Stadium,12,Tampa Bay,Kansas City
+2020-11-29,Sun,8:20 PM,Lambeau Field,12,Green Bay,Chicago
+2020-11-30,Mon,8:15 PM,Lincoln Financial Field,12,Philadelphia,Seattle
+2020-12-03,Thu,8:20 PM,M&T Bank Stadium,13,Baltimore,Dallas
+2020-12-06,Sun,1:00 PM,Mercedes-Benz Stadium,13,Atlanta,New Orleans
+2020-12-06,Sun,1:00 PM,Heinz Field,13,Pittsburgh,Washington
+2020-12-06,Sun,1:00 PM,Soldier Field,13,Chicago,Detroit
+2020-12-06,Sun,1:00 PM,NRG Stadium,13,Houston,Indianapolis
+2020-12-06,Sun,1:00 PM,Hard Rock Stadium,13,Miami,Cincinnati
+2020-12-06,Sun,1:00 PM,U.S. Bank Stadium,13,Minnesota,Jacksonville
+2020-12-06,Sun,1:00 PM,Nissan Stadium,13,Tennessee,Cleveland
+2020-12-06,Sun,1:00 PM,MetLife Stadium,13,NY Jets,Las Vegas
+2020-12-06,Sun,4:05 PM,CenturyLink Field,13,Seattle,NY Giants
+2020-12-06,Sun,4:05 PM,State Farm Stadium,13,Arizona,LA Rams
+2020-12-06,Sun,4:25 PM,Lambeau Field,13,Green Bay,Philadelphia
+2020-12-06,Sun,4:25 PM,SoFi Stadium,13,LA Chargers,New England
+2020-12-06,Sun,8:20 PM,Arrowhead Stadium,13,Kansas City,Denver
+2020-12-07,Mon,8:15 PM,Levi's Stadium,13,San Francisco,Buffalo
+2020-12-10,Thu,8:20 PM,SoFi Stadium,14,LA Rams,New England
+2020-12-13,Sun,1:00 PM,Bank of America Stadium,14,Carolina,Denver
+2020-12-13,Sun,1:00 PM,Raymond James Stadium,14,Tampa Bay,Minnesota
+2020-12-13,Sun,1:00 PM,MetLife Stadium,14,NY Giants,Arizona
+2020-12-13,Sun,1:00 PM,Hard Rock Stadium,14,Miami,Kansas City
+2020-12-13,Sun,1:00 PM,TIAA Bank Field,14,Jacksonville,Tennessee
+2020-12-13,Sun,1:00 PM,Ford Field,14,Detroit,Green Bay
+2020-12-13,Sun,1:00 PM,Paul Brown Stadium,14,Cincinnati,Dallas
+2020-12-13,Sun,1:00 PM,Soldier Field,14,Chicago,Houston
+2020-12-13,Sun,4:05 PM,CenturyLink Field,14,Seattle,NY Jets
+2020-12-13,Sun,4:05 PM,Allegiant Stadium,14,Las Vegas,Indianapolis
+2020-12-13,Sun,4:25 PM,Levi's Stadium,14,San Francisco,Washington
+2020-12-13,Sun,4:25 PM,Lincoln Financial Field,14,Philadelphia,New Orleans
+2020-12-13,Sun,4:25 PM,SoFi Stadium,14,LA Chargers,Atlanta
+2020-12-13,Sun,8:20 PM,Bills Stadium,14,Buffalo,Pittsburgh
+2020-12-14,Mon,8:15 PM,FirstEnergy Stadium,14,Cleveland,Baltimore
+2020-12-17,Thu,8:20 PM,Allegiant Stadium,15,Las Vegas,LA Chargers
+2020-12-20,Sun,12:00 PM,Nissan Stadium,15,Tennessee,Detroit
+2020-12-20,Sun,12:00 PM,SoFi Stadium,15,LA Rams,NY Jets
+2020-12-20,Sun,12:00 PM,Lambeau Field,15,Green Bay,Carolina
+2020-12-20,Sun,12:00 PM,Lucas Oil Stadium,15,Indianapolis,Houston
+2020-12-20,Sun,12:00 PM,Empower Field at Mile High,15,Denver,Buffalo
+2020-12-20,Sun,1:00 PM,FedExField,15,Washington,Seattle
+2020-12-20,Sun,1:00 PM,U.S. Bank Stadium,15,Minnesota,Chicago
+2020-12-20,Sun,1:00 PM,MetLife Stadium,15,NY Giants,Cleveland
+2020-12-20,Sun,1:00 PM,Mercedes-Benz Stadium,15,Atlanta,Tampa Bay
+2020-12-20,Sun,1:00 PM,M&T Bank Stadium,15,Baltimore,Jacksonville
+2020-12-20,Sun,1:00 PM,Hard Rock Stadium,15,Miami,New England
+2020-12-20,Sun,4:05 PM,State Farm Stadium,15,Arizona,Philadelphia
+2020-12-20,Sun,4:25 PM,Mercedes-Benz Superdome,15,New Orleans,Kansas City
+2020-12-20,Sun,8:20 PM,AT&T Stadium,15,Dallas,San Francisco
+2020-12-21,Mon,8:15 PM,Paul Brown Stadium,15,Cincinnati,Pittsburgh
+2020-12-25,Fri,4:30 PM,Mercedes-Benz Superdome,16,New Orleans,Minnesota
+2020-12-27,Sun,12:00 PM,MetLife Stadium,16,NY Jets,Cleveland
+2020-12-27,Sun,12:00 PM,Allegiant Stadium,16,Las Vegas,Miami
+2020-12-27,Sun,12:00 PM,SoFi Stadium,16,LA Chargers,Denver
+2020-12-27,Sun,12:00 PM,Ford Field,16,Detroit,Tampa Bay
+2020-12-27,Sun,12:00 PM,State Farm Stadium,16,Arizona,San Francisco
+2020-12-27,Sun,1:00 PM,FedExField,16,Washington,Carolina
+2020-12-27,Sun,1:00 PM,Arrowhead Stadium,16,Kansas City,Atlanta
+2020-12-27,Sun,1:00 PM,NRG Stadium,16,Houston,Cincinnati
+2020-12-27,Sun,1:00 PM,TIAA Bank Field,16,Jacksonville,Chicago
+2020-12-27,Sun,1:00 PM,M&T Bank Stadium,16,Baltimore,NY Giants
+2020-12-27,Sun,1:00 PM,Heinz Field,16,Pittsburgh,Indianapolis
+2020-12-27,Sun,4:05 PM,CenturyLink Field,16,Seattle,LA Rams
+2020-12-27,Sun,4:25 PM,AT&T Stadium,16,Dallas,Philadelphia
+2020-12-27,Sun,8:20 PM,Lambeau Field,16,Green Bay,Tennessee
+2020-12-28,Mon,12:00 PM,Gillette Stadium,16,New England,Buffalo
+2020-01-03,Fri,1:00 PM,Gillette Stadium,17,New England,NY Jets
+2020-01-03,Fri,1:00 PM,FirstEnergy Stadium,17,Cleveland,Pittsburgh
+2020-01-03,Fri,1:00 PM,Raymond James Stadium,17,Tampa Bay,Atlanta
+2020-01-03,Fri,1:00 PM,MetLife Stadium,17,NY Giants,Dallas
+2020-01-03,Fri,1:00 PM,Lincoln Financial Field,17,Philadelphia,Washington
+2020-01-03,Fri,1:00 PM,Arrowhead Stadium,17,Kansas City,LA Chargers
+2020-01-03,Fri,1:00 PM,Ford Field,17,Detroit,Minnesota
+2020-01-03,Fri,1:00 PM,Paul Brown Stadium,17,Cincinnati,Baltimore
+2020-01-03,Fri,1:00 PM,Bills Stadium,17,Buffalo,Miami
+2020-01-03,Fri,1:00 PM,Soldier Field,17,Chicago,Green Bay
+2020-01-03,Fri,1:00 PM,NRG Stadium,17,Houston,Tennessee
+2020-01-03,Fri,1:00 PM,Lucas Oil Stadium,17,Indianapolis,Jacksonville
+2020-01-03,Fri,1:00 PM,Bank of America Stadium,17,Carolina,New Orleans
+2020-01-03,Fri,4:25 PM,Empower Field at Mile High,17,Denver,Las Vegas
+2020-01-03,Fri,4:25 PM,SoFi Stadium,17,LA Rams,Arizona
+2020-01-03,Fri,4:25 PM,Levi's Stadium,17,San Francisco,Seattle

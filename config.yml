@@ -10,10 +10,10 @@ default:
   ws_nfl_tm: 'nfl_tm'
   ws_nba_tm: 'nba_tm'
   ws_nfl_game_result: 'nfl_game_result'
-  season_current_nfl: 2019
+  season_current_nfl: 2020
   season_current_nba: 2019
-  period_id_odds_tr_nfl: 480 # 458 for 2018
-  season_id_odds_tr_nfl: 17 # 16 for 2018
+  period_id_odds_tr_nfl: 502 # 480 for 2019 458 for 2018
+  season_id_odds_tr_nfl: 18 # 17 for 2019, 16 for 2018
   season_id_odds_tr_nba: 217 # 216 for 2018
   
   path_trends_hist_nfl_tr_manual: 'data-raw/trends-hist-nfl-tr-manual.xlsx'

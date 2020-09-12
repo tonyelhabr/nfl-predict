@@ -8,7 +8,7 @@ is_lag1
 
 odds_nfl_tr_exist <- import_odds_nfl_tr()
 
-.wk <- 19L
+.wk <- 1L
 .wk_lag1 <- .wk - 1L
 
 if(scrape_scores) {
@@ -37,13 +37,15 @@ odds_nfl_tr_aug <-
   mutate(idx_intragm = row_number(timestamp_scrape)) %>% 
   ungroup() %>% 
   select(idx_intragm, gm, everything()) %>% 
-  arrange(time)
+  arrange(time) %>% 
+  mutate(across(season, ~coalesce(.x, 2020L)), across(wk, ~coalesce(.x, 1L)))
 odds_nfl_tr_aug
 
-odds_nfl_tr_aug %>% filter(date >= lubridate::ymd('2020-02-01')) %>% group_by(gm) %>% filter(timestamp_record == max(timestamp_record)) -> z
+odds_nfl_tr_aug %>% filter(date >= lubridate::ymd('2020-09-01')) %>% group_by(gm) %>% filter(timestamp_record == max(timestamp_record)) -> z
 z
 odds_nfl_tr_wk <-
   odds_nfl_tr_aug %>% 
+  filter(date >= lubridate::ymd('2020-09-01')) %>% 
   filter(season == config$season_current_nfl & wk == .wk)
 odds_nfl_tr_wk
 
@@ -81,10 +83,10 @@ odds_nfl_tr_wk_join <-
         timestamp_scrape_close = timestamp_scrape
       )
   ) %>%
-  .arrange_gm_nfl() %>% 
+  # .arrange_gm_nfl() %>% 
   select(
-    season,
-    wk,
+    # season,
+    # wk,
     tm_home,
     tm_away,
     spread_home_open,
@@ -102,6 +104,7 @@ teproj::export_path(
   odds_nfl_tr_wk_join,
   path
 )
+write_csv(odds_nfl_tr_wk_join, path = path)
 if(interactive()) {
   file.show(path)
 }

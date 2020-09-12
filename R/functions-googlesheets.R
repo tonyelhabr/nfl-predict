@@ -85,7 +85,7 @@
 
 .import_gs_sheet_ifnecessary <-
   function(..., file, ws, verbose, assign, .name = ws) {
-    # browser()
+    browser()
     if (exists(ws, envir = .GlobalEnv)) {
       return(invisible(get(ws, envir = .GlobalEnv)))
     }

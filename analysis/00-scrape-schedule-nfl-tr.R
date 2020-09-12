@@ -4,7 +4,7 @@
 # NOTE: Set `week` to the number before the number corresponding to week 1.
 # (This should correspond to the "Week: All" and "Show: All" parameters
 # on the page at https://www.teamrankings.com/nfl/schedules/season/.)
-url <- 'https://www.teamrankings.com/nfl/schedules/season/?week=479' # ?week=445'
+url <- 'https://www.teamrankings.com/nfl/schedules/season/?week=501' # ?week=445'
 html <- url %>% xml2::read_html()
 html
 sched_list_raw <- html %>% rvest::html_table(header = FALSE)
@@ -64,7 +64,7 @@ nfl_tms_tr <-
   nfl_tms_raw %>%
   filter(status == 1) %>% 
   select(tm, tm_name_tr = tm_name_tr, tm_name_full)
-
+nfl_tms_tr
 .join_tms_tr_at <-
   function(data, col_suffix = 'away') {
 
