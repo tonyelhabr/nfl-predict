@@ -24,17 +24,18 @@ insert_into_db_odds_tr <-
     # chkDots(...)
     conn <- get_db_conn_odds_tr()
     on.exit(drop_db_conn(conn))
-    read_from_db(
-      conn = conn,
-      table = table
-    ) %>% 
+    res <-
+      read_from_db(
+        conn = conn,
+        table = table
+      ) %>% 
       .convert_date_cols_at() %>% 
       .convert_time_cols_at() %>% 
       .convert_timestamp_cols_at()
-    
+    res
   }
 
 import_odds_nfl_tr <-
-  purrr::partial(.import_odds_sport_tr, table = "odds_nfl_tr")
+  purrr::partial(.import_odds_sport_tr, table = 'odds_nfl_tr')
 import_odds_nba_tr <-
-  purrr::partial(.import_odds_sport_tr, table = "odds_nba_tr")
+  purrr::partial(.import_odds_sport_tr, table = 'odds_nba_tr')

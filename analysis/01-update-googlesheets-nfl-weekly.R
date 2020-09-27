@@ -8,7 +8,7 @@ is_lag1
 
 odds_nfl_tr_exist <- import_odds_nfl_tr()
 
-.wk <- 1L
+.wk <- 2L
 .wk_lag1 <- .wk - 1L
 
 if(scrape_scores) {
@@ -30,22 +30,20 @@ if(scrape_scores) {
 odds_nfl_tr_aug <-
   odds_nfl_tr_exist %>%
   # drop_na() %>% 
-  # filter(wk == .wk) %>%
+  # mutate(across(season, ~coalesce(.x, 2020L)), across(wk, ~coalesce(.x, 1L))) %>% 
+  filter(season == config$season_current_nfl, wk == .wk) %>%
   mutate(gm = sprintf("%s vs %s", tm_home, tm_away)) %>%
   filter(!is.na(spread_home) & !is.na(total)) %>%
   group_by(season, wk, gm) %>%
   mutate(idx_intragm = row_number(timestamp_scrape)) %>% 
   ungroup() %>% 
   select(idx_intragm, gm, everything()) %>% 
-  arrange(time) %>% 
-  mutate(across(season, ~coalesce(.x, 2020L)), across(wk, ~coalesce(.x, 1L)))
+  arrange(time)
 odds_nfl_tr_aug
 
-odds_nfl_tr_aug %>% filter(date >= lubridate::ymd('2020-09-01')) %>% group_by(gm) %>% filter(timestamp_record == max(timestamp_record)) -> z
-z
 odds_nfl_tr_wk <-
   odds_nfl_tr_aug %>% 
-  filter(date >= lubridate::ymd('2020-09-01')) %>% 
+  # filter(date >= lubridate::ymd('2020-09-01')) %>% 
   filter(season == config$season_current_nfl & wk == .wk)
 odds_nfl_tr_wk
 
@@ -83,7 +81,7 @@ odds_nfl_tr_wk_join <-
         timestamp_scrape_close = timestamp_scrape
       )
   ) %>%
-  # .arrange_gm_nfl() %>% 
+  .arrange_gm_nfl() %>% 
   select(
     # season,
     # wk,

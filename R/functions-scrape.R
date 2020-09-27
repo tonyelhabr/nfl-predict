@@ -172,11 +172,15 @@
       .data_source %>% 
       filter(season == .season) %>% 
       select(season, wk, tm_home, tm_away) %>% 
-      mutate(rn = row_number())
+      mutate(rn = row_number(wk))
     
-    data %>%
-      inner_join(game_result_trim) %>% 
+    res <-
+      data %>%
+      inner_join(
+        game_result_trim
+      ) %>% 
       arrange(rn) %>% 
       select(-rn)
+    res
     
   }
